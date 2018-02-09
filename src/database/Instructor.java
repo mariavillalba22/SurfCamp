@@ -10,7 +10,7 @@ public class Instructor implements Serializable {
 	private Date dob;
 	private String nacionality;
 	private Integer salary;
-	private Integer activityID;
+	private Activity activityID;
 	
 	public Instructor() {
 		
@@ -18,7 +18,7 @@ public class Instructor implements Serializable {
 	}
 
 	public Instructor(String name, Integer phoneNumber, Date dob, String nacionality, Integer salary,
-			Integer activityID) {
+			Activity activityID) {
 		super();
 		this.name = name;
 		this.phoneNumber = phoneNumber;
@@ -76,25 +76,19 @@ public class Instructor implements Serializable {
 		this.salary = salary;
 	}
 
-	public Integer getActivityID() {
+	public Activity getActivityID() {
 		return activityID;
 	}
 
-	public void setActivityID(Integer activityID) {
-		this.activityID = activityID;//********************************************************
+	public void setActivityID(Activity activityID) {
+		this.activityID = activityID;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((activityID == null) ? 0 : activityID.hashCode());
-		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nacionality == null) ? 0 : nacionality.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + ((salary == null) ? 0 : salary.hashCode());
 		return result;
 	}
 
@@ -107,40 +101,10 @@ public class Instructor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Instructor other = (Instructor) obj;
-		if (activityID == null) {
-			if (other.activityID != null)
-				return false;
-		} else if (!activityID.equals(other.activityID))
-			return false;
-		if (dob == null) {
-			if (other.dob != null)
-				return false;
-		} else if (!dob.equals(other.dob))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (nacionality == null) {
-			if (other.nacionality != null)
-				return false;
-		} else if (!nacionality.equals(other.nacionality))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (phoneNumber == null) {
-			if (other.phoneNumber != null)
-				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
-			return false;
-		if (salary == null) {
-			if (other.salary != null)
-				return false;
-		} else if (!salary.equals(other.salary))
 			return false;
 		return true;
 	}
