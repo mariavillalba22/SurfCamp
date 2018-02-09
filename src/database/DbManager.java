@@ -58,15 +58,15 @@ public void createTables() {
 		stmt4.close();
 		
 		Statement stmt5 = c.createStatement();
-		String monitors = "CREATE TABLE monitors"
+		String instructor = "CREATE TABLE instructor"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 			    + "	name TEXT NOT NULL,"
 				+"	phone_number INTEGER NOT NULL,"
-			    +"	age INTEGER,"
+			    +"	dayofb DATE NOT NULL,"
 				+"	nacionalitty TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
 				+"	activityid INTEGER NOT NULL)";
-		stmt5.executeUpdate(monitors);
+		stmt5.executeUpdate(instructor);
 		stmt5.close();
 		
 		Statement stmt6 = c.createStatement();
@@ -91,6 +91,15 @@ public void createTables() {
 			    + "PRIMARY KEY (id_camper,id_activity))";
 		stmt8.executeUpdate(camper_activity);
 		stmt8.close();
+		
+		Statement stmt9 = c.createStatement();
+		String material_activity = "CREATE TABLE material_activity"
+				+"( id_material INTEGER NOT NULL REFERENCES material(id),"
+			    + "	id_activity INTEGER REFERENCES activities(id),"
+			    + "PRIMARY KEY (id_material,id_activity))";
+		stmt9.executeUpdate(material_activity);
+		stmt9.close();
+		
 	}catch (Exception e) {
 		e.printStackTrace();
 	}
