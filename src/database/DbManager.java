@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Month;
 
+import database.pojo.Camper;
+import database.pojo.*;
 public class DbManager {
 		Connection c;
 		public DbManager() {
@@ -108,7 +112,10 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	
 	DbManager d=new DbManager();
 	d.connectiondb();
-	d.createTables();
+	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
+	Transport t = new Transport(1,"avion");
+	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t);
+	System.out.println(c);
 	
 	
 }
