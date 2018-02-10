@@ -1,4 +1,4 @@
-package database;
+package database.pojo;
 import java.io.*;
 
 public class Material implements Serializable{
@@ -8,12 +8,24 @@ public class Material implements Serializable{
 	private String material;
 	private Integer price;
 	
+	public Material() {
+		super();
+	}
 	public Material(String material, Integer price) {
 		super();
+		
 		this.material = material;
 		this.price = price;
 	}
-
+	public Material(Integer id,String material, Integer price) {
+		super();
+		this.id= id;
+		this.material = material;
+		this.price = price;
+	}
+    public String toString() {
+    	return "Material ID: "+id+" . Name: "+material+" . Price: "+price;
+    }
 	public Integer getId() {
 		return id;
 	}

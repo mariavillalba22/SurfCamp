@@ -1,13 +1,16 @@
-package database;
-import java.io.Serializable;
+package database.pojo;
+import java.io.*;
+
+import database.pojo.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import sample.db.pojos.Report;
+
 public class Activity  implements Serializable {
 
 	private Integer id;
-	private Activity activity;
+	private String activity;
 	private Integer price;
 	private List<Camper> campers;
 	private List<Material> material;
@@ -15,7 +18,7 @@ public class Activity  implements Serializable {
 		
 	}
 
-	public Activity(Activity activity, Integer price, List<Camper> campers, List<Material> material) {
+	public Activity(String activity, Integer price, List<Camper> campers, List<Material> material) {
 		super();
 		this.activity = activity;
 		this.price = price;
@@ -23,7 +26,7 @@ public class Activity  implements Serializable {
 		this.material = new ArrayList<Material>();
 	}
 
-	public Activity(Integer id, Activity activity, Integer price) {
+	public Activity(Integer id,String activity, Integer price) {
 		super();
 		this.id = id;
 		this.activity = activity;
@@ -32,6 +35,12 @@ public class Activity  implements Serializable {
 		this.material = new ArrayList<Material>();
 	}
 
+	public String toString() {
+    	return " The activity ID is: "+id+"."+
+    "Name of activity: "+activity+"."+
+    	"Campers list: "+campers+".";
+    
+    }
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,11 +74,11 @@ public class Activity  implements Serializable {
 		this.id = id;
 	}
 
-	public Activity getActivity() {
+	public String getActivity() {
 		return activity;
 	}
 
-	public void setActivity(Activity activity) {
+	public void setActivity(String activity) {
 		this.activity = activity;
 	}
 
@@ -80,12 +89,7 @@ public class Activity  implements Serializable {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-
-	@Override
-	public String toString() {
-		return "Activity [id=" + id + ", activity=" + activity + ", price=" + price + "]";
-	}
-
+	
 	public List<Camper> getCampers() {
 		return campers;
 	}
@@ -100,6 +104,19 @@ public class Activity  implements Serializable {
 
 	public void setMaterial(List<Material> material) {
 		this.material = material;
+	}
+	
+	// Aqui añadimos y eliminamos campers.
+	
+	public void addCamper(Camper camper) {
+		if (!campers.contains(camper)) {
+			this.campers.add(camper);
+		}
+	}
+	public void removeCamper(Camper camper) {
+		if(campers.contains(camper)) {
+			this.campers.remove(camper);
+		}
 	}
 	
 	

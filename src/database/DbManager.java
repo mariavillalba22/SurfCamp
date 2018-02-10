@@ -114,8 +114,20 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	d.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	Transport t = new Transport(1,"avion");
-	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t);
+	Activity a = new Activity ( 1,"natacion",300);
+	Accomodation ac= new Accomodation(1,"hotel",300);
+	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a);
+	Material m = new Material(1,"tabla",400);
+	System.out.println(m);
+	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,m);
+	a.addCamper(c);
 	System.out.println(c);
+	System.out.println(i);
+	a.removeCamper(c);
+	Material l = new Material("paddletabla",700);
+	c.addMaterial(l);
+	System.out.println(c);
+	System.out.println(i);
 	
 	
 }
