@@ -1,5 +1,5 @@
 package database;
-
+import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -113,13 +113,22 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	DbManager d=new DbManager();
 	d.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
-	Transport t = new Transport(1,"avion");
+	
 	Activity a = new Activity ( 1,"natacion",300);
+	Activity a2 = new Activity(3, "patinaje", 400);
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a);
+	List <Instructor> ins= new ArrayList<Instructor>();
+	ins.add(i);
+	Transport t = new Transport("avion",ins);
 	Material m = new Material(1,"tabla",400);
+	List<Material> mat = new ArrayList<Material>();
+	mat.add(m);
+	List<Activity> act = new ArrayList<Activity>();
+	act.add(a);
+	act.add(a2);
 	System.out.println(m);
-	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,m);
+	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,mat,act);
 	a.addCamper(c);
 	System.out.println(c);
 	System.out.println(i);

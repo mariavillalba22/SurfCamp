@@ -13,9 +13,9 @@ public class Instructor implements Serializable {
 	private String nacionality;
 	private Integer salary;
 	private Activity activityID;
-	
+	private Transport transport;
 	public Instructor() {
-		
+		super();
 		
 	}
 

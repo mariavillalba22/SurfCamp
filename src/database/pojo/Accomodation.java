@@ -10,6 +10,7 @@ public class Accomodation {
 	
 	public Accomodation() {
 		super();
+		this.campers = new ArrayList<Camper>();
 		
 	}
 	public Accomodation(Integer id,String accomodation, Integer price) {
