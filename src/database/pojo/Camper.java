@@ -17,11 +17,9 @@ public class Camper implements Serializable{
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
-<<<<<<< HEAD
+
 	private Activity activity;
-=======
 	private List<Activity> activities;
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
 	
