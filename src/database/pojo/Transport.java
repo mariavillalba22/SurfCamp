@@ -76,6 +76,14 @@ public class Transport implements Serializable{
 		
 	}
 	
+	public List<Instructor> getInstructors() {
+		return instructors;
+	}
+
+	public void setInstructors(List<Instructor> instructors) {
+		this.instructors = instructors;
+	}
+
 	public void addCamper(Camper camper) {
 		if (!campers.contains(camper)) {
 			this.campers.add(camper);

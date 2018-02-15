@@ -14,7 +14,7 @@ public class Activity  implements Serializable {
 	private Integer price;
 	private List<Camper> campers;
 	private List<Material> material;
-
+// faltan metodos
 	public Activity() {
 		super();
 		this.campers = new ArrayList<Camper>();
@@ -24,8 +24,8 @@ public class Activity  implements Serializable {
 		super();
 		this.activity = activity;
 		this.price = price;
-		this.campers = new ArrayList<Camper>();
-		this.material = new ArrayList<Material>();
+		this.campers = campers;
+		this.material = material;
 	}
 
 	public Activity(Integer id,String activity, Integer price) {
