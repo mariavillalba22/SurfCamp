@@ -78,7 +78,8 @@ public void createTables() {
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
-			    + "	wayoftransport TEXT NOT NULL)";
+			    + "	wayoftransport TEXT NOT NULL"
+			    + "price INTEGER NOT NULL)";
 		stmt6.executeUpdate(transport);
 		stmt6.close();
 		

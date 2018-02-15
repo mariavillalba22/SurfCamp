@@ -6,6 +6,7 @@ import java.util.*;
 public class Transport implements Serializable{
 	private Integer id;
 	private String type_transport;
+	private Integer price;
 	private List<Camper> campers;
 	private List<Instructor> instructors;
 	
@@ -15,10 +16,11 @@ public class Transport implements Serializable{
 		this.instructors = new ArrayList<Instructor>();
 	}
 	
-	public Transport (Integer id, String type_transport) {
+	public Transport (Integer id, String type_transport, Integer price) {
 		super();
 		this.id= id;
 		this.type_transport = type_transport;
+		this.price=price;
 		this.campers= new ArrayList<Camper>();
 		this.instructors = new ArrayList<Instructor>();
 	}
@@ -52,6 +54,14 @@ public class Transport implements Serializable{
 		this.id = id;
 	}
 
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price ) {
+		this.price=price;
+	}
+
 	public String getType_transport() {
 		return type_transport;
 	}
@@ -67,11 +77,14 @@ public class Transport implements Serializable{
 	public void setCampers(List<Camper> campers) {
 		this.campers = campers;
 	}
-	public String toString() {
-		return " id ="+id+ " , Type = "+type_transport+"."+ "Campers = "+campers+". Instructors ="+instructors+".";
-		
-	}
 	
+	
+	@Override
+	public String toString() {
+		return "Transport [id=" + id + ", type_transport=" + type_transport + ", price=" + price + ", campers="
+				+ campers + ", instructors=" + instructors + "]";
+	}
+
 	public List<Instructor> getInstructors() {
 		return instructors;
 	}
