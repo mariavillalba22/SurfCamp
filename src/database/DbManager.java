@@ -122,6 +122,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
 	Transport t = new Transport("avion",ins);
+	System.out.println(t);
 	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
 	
 	ins.add(i);

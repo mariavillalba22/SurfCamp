@@ -13,16 +13,10 @@ public class Material implements Serializable{
 	}
 	public Material(String material, Integer price) {
 		super();
-		
 		this.material = material;
 		this.price = price;
 	}
-	public Material(Integer id,String material, Integer price) {
-		super();
-		this.id= id;
-		this.material = material;
-		this.price = price;
-	}
+	
     public String toString() {
     	return "Material ID: "+id+" . Name: "+material+" . Price: "+price;
     }
