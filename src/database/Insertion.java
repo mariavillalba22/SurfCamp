@@ -27,7 +27,7 @@ public class Insertion {
 		sql.setInt(4, camper.getPhonenumber());
 		sql.setString(5, camper.getEmail());
 		sql.setString(6, camper.getPayment_method());
-		/*sql.setAccomodation(7, camper.getAccomodation());
+		/*sql.setInt(7, getAccomodation(camper.getId());
 		sql.setTransport(8, camper.getTransports());
 		sql.setMaterial(9, camper.getMaterials());
 		sql.setActivity(10, camper.getActivity);*/

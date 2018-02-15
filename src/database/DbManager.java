@@ -69,7 +69,9 @@ public void createTables() {
 			    +"	dayofb DATE NOT NULL,"
 				+"	nacionalitty TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
-				+"	activityid INTEGER NOT NULL)";
+				+"	activityid INTEGER NOT NULL,"
+				+ "	FOREIGN KEY (activity_ID) REFERENCE activity(id), PRIMARY KEY (id))";
+
 		stmt5.executeUpdate(instructor);
 		stmt5.close();
 		
@@ -108,6 +110,7 @@ public void createTables() {
 		e.printStackTrace();
 	}
 }
+
 public static void main(String args[])throws ClassNotFoundException, SQLException {
 	
 	DbManager d=new DbManager();
