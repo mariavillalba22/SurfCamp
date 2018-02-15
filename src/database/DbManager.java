@@ -117,10 +117,11 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Activity a = new Activity ( 1,"natacion",300);
 	Activity a2 = new Activity(3, "patinaje", 400);
 	Accomodation ac= new Accomodation(1,"hotel",300);
-	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a);
 	List <Instructor> ins= new ArrayList<Instructor>();
-	ins.add(i);
 	Transport t = new Transport("avion",ins);
+	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
+	
+	ins.add(i);
 	Material m = new Material(1,"tabla",400);
 	List<Material> mat = new ArrayList<Material>();
 	mat.add(m);
