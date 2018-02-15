@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Camper implements Serializable{
@@ -16,20 +17,25 @@ public class Camper implements Serializable{
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
+<<<<<<< HEAD
 	private Activity activity;
+=======
+	private List<Activity> activities;
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
-	// Aqui no sabia si poner un array de activities o un objeto
-	// es que no me acordaba si alfinal era que un camper podía muchas actividades
+	
+	
 	public Camper() {
 		super();
-		this.transports = new Transport();
-		this.accomodation= new Accomodation();
+		this.materials = new ArrayList<Material>();
+		this.activities = new ArrayList<Activity>();
 		
 	}
 	public Camper(Integer id, String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			, Transport transports, Accomodation accomodation,Material material) {
+			, Transport transports, Accomodation accomodation,List<Material> materials,
+			List<Activity> activities) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,16 +46,34 @@ public class Camper implements Serializable{
 		this.payment_method= payment_method;
 		this.transports= transports;
 		this.accomodation= accomodation;
-		//me da problemas aqui
-		this.addMaterial(material);
+		this.materials = materials;
+		this.activities=activities;
 		
 	}
 	
+	public List<Activity> getActivities() {
+		return activities;
+	}
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
 	public List<Material> getMaterials() {
 		return materials;
 	}
 	public void setMaterials(List<Material> materials) {
 		this.materials = materials;
+	}
+	
+	public void addActivity(Activity activity) {
+		if (!activities.contains(activity)) {
+			this.activities.add(activity);
+		}
+	}
+	
+	public void removeActivity(Activity activity) {
+		if (!activities.contains(activity)) {
+			this.activities.remove(activity);
+		}
 	}
 	
 	public void addMaterial(Material material) {
@@ -129,7 +153,7 @@ public class Camper implements Serializable{
 	}
 	
 	public String toString() {
-		return "Camper [id = "+id+", name = "+name+" , date of birth "+dateofbirth+" , NIF = "+NIF+" , phone number = "+phonenumber+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+"]";
+		return "Camper [id = "+id+", name = "+name+" , date of birth "+dateofbirth+" , NIF = "+NIF+" , phone number = "+phonenumber+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
 	}
 	
 	

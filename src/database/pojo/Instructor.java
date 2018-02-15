@@ -13,14 +13,14 @@ public class Instructor implements Serializable {
 	private String nacionality;
 	private Integer salary;
 	private Activity activityID;
+	private Transport transport;
 	
 	public Instructor() {
-		
-		
+		super();
 	}
 
 	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
-			Activity activityID) {
+			Activity activityID, Transport transport) {
 		super();
 		this.id= id;
 		this.name = name;
@@ -29,6 +29,7 @@ public class Instructor implements Serializable {
 		this.nacionality = nacionality;
 		this.salary = salary;
 		this.activityID = activityID;
+		this.transport = transport;
 	}
 	
 	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
@@ -48,7 +49,9 @@ public class Instructor implements Serializable {
 				"Date of birth: "+dob+". "+
         "Nacionality: "+nacionality+". "+
 				"Salary: "+salary+". "+
-        "Activity ID: "+activityID;
+        "Activity ID: "+activityID+
+        "Transport "+transport.getType_transport();
+        
 	}
 	
 	public Integer getId() {
