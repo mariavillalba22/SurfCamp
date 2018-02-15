@@ -123,7 +123,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Instructor> ins= new ArrayList<Instructor>();
 	Transport t = new Transport("avion",ins);
 	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
-	
+	System.out.println(t);
 	ins.add(i);
 	Material m = new Material(1,"tabla",400);
 	List<Material> mat = new ArrayList<Material>();

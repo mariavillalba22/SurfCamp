@@ -17,11 +17,7 @@ public class Camper implements Serializable{
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
-<<<<<<< HEAD
-	private Activity activity;
-=======
 	private List<Activity> activities;
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
 	
@@ -151,6 +147,26 @@ public class Camper implements Serializable{
 		result = prime*result+((id==null)?0:id.hashCode());
 		return result;
 	}
+	
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Camper other = (Camper) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 	
 	public String toString() {
 		return "Camper [id = "+id+", name = "+name+" , date of birth "+dateofbirth+" , NIF = "+NIF+" , phone number = "+phonenumber+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
