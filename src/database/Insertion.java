@@ -17,14 +17,13 @@ import database.pojo.Transport;
 
 public class Insertion {
 	
-		Connection c;
 		public Insertion() {
 			
 		}
-	public void insert (Connection c,Camper camper ) throws SQLException{
-		String sql1 = "INSERT INTO camper (name, dateofbirth, NIF,phonenumber,email,payment_method,"+/*"transports"
+	public void insertCamper (Connection c,Camper camper ) throws SQLException{
+		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method)"+/*"transports"
 				+ "accomodation,materials,activity) "*/
-				 "VALUES (?,?,?,?,?,?,?);";
+				 "VALUES (?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
 		sql.setString(1, camper.getName());
 		sql.setDate(2, camper.getDateofbirth());
@@ -40,8 +39,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insert (Connection c,Accomodation accomodation ) throws SQLException{
-		String sql2 = "INSERT INTO accomodation (name, price,"+
+	public void insertAccomodation (Connection c,Accomodation accomodation ) throws SQLException{
+		String sql2 = "INSERT INTO accomodation (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql2);
 		sql.setString(1, accomodation.getAccomodation());
@@ -50,8 +49,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insert (Connection c,Activity activity ) throws SQLException{
-		String sql3 = "INSERT INTO activity (name, price,"+
+	public void insertActivity (Connection c,Activity activity ) throws SQLException{
+		String sql3 = "INSERT INTO activity (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
 		sql.setString(1, activity.getActivity());
@@ -60,8 +59,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insert (Connection c, Material material ) throws SQLException{
-		String sql4 = "INSERT INTO material (name, price,"+
+	public void insertMaterial (Connection c, Material material ) throws SQLException{
+		String sql4 = "INSERT INTO material (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql4);
 		sql.setString(1, material.getMaterial());
@@ -70,8 +69,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insert (Connection c, Transport transport ) throws SQLException{
-		String sql5 = "INSERT INTO transport (name, price,"+
+	public void insertTransport (Connection c, Transport transport ) throws SQLException{
+		String sql5 = "INSERT INTO transport (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql5);
 		sql.setString(1, transport.getType_transport());
@@ -80,8 +79,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insert (Connection c,Instructor instructor ) throws SQLException{
-		String sql6 = "INSERT INTO instructor (name,phonenumber,dob,nacionality,salary,"+
+	public void insertInstructor (Connection c,Instructor instructor ) throws SQLException{
+		String sql6 = "INSERT INTO instructor (name,phone_number,dob,nationality,salary)"+
 				 "VALUES (?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql6);
 		sql.setString(1, instructor.getName());
@@ -89,8 +88,6 @@ public class Insertion {
 		sql.setDate(3, instructor.getDob());
 		sql.setString(4, instructor.getNacionality());
 		sql.setInt(5, instructor.getSalary());
-		
-		
 		
 		sql.executeUpdate();
 		sql.close();

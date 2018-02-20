@@ -32,15 +32,15 @@ public class Instructor implements Serializable {
 		this.transport = transport;
 	}
 	
-	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
-			Activity activityID) {
+	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality,
+			Integer salary) {
 		super();
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.SetDateBirth(dob);
 		this.nacionality = nacionality;
 		this.salary = salary;
-		this.activityID = activityID;
+		
 	}
 	
 	public String toString() {

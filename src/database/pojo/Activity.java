@@ -28,9 +28,8 @@ public class Activity  implements Serializable {
 		this.material = material;
 	}
 
-	public Activity(Integer id,String activity, Integer price) {
+	public Activity(String activity, Integer price) {
 		super();
-		this.id = id;
 		this.activity = activity;
 		this.price = price;
 		this.campers = new ArrayList<Camper>();
