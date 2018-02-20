@@ -114,6 +114,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
+
 	Activity a=new Activity("natacion", 100);
 	Activity b=new Activity("surf",200);
 	Accomodation ac= new Accomodation("hotel",300);
@@ -124,6 +125,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Material m=new Material("row",100);
 	Material m2=new Material("board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
+
 	
 	d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);

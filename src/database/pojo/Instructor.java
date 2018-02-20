@@ -5,33 +5,33 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Instructor implements Serializable {
-	
 	private Integer id;
 	private String name;
 	private Integer phoneNumber;
 	private Date dob;
 	private String nacionality;
 	private Integer salary;
-	private Activity activityID;
+	private Activity activity;
 	private Transport transport;
 	
 	public Instructor() {
 		super();
 	}
 
-	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
-			Activity activityID, Transport transport) {
+	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
+			Activity activity, Transport transport) {
 		super();
-		this.id= id;
+		
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.SetDateBirth(dob);
 		this.nacionality = nacionality;
 		this.salary = salary;
-		this.activityID = activityID;
+		this.activity = activity;
 		this.transport = transport;
 	}
 	
+
 	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality,
 			Integer salary) {
 		super();
@@ -42,6 +42,7 @@ public class Instructor implements Serializable {
 		this.salary = salary;
 		
 	}
+
 	
 	public String toString() {
 		return "El monitor es: "+name+". "+
@@ -49,18 +50,11 @@ public class Instructor implements Serializable {
 				"Date of birth: "+dob+". "+
         "Nacionality: "+nacionality+". "+
 				"Salary: "+salary+". "+
-        "Activity ID: "+activityID+
+        "Activity ID: "+activity+
         "Transport "+transport.getType_transport();
         
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -106,14 +100,29 @@ public class Instructor implements Serializable {
 		this.salary = salary;
 	}
 
-	public Activity getActivityID() {
-		return activityID;
+	public Activity getActivity() {
+		return activity;
 	}
 
-	public void setActivityID(Activity activityID) {
-		this.activityID = activityID;
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Transport getTransport() {
+		return transport;
+	}
+
+	public void setTransport(Transport transport) {
+		this.transport = transport;
+	}
 
 	@Override
 	public int hashCode() {
