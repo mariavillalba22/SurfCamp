@@ -35,6 +35,15 @@ public class Activity  implements Serializable {
 	}
 
 
+	public Activity(String activity, Integer price) {
+		super();
+		this.activity = activity;
+		this.price = price;
+		this.campers = new ArrayList<Camper>();
+		this.material = new ArrayList<Material>();
+	}
+
+
 	public String toString() {
     	return " The activity ID is: "+id+"."+
     "Name of activity: "+activity+".";

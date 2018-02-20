@@ -15,9 +15,8 @@ public class Accomodation {
 		this.instructors = new ArrayList<Instructor>();
 		
 	}
-	public Accomodation(Integer id,String accomodation, Integer price) {
+	public Accomodation(String accomodation, Integer price) {
 		super();
-		this.id=id;
 		this.accomodation = accomodation;
 		this.price = price;
 		

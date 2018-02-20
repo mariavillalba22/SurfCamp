@@ -16,13 +16,12 @@ public class Transport implements Serializable{
 		this.instructors = new ArrayList<Instructor>();
 	}
 	
-	public Transport (Integer id, String type_transport, Integer price) {
+	public Transport (String type_transport, Integer price) {
 		super();
-		this.id= id;
+	
 		this.type_transport = type_transport;
 		this.price=price;
-		this.campers= new ArrayList<Camper>();
-		this.instructors = new ArrayList<Instructor>();
+		
 	}
 
 	public Transport ( String type_transport, List<Camper>campers, List <Instructor>instructors) {

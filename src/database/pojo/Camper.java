@@ -30,22 +30,22 @@ public class Camper implements Serializable{
 		this.activities = new ArrayList<Activity>();
 		
 	}
-	public Camper(Integer id, String name, LocalDate dateofbirth, String NIF
+	public Camper( String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			, Transport transports, Accomodation accomodation,List<Material> materials,
-			List<Activity> activities) {
+			/*,Transport transports, Accomodation accomodation,List<Material> materials,
+			List<Activity> activities*/) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.SetDateBirth(dateofbirth);
 		this.NIF = NIF;
 		this.phonenumber= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
-		this.transports= transports;
-		this.accomodation= accomodation;
-		this.materials = materials;
-		this.activities=activities;
+		//i coment this to prove if the insert method works
+		//this.transports= transports;
+		//this.accomodation= accomodation;
+		//this.materials = materials;
+		//this.activities=activities;
 		
 	}
 	
