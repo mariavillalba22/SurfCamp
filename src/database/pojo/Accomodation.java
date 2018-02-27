@@ -7,37 +7,70 @@ public class Accomodation {
 	private String accomodation;
 	private Integer price;
 	private List <Camper> campers;
+	private List <Instructor> instructors;
 	
 	public Accomodation() {
 		super();
+		this.campers = new ArrayList<Camper>();
+		this.instructors = new ArrayList<Instructor>();
 		
 	}
-	public Accomodation(Integer id,String accomodation, Integer price) {
+	public Accomodation(String accomodation, Integer price) {
 		super();
-		this.id=id;
 		this.accomodation = accomodation;
 		this.price = price;
 		
 	}
-	public Accomodation(Integer id,String accomodation, Integer price, List<Camper> campers) {
+	public Accomodation(Integer price, String accomodation,  List<Camper> campers) {
 		super();
 		this.id = id;
 		this.accomodation = accomodation;
 		this.price = price;
-		this.campers = new ArrayList <Camper>();
-		
-		
+		this.campers = campers;
+	}
+	
+	public Accomodation(String accomodation, Integer price, List<Instructor> instructors) {
+		super();
+		this.id = id;
+		this.accomodation = accomodation;
+		this.price = price;
+		this.instructors = instructors;
 	}
 	public Accomodation(String accomodation, Integer price, List<Camper> campers, List<Instructor> instructors) {
 		super();
 		this.accomodation = accomodation;
 		this.price = price;
-		this.campers = new ArrayList <Camper>();
+		if(campers!= null)
+			this.campers = campers;
+		else
+			this.campers = new ArrayList<Camper>();
+		if(instructors !=null)
+			this.instructors = instructors;
+		else
+			this.instructors = new ArrayList<Instructor>();
+
+	}
 	
-		
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getAccomodation() {
+		return accomodation;
+	}
+	public void setAccomodation(String accomodation) {
+		this.accomodation = accomodation;
+	}
+	public List<Instructor> getInstructors() {
+		return instructors;
+	}
+	public void setInstructors(List<Instructor> instructors) {
+		this.instructors = instructors;
 	}
 	public String toString() {
-		return "Accomodation--> id: "+id+" . Type of accomodation: "+accomodation+" . Price: "+price+ " . Camper: "+campers;
+		return "Accomodation--> id: "+id+" . Type of accomodation: "+accomodation+" . Price: "+price+ " . Camper: "+campers+". Instructors: "+instructors;
 	}
 	public Integer getPrice() {
 		return price;

@@ -1,5 +1,5 @@
 package database;
-
+import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,53 +10,48 @@ import java.time.Month;
 import database.pojo.Camper;
 import database.pojo.*;
 public class DbManager {
-		Connection c;
+		
 		public DbManager() {
 			
 		}
-		public void connectiondb() throws ClassNotFoundException, SQLException {
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:./db/Surfcamp.db");
-		c.createStatement().execute("PRAGMA foreign_keys=ON");
-		System.out.println("Database connection opened.");
-		}
-public void createTables() {
+		
+public void createTables(Connection c) {
 	try {
 		Statement stmt1 = c.createStatement();
 		String accomodations = "CREATE TABLE accomodation"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
-			    + "	accomodations TEXT NOT NULL,"
-				+"		price INTEGER NOT NULL)";
+			    + "	name TEXT NOT NULL,"
+				+"	price INTEGER NOT NULL)";
 		stmt1.executeUpdate(accomodations);
 		stmt1.close();
 		
 		Statement stmt2 = c.createStatement();
-		String activities = "CREATE TABLE activities"
+		String activities = "CREATE TABLE activity"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
-			    + "	activity TEXT NOT NULL,"
+			    + "	name TEXT NOT NULL,"
 				+"	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
 		stmt2.close();
 		
 		Statement stmt3 = c.createStatement();
-		String campers = "CREATE TABLE campers"
+		String campers = "CREATE TABLE camper"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 			    + "	name TEXT NOT NULL,"
-				+"	dateofb DATE NOT NULL,"
+				+"	dob DATE NOT NULL,"
 				+"  NIF INTEGER NOT NULL ,"
 				+"	phone_number INTEGER NOT NULL,"
 				+"	email TEXT NOT NULL,"
 				+"	payment_method TEXT, "
-				+"	transportid INTEGER, "
-				+"	accomodationid INTEGER,"
-				+"	activityid INTEGER)";
+				+"	transport_id INTEGER REFERENCES transport(id), "
+				+"	accomodation_id INTEGER REFERENCES accomodation(id),"
+				+"	activity_id INTEGER REFERENCES activity(id))";
 		stmt3.executeUpdate(campers);
 		stmt3.close();
 		
 		Statement stmt4 = c.createStatement();
 		String material = "CREATE TABLE material"
-				+"( id INTEGER NOT NULL,"
-			    + "	materials TEXT NOT NULL,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+			    + "	name TEXT NOT NULL,"
 				+"	price INTEGER NOT NULL)";
 		stmt4.executeUpdate(material);
 		stmt4.close();
@@ -66,17 +61,24 @@ public void createTables() {
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 			    + "	name TEXT NOT NULL,"
 				+"	phone_number INTEGER NOT NULL,"
-			    +"	dayofb DATE NOT NULL,"
-				+"	nacionalitty TEXT NOT NULL,"
+			    +"	dob DATE NOT NULL,"
+				+"	nationality TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
-				+"	activityid INTEGER NOT NULL)";
+				+"	activity_ID INTEGER ,"
+				+ "	FOREIGN KEY (activity_ID) REFERENCES activity(id))";
+
 		stmt5.executeUpdate(instructor);
 		stmt5.close();
 		
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+<<<<<<< HEAD
 			    + "	wayoftransport TEXT NOT NULL)";
+=======
+			    + "	name TEXT NOT NULL,"
+			    + "price INTEGER )";
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 		stmt6.executeUpdate(transport);
 		stmt6.close();
 		
@@ -111,23 +113,46 @@ public void createTables() {
 public static void main(String args[])throws ClassNotFoundException, SQLException {
 	
 	DbManager d=new DbManager();
-	d.connectiondb();
+	Insertion in=new Insertion();
+	Connect c=new Connect();
+	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
-	Transport t = new Transport(1,"avion");
-	Activity a = new Activity ( 1,"natacion",300);
+	
+<<<<<<< HEAD
+	Activity a = new Activity ("natacion",300,null,null);
+	Activity a2 = new Activity( "patinaje", 400,null,null);
 	Accomodation ac= new Accomodation(1,"hotel",300);
-	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a);
-	Material m = new Material(1,"tabla",400);
-	System.out.println(m);
-	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,m);
-	a.addCamper(c);
-	System.out.println(c);
-	System.out.println(i);
-	a.removeCamper(c);
-	Material l = new Material("paddletabla",700);
-	c.addMaterial(l);
-	System.out.println(c);
-	System.out.println(i);
+	List <Instructor> ins= new ArrayList<Instructor>();
+	Transport t = new Transport("avion",ins,null,null);
+	System.out.println(t);
+	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
+=======
+
+	Activity a=new Activity("natacion", 100);
+	Activity b=new Activity("surf",200);
+	Accomodation ac= new Accomodation("hotel",300);
+	Accomodation bc= new Accomodation("Camping",100);
+	Transport t =new Transport("plane",200);
+	Transport t2 = new Transport("train",100);
+	Instructor i=new Instructor("maria",656765456,january1st2014,"american",500);
+	Material m=new Material("row",100);
+	Material m2=new Material("board",200);
+	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
+
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+	
+	d.createTables(c.getConnection());
+	in.insertActivity(c.getConnection(), a);
+	in.insertActivity(c.getConnection(), b);
+	in.insertAccomodation(c.getConnection(), ac);
+	in.insertAccomodation(c.getConnection(), bc);
+	in.insertInstructor(c.getConnection(), i);
+	in.insertCamper(c.getConnection(), c1);
+	in.insertTransport(c.getConnection(), t);
+	in.insertTransport(c.getConnection(), t2);
+	in.insertMaterial(c.getConnection(), m);
+	in.insertMaterial(c.getConnection(), m2);
+	
 	
 	
 }

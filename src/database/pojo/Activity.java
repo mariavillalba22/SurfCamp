@@ -14,31 +14,40 @@ public class Activity  implements Serializable {
 	private Integer price;
 	private List<Camper> campers;
 	private List<Material> material;
+// faltan metodos
 	public Activity() {
-		
+		super();
+		this.campers = new ArrayList<Camper>();
 	}
 
 	public Activity(String activity, Integer price, List<Camper> campers, List<Material> material) {
 		super();
 		this.activity = activity;
 		this.price = price;
-		this.campers = new ArrayList<Camper>();
-		this.material = new ArrayList<Material>();
+		if(campers!= null)
+		    this.campers = campers;
+		else
+			this.campers = new ArrayList<Camper>();
+		if(material!= null)
+			this.material = material;
+		else
+			this.material = new ArrayList<Material>();
 	}
 
-	public Activity(Integer id,String activity, Integer price) {
+
+	public Activity(String activity, Integer price) {
 		super();
-		this.id = id;
 		this.activity = activity;
 		this.price = price;
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
 
+
 	public String toString() {
     	return " The activity ID is: "+id+"."+
-    "Name of activity: "+activity+"."+
-    	"Campers list: "+campers+".";
+    "Name of activity: "+activity+".";
+    	
     
     }
 	@Override
@@ -105,8 +114,6 @@ public class Activity  implements Serializable {
 	public void setMaterial(List<Material> material) {
 		this.material = material;
 	}
-	
-	// Aqui añadimos y eliminamos campers.
 	
 	public void addCamper(Camper camper) {
 		if (!campers.contains(camper)) {
