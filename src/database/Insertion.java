@@ -8,7 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import database.pojo.Accomodation;
+import database.pojo.Activity;
 import database.pojo.Camper;
+import database.pojo.Instructor;
+import database.pojo.Material;
+import database.pojo.Transport;
 
 public class Insertion {
 	
@@ -31,6 +36,61 @@ public class Insertion {
 		sql.setTransport(8, camper.getTransports());
 		sql.setMaterial(9, camper.getMaterials());
 		sql.setActivity(10, camper.getActivity);*/
+		
+		sql.executeUpdate();
+		sql.close();
+	}
+	public void insert (Connection c,Accomodation accomodation ) throws SQLException{
+		String sql2 = "INSERT INTO accomodation (name, price,"+
+				"VALUES (?,?);";
+		PreparedStatement sql = c.prepareStatement(sql2);
+		sql.setString(1, accomodation.getAccomodation());
+		sql.setInt(2, accomodation.getPrice());
+	
+		sql.executeUpdate();
+		sql.close();
+	}
+	public void insert (Connection c,Activity activity ) throws SQLException{
+		String sql3 = "INSERT INTO activity (name, price,"+
+				"VALUES (?,?);";
+		PreparedStatement sql = c.prepareStatement(sql3);
+		sql.setString(1, activity.getActivity());
+		sql.setInt(2, activity.getPrice());
+	
+		sql.executeUpdate();
+		sql.close();
+	}
+	public void insert (Connection c, Material material ) throws SQLException{
+		String sql4 = "INSERT INTO material (name, price,"+
+				"VALUES (?,?);";
+		PreparedStatement sql = c.prepareStatement(sql4);
+		sql.setString(1, material.getMaterial());
+		sql.setInt(2, material.getPrice());
+	
+		sql.executeUpdate();
+		sql.close();
+	}
+	public void insert (Connection c, Transport transport ) throws SQLException{
+		String sql5 = "INSERT INTO transport (name, price,"+
+				"VALUES (?,?);";
+		PreparedStatement sql = c.prepareStatement(sql5);
+		sql.setString(1, transport.getType_transport());
+		sql.setInt(2, transport.getPrice());
+	
+		sql.executeUpdate();
+		sql.close();
+	}
+	public void insert (Connection c,Instructor instructor ) throws SQLException{
+		String sql6 = "INSERT INTO instructor (name,phonenumber,dob,nacionality,salary,"+
+				 "VALUES (?,?,?,?,?);";
+		PreparedStatement sql = c.prepareStatement(sql6);
+		sql.setString(1, instructor.getName());
+		sql.setInt(2, instructor.getPhoneNumber());
+		sql.setDate(3, instructor.getDob());
+		sql.setString(4, instructor.getNacionality());
+		sql.setInt(5, instructor.getSalary());
+		
+		
 		
 		sql.executeUpdate();
 		sql.close();

@@ -78,7 +78,8 @@ public void createTables() {
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
-			    + "	wayoftransport TEXT NOT NULL)";
+			    + "	wayoftransport TEXT NOT NULL"
+			    + "price INTEGER NOT NULL)";
 		stmt6.executeUpdate(transport);
 		stmt6.close();
 		
@@ -122,6 +123,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
 	Transport t = new Transport("avion",ins);
+	System.out.println(t);
 	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
 	System.out.println(t);
 	ins.add(i);

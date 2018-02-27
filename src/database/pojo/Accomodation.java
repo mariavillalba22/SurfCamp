@@ -41,8 +41,15 @@ public class Accomodation {
 		super();
 		this.accomodation = accomodation;
 		this.price = price;
-		this.campers = campers;
-		this.instructors= instructors;
+		if(campers!= null)
+			this.campers = campers;
+		else
+			this.campers = new ArrayList<Camper>();
+		if(instructors !=null)
+			this.instructors = instructors;
+		else
+			this.instructors = new ArrayList<Instructor>();
+
 	}
 	
 	public Integer getId() {

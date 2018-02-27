@@ -17,6 +17,10 @@ public class Camper implements Serializable{
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
+
+
+	private Activity activity;
+
 	private List<Activity> activities;
 	
 	

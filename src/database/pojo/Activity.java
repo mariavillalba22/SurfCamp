@@ -24,18 +24,16 @@ public class Activity  implements Serializable {
 		super();
 		this.activity = activity;
 		this.price = price;
-		this.campers = campers;
-		this.material = material;
+		if(campers!= null)
+		    this.campers = campers;
+		else
+			this.campers = new ArrayList<Camper>();
+		if(material!= null)
+			this.material = material;
+		else
+			this.material = new ArrayList<Material>();
 	}
 
-	public Activity(Integer id,String activity, Integer price) {
-		super();
-		this.id = id;
-		this.activity = activity;
-		this.price = price;
-		this.campers = new ArrayList<Camper>();
-		this.material = new ArrayList<Material>();
-	}
 
 	public String toString() {
     	return " The activity ID is: "+id+"."+

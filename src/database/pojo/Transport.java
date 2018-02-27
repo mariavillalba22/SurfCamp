@@ -6,6 +6,7 @@ import java.util.*;
 public class Transport implements Serializable{
 	private Integer id;
 	private String type_transport;
+	private Integer price;
 	private List<Camper> campers;
 	private List<Instructor> instructors;
 	
@@ -15,31 +16,28 @@ public class Transport implements Serializable{
 		this.instructors = new ArrayList<Instructor>();
 	}
 	
-	public Transport (Integer id, String type_transport) {
+	public Transport (Integer id, String type_transport, Integer price) {
 		super();
 		this.id= id;
 		this.type_transport = type_transport;
+		this.price=price;
 		this.campers= new ArrayList<Camper>();
 		this.instructors = new ArrayList<Instructor>();
 	}
-	public Transport(Integer id, String type_transport,List<Camper> campers) {
-		super();
-		this.id=id;
-		this.type_transport=type_transport;
-		this.campers= campers;
-	}
-	public Transport ( String type_transport, List<Instructor> instructors) {
-		super();
-		this.type_transport = type_transport;
-		
-		this.instructors = instructors;
-	}
-	public Transport (Integer id, String type_transport, List<Camper>campers, List <Instructor>instructors) {
+
+	public Transport ( String type_transport, List<Camper>campers, List <Instructor>instructors) {
 		super();
 		this.id= id;
 		this.type_transport = type_transport;
-		this.campers= campers;
-		this.instructors = instructors;
+		if (campers != null)
+			this.campers= campers;
+		else
+			this.campers = new ArrayList<Camper>();
+		if(instructors!= null)
+		    this.instructors = instructors;
+		else
+			this.instructors = new ArrayList<Instructor>();
+		
 	}
 	
 	public Integer getId() {
@@ -48,6 +46,14 @@ public class Transport implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price ) {
+		this.price=price;
 	}
 
 	public String getType_transport() {
@@ -65,11 +71,14 @@ public class Transport implements Serializable{
 	public void setCampers(List<Camper> campers) {
 		this.campers = campers;
 	}
-	public String toString() {
-		return " id ="+id+ " , Type = "+type_transport+"."+ "Campers = "+campers+". Instructors ="+instructors+".";
-		
-	}
 	
+	
+	@Override
+	public String toString() {
+		return "Transport [id=" + id + ", type_transport=" + type_transport + ", price=" + price + ", campers="
+				+ campers + ", instructors=" + instructors + "]";
+	}
+
 	public List<Instructor> getInstructors() {
 		return instructors;
 	}
