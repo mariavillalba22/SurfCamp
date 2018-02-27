@@ -27,7 +27,7 @@ public class Menu {
 		int choice = printMenu(strings)*/ //CONSIDER
 		
 		switch (optionNumber) {
-		
+//***********************************view*****************************************************		
 		case 1 : {// VIEW
 			System.out.println("WHAT WOULD YOU LIKE TO SEE: "
 					+ "1) Campers"
@@ -62,8 +62,8 @@ public class Menu {
 			}
 			
 		}break;
-		
-		case 2 : //INSERT
+//*******************************insert**************************************************		
+		case 2 :{ //INSERT
 			
 			System.out.println("WHERE WOULD YOU LIKE TO INSERT: "
 					+ "1) Campers"
@@ -77,7 +77,7 @@ public class Menu {
 			
 			String readString = console.readLine();
 			int optionNumberInsert=Integer.parseInt(readString);
-//********************************************************************************************			
+//+++++++++++++++++++++++++++++++++++++++ins camper+++++++++++++++++++++++++++++++++++++++++++			
 			switch (optionNumberInsert) {
 			case 1 : {//ins campers
 				
@@ -99,7 +99,7 @@ public class Menu {
 				int optionNumberInsert=Integer.parseInt(readString);
 				
 				switch (optionNumberInsert) {
-				
+//-----------------------------ins name-----------------------------------------------				
 				case 1 : //ins name
 					break;
 				
@@ -134,7 +134,7 @@ public class Menu {
 							
 				}break;
 				
-//**********************************************************************************************				
+//+++++++++++++++++++++++++++++++++++++++++ins transport++++++++++++++++++++++++++++++++++++				
 
 			case 2 : //ins transporte
 				break;
@@ -153,6 +153,99 @@ public class Menu {
 			}
 			
 		}break;
+//*******************************modify****************************************************		
+		case 3 : //modify
+			System.out.println("WHERE WOULD YOU LIKE TO INSERT: "
+					+ "1) Campers"
+					+ "2) Transport" //DUDA 
+					+ "3) Accomodation"//DUDA
+					+ "4) Activities"//DUDA
+					+ "5) Material"//DUDA
+					+ "6) Instructor"//DUDA
+					+ ""
+					+ "Option number: ");
+			
+			String readString = console.readLine();
+			int optionNumberModify=Integer.parseInt(readString);
+			
+			switch (optionNumberModify) {
+			
+			case 1 : {//campers
+				System.out.println("WHAT WOULD YOU LIKE TO MODIFY: "
+						+ "1) Name"
+						+ "2) Date of Birth" 
+						+ "3) Nationality"
+						+ "4) NIF"
+						+ "5) Phone Number"
+						+ "6) Email"
+						+ "7) Payment method"
+						+ "8) Transport"
+						+ "9) Accomodation"
+						+ "10) Activity"
+						+ ""
+						+ "Option number: ");
+				
+				String readString = console.readLine();
+				int optionNumberModifyCamper=Integer.parseInt(readString);
+				
+				switch (optionNumberModifyCamper) {
+				
+				case 1 : //mod name
+					break;
+					
+				case 2 : //mod date of b
+					break;
+					
+				case 3 : //mod nation
+					break;
+					
+				case 4 : // mod nif
+					break;
+					
+				case 5 : //mod phone
+					break;
+					
+				case 6 : //mod email
+					break;
+					
+				case 7 : //mod pay
+					break;
+					
+				case 8 : //mod transp	
+					break;
+					
+				case 9 : //mod acc
+					break;
+					
+				case 10 : //mod act
+					break;
+				}
+				
+				
+				
+			}break;
+				
+			case 2 : //trans
+				break;
+				
+			case 3 : //acc
+				break;
+				
+			case 4 : //acti
+				break;
+				
+			case 5 : //mat
+				break;
+				
+			case 6 : //instr
+				break;
+				
+			}
+			
+			
+			
+			}
+			
 			
 	}	
 			
