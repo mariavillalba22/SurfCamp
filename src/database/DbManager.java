@@ -118,20 +118,19 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
-<<<<<<< HEAD
+
 	Activity a = new Activity ("natacion",300);
 	Activity a2 = new Activity(3, "patinaje", 400);
-=======
-<<<<<<< HEAD
+
 	Activity a = new Activity ("natacion",300,null,null);
 	Activity a2 = new Activity( "patinaje", 400,null,null);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
 	Transport t = new Transport("avion",ins,null,null);
 	System.out.println(t);
 	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
-<<<<<<< HEAD
+
 	System.out.println(t);
 	ins.add(i);
 	Material m = new Material(1,"tabla",400);
@@ -150,8 +149,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	c.addMaterial(l);
 	System.out.println(c);
 	System.out.println(i);
-=======
-=======
+
 
 	Activity a=new Activity("natacion", 100);
 	Activity b=new Activity("surf",200);
@@ -164,7 +162,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Material m2=new Material("board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+
 	
 	d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);
@@ -178,8 +176,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
 	
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
-	
+
 	
 }
 
