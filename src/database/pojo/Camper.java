@@ -16,7 +16,7 @@ public class Camper implements Serializable{
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
-	private Activity activity 
+	private Activity activity ;
 	
 	
 	// Aqui no sabia si poner un array de activities o un objeto
