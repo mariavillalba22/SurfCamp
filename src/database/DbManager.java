@@ -118,7 +118,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	d.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
-	Activity a = new Activity ( 1,"natacion",300);
+	Activity a = new Activity ("natacion",300);
 	Activity a2 = new Activity(3, "patinaje", 400);
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
