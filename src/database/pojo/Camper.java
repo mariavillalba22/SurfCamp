@@ -53,6 +53,26 @@ public class Camper implements Serializable{
 		
 	}
 	
+	public Camper( int id,String name, LocalDate dateofbirth, String NIF
+			, Integer phonenumber, String email, String payment_method
+			/*,Transport transports, Accomodation accomodation,List<Material> materials,
+			List<Activity> activities*/) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.SetDateBirth(dateofbirth);
+		this.NIF = NIF;
+		this.phonenumber= phonenumber;
+		this.email= email;
+		this.payment_method= payment_method;
+		//i coment this to prove if the insert method works
+		//this.transports= transports;
+		//this.accomodation= accomodation;
+		//this.materials = materials;
+		//this.activities=activities;
+		
+	}
+	
 	public List<Activity> getActivities() {
 		return activities;
 	}
