@@ -62,6 +62,7 @@ public void createTables(Connection c) {
 			    + "	name TEXT NOT NULL,"
 				+"	phone_number INTEGER NOT NULL,"
 			    +"	dob DATE NOT NULL,"
+				+"  NIF TEXT NOT NULL,"
 				+"	nationality TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
 				+"	activity_ID INTEGER ,"
@@ -121,12 +122,12 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Accomodation bc= new Accomodation("Camping",100);
 	Transport t =new Transport("plane",200);
 	Transport t2 = new Transport("train",100);
-	Instructor i=new Instructor("maria",656765456,january1st2014,"american",500);
+	Instructor i=new Instructor("maria",656765456,january1st2014,"234567M","american",500,null,null);
 	Material m=new Material("row",100);
 	Material m2=new Material("board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 
-	
+	/*
 	d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);
 	in.insertActivity(c.getConnection(), b);
@@ -138,7 +139,12 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertTransport(c.getConnection(), t2);
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
-	
+	*/
+	 Selection s = new Selection();
+	 s.selectCamper(c.getConnection());
+	 Selection s2 = new Selection();
+	 s2.selectInstructor(c.getConnection());
+	 
 	
 	
 }
