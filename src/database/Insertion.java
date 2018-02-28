@@ -80,14 +80,15 @@ public class Insertion {
 		sql.close();
 	}
 	public void insertInstructor (Connection c,Instructor instructor ) throws SQLException{
-		String sql6 = "INSERT INTO instructor (name,phone_number,dob,nationality,salary)"+
-				 "VALUES (?,?,?,?,?);";
+		String sql6 = "INSERT INTO instructor (name,phone_number,dob,NIF,nationality,salary)"+
+				 "VALUES (?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql6);
 		sql.setString(1, instructor.getName());
 		sql.setInt(2, instructor.getPhoneNumber());
 		sql.setDate(3, instructor.getDob());
-		sql.setString(4, instructor.getNacionality());
-		sql.setInt(5, instructor.getSalary());
+		sql.setString(4, instructor.getNIF());
+		sql.setString(5, instructor.getNacionality());
+		sql.setInt(6, instructor.getSalary());
 		
 		sql.executeUpdate();
 		sql.close();

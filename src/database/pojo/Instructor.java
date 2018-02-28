@@ -9,6 +9,7 @@ public class Instructor implements Serializable {
 	private String name;
 	private Integer phoneNumber;
 	private Date dob;
+	private String NIF;
 	private String nacionality;
 	private Integer salary;
 	private Activity activity;
@@ -18,13 +19,14 @@ public class Instructor implements Serializable {
 		super();
 	}
 
-	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality, Integer salary,
+	public Instructor(String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary,
 			Activity activity, Transport transport) {
 		super();
 		
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.SetDateBirth(dob);
+		this.NIF=NIF;
 		this.nacionality = nacionality;
 		this.salary = salary;
 		this.activity = activity;
@@ -32,16 +34,20 @@ public class Instructor implements Serializable {
 	}
 	
 
-	public Instructor(String name, Integer phoneNumber, LocalDate dob, String nacionality,
+	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String NIF,String nacionality,
 			Integer salary) {
 		super();
+		this.id=id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
+		this.NIF=NIF;
 		this.SetDateBirth(dob);
 		this.nacionality = nacionality;
 		this.salary = salary;
 		
 	}
+	
+	
 
 	
 	public String toString() {
@@ -62,6 +68,14 @@ public class Instructor implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getNIF() {
+		return NIF;
+	}
+
+	public void setNIF(String nIF) {
+		NIF = nIF;
 	}
 
 	public Integer getPhoneNumber() {
