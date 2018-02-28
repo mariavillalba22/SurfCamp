@@ -74,8 +74,12 @@ public void createTables(Connection c) {
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+<<<<<<< HEAD
+			    + "	wayoftransport TEXT NOT NULL)";
+=======
 			    + "	name TEXT NOT NULL,"
 			    + "price INTEGER )";
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 		stmt6.executeUpdate(transport);
 		stmt6.close();
 		
@@ -115,6 +119,15 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
+<<<<<<< HEAD
+	Activity a = new Activity ("natacion",300,null,null);
+	Activity a2 = new Activity( "patinaje", 400,null,null);
+	Accomodation ac= new Accomodation(1,"hotel",300);
+	List <Instructor> ins= new ArrayList<Instructor>();
+	Transport t = new Transport("avion",ins,null,null);
+	System.out.println(t);
+	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
+=======
 
 	Activity a=new Activity("natacion", 100);
 	Activity b=new Activity("surf",200);
@@ -127,7 +140,12 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Material m2=new Material("board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 
+<<<<<<< HEAD
 	/*
+=======
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+	
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp.git
 	d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);
 	in.insertActivity(c.getConnection(), b);
