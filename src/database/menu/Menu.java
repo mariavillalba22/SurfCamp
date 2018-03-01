@@ -1,4 +1,4 @@
-package database.menu;
+/*package database.menu;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +25,7 @@ public class Menu {
 		strings.add("VIEW");
 		strings.add("INSERT");
 		int choice = printMenu(strings)*/ //CONSIDER
-		
+	/*	
 		switch (optionNumber) {
 //***********************************view*****************************************************		
 		case 1 : {// VIEW
@@ -257,3 +257,4 @@ public class Menu {
 	{}
 
 }}}
+*/

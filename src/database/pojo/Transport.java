@@ -18,10 +18,9 @@ public class Transport implements Serializable{
 	
 	public Transport (String type_transport, Integer price) {
 		super();
-	
+	    
 		this.type_transport = type_transport;
 		this.price=price;
-		
 	}
 
 	public Transport ( String type_transport, List<Camper>campers, List <Instructor>instructors) {

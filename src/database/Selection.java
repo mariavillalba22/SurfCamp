@@ -6,10 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.*;
-import database.*;
+import database.pojo.*;
 
-import database.pojo.Camper;
-import database.pojo.Instructor;
 
 public class Selection {
 
@@ -53,4 +51,31 @@ public class Selection {
 		}
 	}
 	
+	public void selectMaterial (Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM material";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Material mat = new Material (id,name,price);
+			System.out.println(mat);
+			
+		}
+	}
+	
+	public void selectTransport(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM transport";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("type_transport");
+			int price = rs.getInt("price");
+			Transport trans = new Transport (name,price);
+			System.out.println(trans);
+			
+		}
+	}
 }

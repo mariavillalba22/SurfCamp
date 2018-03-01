@@ -10,7 +10,7 @@ import java.util.List;
 public class Activity  implements Serializable {
 
 	private Integer id;
-	private String activity;
+	private String name;
 	private Integer price;
 	private List<Camper> campers;
 	private List<Material> material;
@@ -22,7 +22,7 @@ public class Activity  implements Serializable {
 
 	public Activity(String activity, Integer price, List<Camper> campers, List<Material> material) {
 		super();
-		this.activity = activity;
+		this.name = activity;
 		this.price = price;
 		if(campers!= null)
 		    this.campers = campers;
@@ -37,7 +37,7 @@ public class Activity  implements Serializable {
 
 	public Activity(String activity, Integer price) {
 		super();
-		this.activity = activity;
+		this.name = activity;
 		this.price = price;
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
@@ -46,7 +46,7 @@ public class Activity  implements Serializable {
 
 	public String toString() {
     	return " The activity ID is: "+id+"."+
-    "Name of activity: "+activity+".";
+    "Name of activity: "+name+".";
     	
     
     }
@@ -84,11 +84,11 @@ public class Activity  implements Serializable {
 	}
 
 	public String getActivity() {
-		return activity;
+		return name;
 	}
 
 	public void setActivity(String activity) {
-		this.activity = activity;
+		this.name = activity;
 	}
 
 	public Integer getPrice() {

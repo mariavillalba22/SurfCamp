@@ -4,7 +4,7 @@ import java.util.*;
 public class Accomodation {
 
 	private Integer id;
-	private String accomodation;
+	private String name;
 	private Integer price;
 	private List <Camper> campers;
 	private List <Instructor> instructors;
@@ -17,14 +17,14 @@ public class Accomodation {
 	}
 	public Accomodation(String accomodation, Integer price) {
 		super();
-		this.accomodation = accomodation;
+		this.name = accomodation;
 		this.price = price;
 		
 	}
 	public Accomodation(Integer price, String accomodation,  List<Camper> campers) {
 		super();
 		this.id = id;
-		this.accomodation = accomodation;
+		this.name = accomodation;
 		this.price = price;
 		this.campers = campers;
 	}
@@ -32,13 +32,13 @@ public class Accomodation {
 	public Accomodation(String accomodation, Integer price, List<Instructor> instructors) {
 		super();
 		this.id = id;
-		this.accomodation = accomodation;
+		this.name = accomodation;
 		this.price = price;
 		this.instructors = instructors;
 	}
 	public Accomodation(String accomodation, Integer price, List<Camper> campers, List<Instructor> instructors) {
 		super();
-		this.accomodation = accomodation;
+		this.name = accomodation;
 		this.price = price;
 		if(campers!= null)
 			this.campers = campers;
@@ -58,10 +58,10 @@ public class Accomodation {
 		this.id = id;
 	}
 	public String getAccomodation() {
-		return accomodation;
+		return name;
 	}
 	public void setAccomodation(String accomodation) {
-		this.accomodation = accomodation;
+		this.name = accomodation;
 	}
 	public List<Instructor> getInstructors() {
 		return instructors;
@@ -70,7 +70,7 @@ public class Accomodation {
 		this.instructors = instructors;
 	}
 	public String toString() {
-		return "Accomodation--> id: "+id+" . Type of accomodation: "+accomodation+" . Price: "+price+ " . Camper: "+campers+". Instructors: "+instructors;
+		return "Accomodation--> id: "+id+" . Type of accomodation: "+name+" . Price: "+price+ " . Camper: "+campers+". Instructors: "+instructors;
 	}
 	public Integer getPrice() {
 		return price;

@@ -5,20 +5,21 @@ public class Material implements Serializable{
 
 	
 	private Integer id;
-	private String material;
+	private String name;
 	private Integer price;
 	
 	public Material() {
 		super();
 	}
-	public Material(String material, Integer price) {
+	public Material(int id,String material, Integer price) {
 		super();
-		this.material = material;
+		this.id = id;
+		this.name = material;
 		this.price = price;
 	}
 	
     public String toString() {
-    	return "Material ID: "+id+" . Name: "+material+" . Price: "+price;
+    	return "Material ID: "+id+" . Name: "+name+" . Price: "+price;
     }
 	public Integer getId() {
 		return id;
@@ -29,11 +30,11 @@ public class Material implements Serializable{
 	}
 
 	public String getMaterial() {
-		return material;
+		return name;
 	}
 
 	public void setMaterial(String material) {
-		this.material = material;
+		this.name = material;
 	}
 
 	public Integer getPrice() {

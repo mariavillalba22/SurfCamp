@@ -45,6 +45,7 @@ public void createTables(Connection c) {
 				+"	transport_id INTEGER REFERENCES transport(id), "
 				+"	accomodation_id INTEGER REFERENCES accomodation(id),"
 				+"	activity_id INTEGER REFERENCES activity(id))";
+		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
 		
@@ -75,7 +76,7 @@ public void createTables(Connection c) {
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 
-			    + "	wayoftransport TEXT NOT NULL)"
+			    + "	type_transport TEXT NOT NULL)"
 
 			    + "	name TEXT NOT NULL,"
 			    
@@ -126,37 +127,25 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Instructor> ins= new ArrayList<Instructor>();
 	Transport t = new Transport("avion",null,null);
 	System.out.println(t);
-	Instructor i= new Instructor("maria",676767,january1st2014,"american",400,a,t);
-
 
 	Activity act=new Activity("natacion", 100,null,null);
 	Activity b=new Activity("surf",200);
 	Accomodation bc= new Accomodation("Camping",100);
 	Transport tr =new Transport("plane",200);
 	Transport t2 = new Transport("train",100);
-<<<<<<< HEAD
-=======
-	Instructor i=new Instructor("maria",656765456,january1st2014,"234567M","american",500,null,null);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
-	Material m=new Material("row",100);
-	Material m2=new Material("board",200);
+
+
+	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
+
+	Material m=new Material(1,"row",100);
+	Material m2=new Material(2,"board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-	/*
-=======
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
-	
-<<<<<<< HEAD
+
 	/*d.createTables(c.getConnection());
-=======
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp.git
+
 	d.createTables(c.getConnection());
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	in.insertActivity(c.getConnection(), a);
 	in.insertActivity(c.getConnection(), b);
 	in.insertAccomodation(c.getConnection(), ac);
@@ -168,15 +157,15 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
 	*/
-<<<<<<< HEAD
-	
-=======
+     in.insertTransport(c.getConnection(), tr);
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
 	 Selection s2 = new Selection();
 	 s2.selectInstructor(c.getConnection());
+	 s.selectMaterial(c.getConnection());
+	 s.selectTransport(c.getConnection());
 	 
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+	 
 	
 	
 }
