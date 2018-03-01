@@ -42,7 +42,14 @@ public class Activity  implements Serializable {
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
-
+	public Activity(Integer id,String activity, Integer price) {
+		super();
+		this.id = id;
+		this.name = activity;
+		this.price = price;
+		this.campers = new ArrayList<Camper>();
+		this.material = new ArrayList<Material>();
+	}
 
 	public String toString() {
     	return " The activity ID is: "+id+"."+

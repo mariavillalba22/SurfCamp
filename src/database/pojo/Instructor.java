@@ -59,8 +59,10 @@ public class Instructor implements Serializable {
 				"Salary: "+salary+". "+
          "Activity ID: "+activity+
         "Transport "+transport;
-        
 	}
+	
+	// nos imprime continuamente NULL en activity y en transport
+	
 	
 
 	public String getName() {

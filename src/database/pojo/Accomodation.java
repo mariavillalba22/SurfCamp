@@ -19,8 +19,14 @@ public class Accomodation {
 		super();
 		this.name = accomodation;
 		this.price = price;
-		
 	}
+	public Accomodation(Integer id,String accomodation, Integer price) {
+		super();
+		this.id = id;
+		this.name = accomodation;
+		this.price = price;
+	}
+	
 	public Accomodation(Integer price, String accomodation,  List<Camper> campers) {
 		super();
 		this.id = id;

@@ -64,18 +64,45 @@ public class Selection {
 			
 		}
 	}
-	
 	public void selectTransport(Connection c)throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM transport";
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
 			int id = rs.getInt("id");
-			String name = rs.getString("type_transport");
+			String name = rs.getString("name");
 			int price = rs.getInt("price");
-			Transport trans = new Transport (name,price);
+			Transport trans = new Transport (id,name,price);
 			System.out.println(trans);
-			
 		}
 	}
+	
+	public void selectAccomodation(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM accomodation";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Accomodation accomodation = new Accomodation (id,name,price);
+			System.out.println(accomodation);
+		}
+	}
+	
+	public void selectActivity(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM activity";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Activity activity = new Activity (id,name,price);
+			System.out.println(activity);
+		}
+	}
+	
+	
+	
 }

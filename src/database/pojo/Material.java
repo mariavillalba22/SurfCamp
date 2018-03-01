@@ -18,6 +18,12 @@ public class Material implements Serializable{
 		this.price = price;
 	}
 	
+	public Material(String material, Integer price) {
+		super();
+		this.name = material;
+		this.price = price;
+	}
+	
     public String toString() {
     	return "Material ID: "+id+" . Name: "+name+" . Price: "+price;
     }

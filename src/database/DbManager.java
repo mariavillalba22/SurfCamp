@@ -76,8 +76,6 @@ public void createTables(Connection c) {
 		String transport = "CREATE TABLE transport"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 
-			    + "	type_transport TEXT NOT NULL)"
-
 			    + "	name TEXT NOT NULL,"
 			    
 			    + "price INTEGER )";
@@ -125,23 +123,30 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Activity a2 = new Activity( "patinaje", 400,null,null);
 	Accomodation ac= new Accomodation("hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
-	Transport t = new Transport("avion",null,null);
-	System.out.println(t);
+	List <Camper> campers = new ArrayList<Camper>();
+	Transport t = new Transport("avion",500,null,null);
+	
+	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
+    ins.add(inst);
+	
+	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
+	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
+	campers.add(c1);
+	campers.add(c2);
+	
+	
 
-	Activity act=new Activity("natacion", 100,null,null);
+	Activity act=new Activity("natacion", 100,campers,null);
 	Activity b=new Activity("surf",200);
-	Accomodation bc= new Accomodation("Camping",100);
-	Transport tr =new Transport("plane",200);
+	Accomodation bc= new Accomodation("Camping",100,campers,ins);
+	Transport tr =new Transport("plane",200,campers,ins);
+	System.out.println(tr);
 	Transport t2 = new Transport("train",100);
 
 
-	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
-
 	Material m=new Material(1,"row",100);
 	Material m2=new Material(2,"board",200);
-	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
-
-
+	
 
 	/*d.createTables(c.getConnection());
 
@@ -157,14 +162,13 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
 	*/
-     in.insertTransport(c.getConnection(), tr);
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
-	 Selection s2 = new Selection();
-	 s2.selectInstructor(c.getConnection());
+	 s.selectInstructor(c.getConnection());
 	 s.selectMaterial(c.getConnection());
 	 s.selectTransport(c.getConnection());
-	 
+	 s.selectAccomodation(c.getConnection());
+	 s.selectActivity(c.getConnection());
 	 
 	
 	
