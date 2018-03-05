@@ -49,6 +49,9 @@ public class Selection {
 			System.out.println(instructor);
 			//estamos print el tranport , necesitamos o no printearlo o ponerle null.
 		}
+		rs.close();
+		stmt.close();
+		
 	}
 	
 	public void selectMaterial (Connection c)throws SQLException{
@@ -63,6 +66,8 @@ public class Selection {
 			System.out.println(mat);
 			
 		}
+		rs.close();
+		stmt.close();
 	}
 	public void selectTransport(Connection c)throws SQLException{
 		Statement stmt = c.createStatement();
@@ -75,6 +80,8 @@ public class Selection {
 			Transport trans = new Transport (id,name,price);
 			System.out.println(trans);
 		}
+		rs.close();
+		stmt.close();
 	}
 	
 	public void selectAccomodation(Connection c)throws SQLException{
@@ -88,6 +95,8 @@ public class Selection {
 			Accomodation accomodation = new Accomodation (id,name,price);
 			System.out.println(accomodation);
 		}
+		rs.close();
+		stmt.close();
 	}
 	
 	public void selectActivity(Connection c)throws SQLException{
@@ -101,6 +110,8 @@ public class Selection {
 			Activity activity = new Activity (id,name,price);
 			System.out.println(activity);
 		}
+		rs.close();
+		stmt.close();
 	}
 	
 	
