@@ -14,6 +14,7 @@ public class Selection {
 	public Selection (){
 		
 	}
+	
 	public void selectCamper (Connection c ) throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM camper";

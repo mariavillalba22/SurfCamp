@@ -22,8 +22,6 @@ public class Camper implements Serializable{
 	private List<Activity> activities;
 	
 	
-	
-	
 	public Camper() {
 		super();
 		this.materials = new ArrayList<Material>();

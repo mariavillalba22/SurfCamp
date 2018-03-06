@@ -114,6 +114,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	
 	DbManager d=new DbManager();
 	Insertion in=new Insertion();
+	Update up = new Update();
 	Connect c=new Connect();
 	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
@@ -169,6 +170,10 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 s.selectTransport(c.getConnection());
 	 s.selectAccomodation(c.getConnection());
 	 s.selectActivity(c.getConnection());
+	 
+	 up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
+	 s.selectMaterial(c.getConnection());
+	 
 	 
 	
 	
