@@ -3,7 +3,7 @@ package database.menu;
 import java.io.*;
 
 public class Menu {
-
+//
     public static void main(String[] args) {
         try {
 
@@ -136,7 +136,7 @@ public class Menu {
 //+++++++++++++++++++++++++++++++++++++++++ins transport++++++++++++++++++++++++++++++++++++				
                         case 2: //ins transporte
                             //AQUI HACE FALTA CONECTARLO CON UN METODO QUE COMPARE
-                            // SI ES UN TRANSPORTE O SI HAY QUE AÑADIRLO
+                            // SI ES UN TRANSPORTE O SI HAY QUE AÃ‘ADIRLO
 
                             break;
 
@@ -178,7 +178,7 @@ public class Menu {
                                     break;
                                 case 5: //insertas salario
                                     break;
-                                case 6: //insertas la actividad que enseña
+                                case 6: //insertas la actividad que enseÃ±a
                                     break;
 
                             }
