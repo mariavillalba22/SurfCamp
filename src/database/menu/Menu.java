@@ -1,4 +1,4 @@
-package database.menu;
+/*package database.menu;
 
 import java.io.*;
 
@@ -368,10 +368,9 @@ public class Menu {
 
                 }
 
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+	}catch(IOException ex)
+	{}
 
     }
 }
+*/
