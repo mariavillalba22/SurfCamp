@@ -30,7 +30,8 @@ public class Search {
 			String payment_method = rs.getString("payment_method");
 			Camper camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
 			System.out.println(camper);
-
 	}
 	}
+	
+	
 }
