@@ -173,6 +173,8 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 
 	 up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
 	 s.selectMaterial(c.getConnection());
+	 Search ser = new Search ();
+	 ser.SearchCamper(c.getConnection(), 1);
 	 
 	 
 	
