@@ -126,16 +126,13 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Instructor> ins= new ArrayList<Instructor>();
 	List <Camper> campers = new ArrayList<Camper>();
 	Transport t = new Transport("avion",500,null,null);
-	
+	in.insertTransport(c.getConnection(), t);
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
-    ins.add(inst);
 	
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 	campers.add(c1);
 	campers.add(c2);
-	
-	
 
 	Activity act=new Activity("natacion", 100,campers,null);
 	Activity b=new Activity("surf",200);
@@ -174,7 +171,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
 	 s.selectMaterial(c.getConnection());
 	 Search ser = new Search ();
-	 ser.SearchCamper(c.getConnection(), 1);
+	 ser.SearchCamper(c.getConnection(), "567483985g");
 	 
 	 
 	

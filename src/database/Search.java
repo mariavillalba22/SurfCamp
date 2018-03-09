@@ -16,15 +16,16 @@ import database.pojo.*;
 public class Search {
 	public Search() {}
  
-	public void SearchCamper(Connection c , int id) throws SQLException {
-		String sql = "SELECT * FROM camper WHERE id LIKE ?";
+	// he puesto NIF pq en el checklist pedia buscar por algo distinto al id
+	public void SearchCamper(Connection c , String NIF) throws SQLException {
+		String sql = "SELECT * FROM camper WHERE NIF LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
-		prep.setInt(1, id);
+		prep.setString(1, NIF);
 		ResultSet rs = prep.executeQuery();
 		while (rs.next()) {
+			Integer id = rs.getInt("id");
 			String name = rs.getString("name");
 			LocalDate dob = rs.getDate("dob").toLocalDate();
-			String NIF = rs.getString("NIF");
 			Integer phonenumber = rs.getInt("phone_number");
 			String email = rs.getString("email");
 			String payment_method = rs.getString("payment_method");
@@ -32,6 +33,8 @@ public class Search {
 			System.out.println(camper);
 	}
 	}
+	
+	
 	
 	
 }

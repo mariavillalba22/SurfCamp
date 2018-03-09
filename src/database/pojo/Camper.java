@@ -30,7 +30,7 @@ public class Camper implements Serializable{
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			/*,Transport transports, Accomodation accomodation,List<Material> materials,
+			/*,Transport transports,Accomodation accomodation,List<Material> materials,
 			List<Activity> activities*/) {
 		super();
 		this.name = name;
@@ -39,6 +39,7 @@ public class Camper implements Serializable{
 		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
+		this.transports=transports;
 		//i coment this to prove if the insert method works
 		//this.transports= transports;
 		//this.accomodation= accomodation;
@@ -46,6 +47,7 @@ public class Camper implements Serializable{
 		//this.activities=activities;
 		
 	}
+	
 	
 	public Camper( int id,String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
