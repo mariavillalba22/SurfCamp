@@ -39,8 +39,8 @@ public class Menu {
 					+ ""
 					+ "Option number: ");
 			
-			String readString = console.readLine();
-			int optionNumberView=Integer.parseInt(readString);
+			String readString2 = console.readLine();
+			int optionNumberView=Integer.parseInt(readString2);
 			
 			switch (optionNumberView) {
 			case 1 : //Mostrar campers
@@ -63,7 +63,7 @@ public class Menu {
 			
 		}break;
 		
-		case 2 : //INSERT
+		case 2 :{//INSERT
 			
 			System.out.println("WHERE WOULD YOU LIKE TO INSERT: "
 					+ "1) Campers"
@@ -75,8 +75,8 @@ public class Menu {
 					+ ""
 					+ "Option number: ");
 			
-			String readString = console.readLine();
-			int optionNumberInsert=Integer.parseInt(readString);
+			String readString3 = console.readLine();
+			int optionNumberInsert=Integer.parseInt(readString3);
 //********************************************************************************************			
 			switch (optionNumberInsert) {
 			case 1 : {//ins campers
@@ -95,10 +95,10 @@ public class Menu {
 						+ ""
 						+ "Option number: ");
 				
-				String readString = console.readLine();
-				int optionNumberInsert=Integer.parseInt(readString);
+				String readString4 = console.readLine();
+				int optionNumberInsert2=Integer.parseInt(readString4);
 				
-				switch (optionNumberInsert) {
+				switch (optionNumberInsert2) {
 				
 				case 1 : //ins name
 					break;
@@ -133,7 +133,7 @@ public class Menu {
 				} break;
 							
 				}break;
-				
+			}
 //**********************************************************************************************				
 
 			case 2 : //ins transporte
@@ -163,4 +163,4 @@ public class Menu {
 	}catch(IOException ex)
 	{}
 
-}}}
+}}
