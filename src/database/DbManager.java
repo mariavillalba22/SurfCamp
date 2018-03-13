@@ -116,6 +116,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Insertion in=new Insertion();
 	Update up = new Update();
 	Connect c=new Connect();
+	Delete del=new Delete();
 	c.connectiondb();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
@@ -126,7 +127,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Instructor> ins= new ArrayList<Instructor>();
 	List <Camper> campers = new ArrayList<Camper>();
 	Transport t = new Transport("avion",500,null,null);
-	in.insertTransport(c.getConnection(), t);
+
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
 	
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
@@ -153,13 +154,15 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertActivity(c.getConnection(), b);
 	in.insertAccomodation(c.getConnection(), ac);
 	in.insertAccomodation(c.getConnection(), bc);
-	in.insertInstructor(c.getConnection(), i);
+
 	in.insertCamper(c.getConnection(), c1);
 	in.insertTransport(c.getConnection(), t);
 	in.insertTransport(c.getConnection(), t2);
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
 	*/
+	
+	in.insertCamper(c.getConnection(), c2);
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
 	 s.selectInstructor(c.getConnection());
@@ -173,7 +176,9 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 Search ser = new Search ();
 	 ser.SearchCamper(c.getConnection(), "567483985g");
 	 
-	 
+	 //delete
+	 del.deleteCamperId(c.getConnection(), 1);
+	 s.selectCamper(c.getConnection());
 	
 	
 }
