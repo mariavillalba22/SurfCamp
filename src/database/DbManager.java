@@ -127,12 +127,8 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Instructor> ins= new ArrayList<Instructor>();
 	List <Camper> campers = new ArrayList<Camper>();
 	Transport t = new Transport("avion",500,null,null);
-<<<<<<< HEAD
 
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
-=======
-	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
@@ -151,21 +147,17 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Material m2=new Material(2,"board",200);
 	
 
-	
-
 	/*d.createTables(c.getConnection());
+
+	d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);
 	in.insertActivity(c.getConnection(), b);
 	in.insertAccomodation(c.getConnection(), ac);
 	in.insertAccomodation(c.getConnection(), bc);
-<<<<<<< HEAD
 
-=======
 	in.insertInstructor(c.getConnection(), inst);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	in.insertCamper(c.getConnection(), c1);
 	in.insertTransport(c.getConnection(), t);
-	
 	in.insertTransport(c.getConnection(), t2);
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
@@ -180,23 +172,19 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 s.selectAccomodation(c.getConnection());
 	 s.selectActivity(c.getConnection());
 	 
-	 
 	 up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
 	 s.selectMaterial(c.getConnection());
 	 Search ser = new Search ();
 	 ser.SearchCamper(c.getConnection(), "567483985g");
-<<<<<<< HEAD
 	 
 	 //delete
 	 del.deleteCamperId(c.getConnection(), 1);
 	 s.selectCamper(c.getConnection());
-=======
 	 ser.SearchInstructor(c.getConnection(), 1);
 	 ser.SearchActivity(c.getConnection(), 1);
 	 ser.SearchMaterial(c.getConnection(), 1);
 	 ser.SearchAccomodation(c.getConnection(), 1);
 	 ser.SearchTransport(c.getConnection(), 1);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
 }
