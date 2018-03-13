@@ -25,7 +25,17 @@ public class Update {
 		prep.executeUpdate();
 	}
 	
-	public void UpdateAccomodation (Connection c, int id, String name, int price , List<Camper> campers, List<Instructor> instructors) {
-		String sql = "UPDATE accomodation "
+	public void UpdateAccomodation (Connection c, int id, String name, int price ) throws SQLException {
+		String sql = "UPDATE accomodation SET name = ?,price =? WHERE id = ?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setString(1, name);
+		prep.setInt(2, id);
+		prep.setInt(3, id);
+		prep.executeUpdate();
+		
 	}
+	
+	
+	
+	
 }
