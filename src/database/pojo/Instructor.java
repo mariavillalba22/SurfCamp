@@ -10,7 +10,7 @@ public class Instructor implements Serializable {
 	private Integer phone_number;
 	private Date dob;
 	private String NIF;
-	private String nacionality;
+	private String nationality;
 	private Integer salary;
 	private Activity activity;
 	private Transport transport;
@@ -28,14 +28,14 @@ public class Instructor implements Serializable {
 		this.phone_number = phoneNumber;
 		this.SetDateBirth(dob);
 		this.NIF=NIF;
-		this.nacionality = nacionality;
+		this.nationality = nationality;
 		this.salary = salary;
 		this.activity = activity;
 		this.transport = transport;
 	}
 	
 
-	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String NIF,String nacionality,
+	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String NIF,String nationality,
 			Integer salary) {
 		super();
 		this.id=id;
@@ -43,11 +43,21 @@ public class Instructor implements Serializable {
 		this.phone_number = phoneNumber;
 		this.NIF=NIF;
 		this.SetDateBirth(dob);
-		this.nacionality = nacionality;
+		this.nationality = nationality;
 		this.salary = salary;
 		
 	}
-	
+	public Instructor(String name, Integer phoneNumber, LocalDate dob, String NIF,String nationality,
+			Integer salary) {
+		super();
+		this.name = name;
+		this.phone_number = phoneNumber;
+		this.NIF=NIF;
+		this.SetDateBirth(dob);
+		this.nationality = nationality;
+		this.salary = salary;
+		
+	}
 	
 
 	
@@ -55,7 +65,7 @@ public class Instructor implements Serializable {
 		return "El monitor es: "+name+". "+
         "Telephone number: "+phone_number+ ". "+
 				"Date of birth: "+dob+". "+
-        "Nacionality: "+nacionality+". "+
+        "Nacionality: "+nationality+". "+
 				"Salary: "+salary+". "+
          "Activity ID: "+activity+
         "Transport "+transport;
@@ -101,12 +111,12 @@ public class Instructor implements Serializable {
 		this.dob= Date.valueOf(d);
 	}
 
-	public String getNacionality() {
-		return nacionality;
+	public String getNationality() {
+		return nationality;
 	}
 
-	public void setNacionality(String nacionality) {
-		this.nacionality = nacionality;
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
 	public Integer getSalary() {
