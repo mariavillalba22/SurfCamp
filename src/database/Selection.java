@@ -6,16 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.*;
-import database.*;
+import database.pojo.*;
 
-import database.pojo.Camper;
-import database.pojo.Instructor;
 
 public class Selection {
 
 	public Selection (){
 		
 	}
+	
 	public void selectCamper (Connection c ) throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM camper";
@@ -51,6 +50,71 @@ public class Selection {
 			System.out.println(instructor);
 			//estamos print el tranport , necesitamos o no printearlo o ponerle null.
 		}
+		rs.close();
+		stmt.close();
+		
 	}
+	
+	public void selectMaterial (Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM material";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Material mat = new Material (id,name,price);
+			System.out.println(mat);
+			
+		}
+		rs.close();
+		stmt.close();
+	}
+	public void selectTransport(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM transport";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Transport trans = new Transport (id,name,price);
+			System.out.println(trans);
+		}
+		rs.close();
+		stmt.close();
+	}
+	
+	public void selectAccomodation(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM accomodation";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Accomodation accomodation = new Accomodation (id,name,price);
+			System.out.println(accomodation);
+		}
+		rs.close();
+		stmt.close();
+	}
+	
+	public void selectActivity(Connection c)throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT * FROM activity";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Activity activity = new Activity (id,name,price);
+			System.out.println(activity);
+		}
+		rs.close();
+		stmt.close();
+	}
+	
+	
 	
 }

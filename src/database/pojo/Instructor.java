@@ -7,13 +7,14 @@ import java.util.*;
 public class Instructor implements Serializable {
 	private Integer id;
 	private String name;
-	private Integer phoneNumber;
+	private Integer phone_number;
 	private Date dob;
 	private String NIF;
 	private String nacionality;
 	private Integer salary;
 	private Activity activity;
 	private Transport transport;
+	private Instructor instructor;
 	
 	public Instructor() {
 		super();
@@ -24,7 +25,7 @@ public class Instructor implements Serializable {
 		super();
 		
 		this.name = name;
-		this.phoneNumber = phoneNumber;
+		this.phone_number = phoneNumber;
 		this.SetDateBirth(dob);
 		this.NIF=NIF;
 		this.nacionality = nacionality;
@@ -39,7 +40,7 @@ public class Instructor implements Serializable {
 		super();
 		this.id=id;
 		this.name = name;
-		this.phoneNumber = phoneNumber;
+		this.phone_number = phoneNumber;
 		this.NIF=NIF;
 		this.SetDateBirth(dob);
 		this.nacionality = nacionality;
@@ -52,14 +53,16 @@ public class Instructor implements Serializable {
 	
 	public String toString() {
 		return "El monitor es: "+name+". "+
-        "Telephone number: "+phoneNumber+ ". "+
+        "Telephone number: "+phone_number+ ". "+
 				"Date of birth: "+dob+". "+
         "Nacionality: "+nacionality+". "+
 				"Salary: "+salary+". "+
-        "Activity ID: "+activity+
-        "Transport "+transport.getType_transport();
-        
+         "Activity ID: "+activity+
+        "Transport "+transport;
 	}
+	
+	// nos imprime continuamente NULL en activity y en transport
+	
 	
 
 	public String getName() {
@@ -79,11 +82,11 @@ public class Instructor implements Serializable {
 	}
 
 	public Integer getPhoneNumber() {
-		return phoneNumber;
+		return phone_number;
 	}
 
 	public void setPhoneNumber(Integer phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		this.phone_number = phoneNumber;
 	}
 
 	public Date getDob() {
