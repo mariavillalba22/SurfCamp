@@ -122,73 +122,71 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 
 
 	Activity a = new Activity ("natacion",300,null,null);
-	Activity a2 = new Activity(3, "patinaje", 400,null,null);
+	//Activity a2 = new Activity(3, "patinaje", 400,null,null);
 
 
 
 	Accomodation ac= new Accomodation(1,"hotel",300);
 	List <Instructor> ins= new ArrayList<Instructor>();
-	Transport t = new Transport("avion",ins,null,null);
-	System.out.println(t);
-	Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
+	//Transport t = new Transport("avion",ins);
+	//System.out.println(t);
+	//Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
 
-	System.out.println(t);
-	ins.add(i);
+	//System.out.println(t);
+	//ins.add(i);
 	Material m = new Material(1,"tabla",400);
 	List<Material> mat = new ArrayList<Material>();
 	mat.add(m);
 	List<Activity> act = new ArrayList<Activity>();
 	act.add(a);
-	act.add(a2);
+	//act.add(a2);
 	System.out.println(m);
-	Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,mat,act);
-	a.addCamper(c);
+	//Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,mat,act);
+	//a.addCamper(c);
 	System.out.println(c);
-	System.out.println(i);
-	a.removeCamper(c);
+	//a.removeCamper(c);
 	Material l = new Material("paddletabla",700);
-	c.addMaterial(l);
+	//c.addMaterial(l);
 	System.out.println(c);
-	System.out.println(i);
+	//System.out.println(i);
 
 
-	Activity a=new Activity("natacion", 100);
+	//Activity a=new Activity("natacion", 100);
 	Activity b=new Activity("surf",200);
 
-	Accomodation ac= new Accomodation("hotel",300);
+	//Accomodation ac= new Accomodation("hotel",300);
 
 	Accomodation bc= new Accomodation("Camping",100);
 	Transport t =new Transport("plane",200);
 	Transport t2 = new Transport("train",100);
-	Instructor i=new Instructor("maria",656765456,january1st2014,"american",500);
-	Material m=new Material("row",100);
+	//Instructor i=new Instructor("maria",656765456,january1st2014,"american",500);
+	//Material m=new Material("row",100);
 	Material m2=new Material("board",200);
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 
 
 
-	List <Instructor> ins= new ArrayList<Instructor>();
+	//List <Instructor> ins= new ArrayList<Instructor>();
 	List <Camper> campers = new ArrayList<Camper>();
-	Transport t = new Transport("avion",500,null,null);
+	//Transport t = new Transport("avion",500,null,null);
 	in.insertTransport(c.getConnection(), t);
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500,a,t);
 
 	
-	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
+	//Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
 	campers.add(c1);
 	campers.add(c2);
 
-	Activity act=new Activity("natacion", 100,campers,null);
-	Activity b=new Activity("surf",200);
-	Accomodation bc= new Accomodation("Camping",100,campers,ins);
+	//Activity act=new Activity("natacion", 100,campers,null);
+	//Activity b=new Activity("surf",200);
+	//Accomodation bc= new Accomodation("Camping",100,campers,ins);
 	Transport tr =new Transport("plane",200,campers,ins);
 	System.out.println(tr);
-	Transport t2 = new Transport("train",100);
+	//Transport t2 = new Transport("train",100);
 
 
-	Material m=new Material(1,"row",100);
-	Material m2=new Material(2,"board",200);
+	//	Material m2=new Material(2,"board",200);
 	
 
 	/*d.createTables(c.getConnection());
@@ -211,20 +209,20 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	*/
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
-	 s.selectInstructor(c.getConnection());
-	 s.selectMaterial(c.getConnection());
-	 s.selectTransport(c.getConnection());
-	 s.selectAccomodation(c.getConnection());
-	 s.selectActivity(c.getConnection());
+	 //s.selectInstructor(c.getConnection());
+	// s.selectMaterial(c.getConnection());
+	 //s.selectTransport(c.getConnection());
+	 //s.selectAccomodation(c.getConnection());
+	 //s.selectActivity(c.getConnection());
 	 
-	 up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
-	 s.selectMaterial(c.getConnection());
-	 Search ser = new Search ();
-	 ser.SearchCamper(c.getConnection(), "567483985g");
-	 
-	 
-	
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+	 //up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
+	// s.selectMaterial(c.getConnection());
+	// Search ser = new Search ();
+	 //ser.SearchCamper(c.getConnection(), "567483985g");
+      Instructor ins2 = new Instructor(60,"jdnid", 7584, january1st2014,"63763"," ksj", 7656 );
+	  up.UpdateInstructor(c.getConnection(), ins2);
+	  s.selectInstructor(c.getConnection());
+
 	
 }
 

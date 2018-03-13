@@ -35,12 +35,12 @@ public class Material implements Serializable{
 		this.id = id;
 	}
 
-	public String getMaterial() {
+	public String getName() {
 		return name;
 	}
 
-	public void setMaterial(String material) {
-		this.name = material;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getPrice() {

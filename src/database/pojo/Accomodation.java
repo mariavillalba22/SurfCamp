@@ -63,11 +63,11 @@ public class Accomodation {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getAccomodation() {
+	public String getName() {
 		return name;
 	}
-	public void setAccomodation(String accomodation) {
-		this.name = accomodation;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public List<Instructor> getInstructors() {
 		return instructors;

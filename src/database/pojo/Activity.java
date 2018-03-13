@@ -90,12 +90,12 @@ public class Activity  implements Serializable {
 		this.id = id;
 	}
 
-	public String getActivity() {
+	public String getName() {
 		return name;
 	}
 
-	public void setActivity(String activity) {
-		this.name = activity;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getPrice() {
