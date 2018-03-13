@@ -29,7 +29,7 @@ public class Update {
 		String sql = "UPDATE accomodation SET name = ?,price =? WHERE id = ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setString(1, name);
-		prep.setInt(2, id);
+		prep.setInt(2, price);
 		prep.setInt(3, id);
 		prep.executeUpdate();
 		

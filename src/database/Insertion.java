@@ -87,7 +87,7 @@ public class Insertion {
 		sql.setInt(2, instructor.getPhoneNumber());
 		sql.setDate(3, instructor.getDob());
 		sql.setString(4, instructor.getNIF());
-		sql.setString(5, instructor.getNacionality());
+		sql.setString(5, instructor.getNationality());
 		sql.setInt(6, instructor.getSalary());
 		
 		sql.executeUpdate();
