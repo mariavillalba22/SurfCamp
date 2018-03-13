@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Transport implements Serializable{
 	private Integer id;
-	private String type_transport;
+	private String name;
 	private Integer price;
 	private List<Camper> campers;
 	private List<Instructor> instructors;
@@ -18,16 +18,22 @@ public class Transport implements Serializable{
 	
 	public Transport (String type_transport, Integer price) {
 		super();
-	
-		this.type_transport = type_transport;
+		this.name = type_transport;
 		this.price=price;
-		
 	}
 
-	public Transport ( String type_transport, List<Camper>campers, List <Instructor>instructors) {
+	public Transport (Integer id ,String type_transport, Integer price) {
 		super();
 		this.id= id;
-		this.type_transport = type_transport;
+		this.name = type_transport;
+		this.price=price;
+	}
+	
+	public Transport ( String type_transport,Integer price, List<Camper>campers, List <Instructor>instructors) {
+		super();
+		this.id= id;
+		this.price = price;
+		this.name = type_transport;
 		if (campers != null)
 			this.campers= campers;
 		else
@@ -56,11 +62,11 @@ public class Transport implements Serializable{
 	}
 
 	public String getType_transport() {
-		return type_transport;
+		return name;
 	}
 
 	public void setType_transport(String type_transport) {
-		this.type_transport = type_transport;
+		this.name = type_transport;
 	}
 
 	public List<Camper> getCampers() {
@@ -74,10 +80,13 @@ public class Transport implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Transport [id=" + id + ", type_transport=" + type_transport + ", price=" + price + ", campers="
-				+ campers + ", instructors=" + instructors + "]";
+		return "Transport [id=" + id + ", type_transport=" + name + ", price=" + price + ", campers="
+				+campers + ", instructors=" + instructors + "]";
 	}
-
+	//problemas a la hora de imprimir las listas en el select
+	
+    
+	
 	public List<Instructor> getInstructors() {
 		return instructors;
 	}

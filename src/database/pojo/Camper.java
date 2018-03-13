@@ -9,9 +9,9 @@ import java.util.List;
 public class Camper implements Serializable{
 	private Integer id;
 	private String name;
-	private Date dateofbirth;
+	private Date dob;
 	private String NIF;
-	private Integer phonenumber;
+	private Integer phone_number;
 	private String email;
 	private String payment_method;
 	private Transport transports;
@@ -24,8 +24,6 @@ public class Camper implements Serializable{
 	private List<Activity> activities;
 	
 	
-	
-	
 	public Camper() {
 		super();
 		this.materials = new ArrayList<Material>();
@@ -34,13 +32,35 @@ public class Camper implements Serializable{
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			/*,Transport transports, Accomodation accomodation,List<Material> materials,
+			/*,Transport transports,Accomodation accomodation,List<Material> materials,
 			List<Activity> activities*/) {
 		super();
 		this.name = name;
 		this.SetDateBirth(dateofbirth);
 		this.NIF = NIF;
-		this.phonenumber= phonenumber;
+		this.phone_number= phonenumber;
+		this.email= email;
+		this.payment_method= payment_method;
+		this.transports=transports;
+		//i coment this to prove if the insert method works
+		//this.transports= transports;
+		//this.accomodation= accomodation;
+		//this.materials = materials;
+		//this.activities=activities;
+		
+	}
+	
+	
+	public Camper( int id,String name, LocalDate dateofbirth, String NIF
+			, Integer phonenumber, String email, String payment_method
+			/*,Transport transports, Accomodation accomodation,List<Material> materials,
+			List<Activity> activities*/) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.SetDateBirth(dateofbirth);
+		this.NIF = NIF;
+		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
 		//i coment this to prove if the insert method works
@@ -100,10 +120,10 @@ public class Camper implements Serializable{
 		this.name = name;
 	}
 	public Date getDateofbirth() {
-		return dateofbirth;
+		return dob;
 	}
 	public void setDateofbirth(Date dateofbirth) {
-		this.dateofbirth = dateofbirth;
+		this.dob = dateofbirth;
 	}
 	public String getNIF() {
 		return NIF;
@@ -112,10 +132,10 @@ public class Camper implements Serializable{
 		NIF = nIF;
 	}
 	public Integer getPhonenumber() {
-		return phonenumber;
+		return phone_number;
 	}
 	public void setPhonenumber(Integer phonenumber) {
-		this.phonenumber = phonenumber;
+		this.phone_number = phonenumber;
 	}
 	public String getEmail() {
 		return email;
@@ -136,7 +156,7 @@ public class Camper implements Serializable{
 		this.transports = transports;
 	}
 	public void SetDateBirth(LocalDate d) {
-		this.dateofbirth= Date.valueOf(d);
+		this.dob= Date.valueOf(d);
 	}
 	public Accomodation getAccomodation() {
 		return accomodation;
@@ -173,7 +193,7 @@ public class Camper implements Serializable{
 	
 	
 	public String toString() {
-		return "Camper [id = "+id+", name = "+name+" , date of birth "+dateofbirth+" , NIF = "+NIF+" , phone number = "+phonenumber+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
+		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
 	}
 	
 	
