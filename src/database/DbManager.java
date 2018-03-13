@@ -162,7 +162,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertMaterial(c.getConnection(), m2);
 	*/
 	
-	in.insertCamper(c.getConnection(), c2);
+	//in.insertCamper(c.getConnection(), c2);
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
 	 s.selectInstructor(c.getConnection());
