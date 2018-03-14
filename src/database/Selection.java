@@ -27,7 +27,9 @@ public class Selection {
 			int phonenumber=rs.getInt("phone_number");
 			String email=rs.getString("email");
 			String payment_method=rs.getString("payment_method");
-			Camper camper = new Camper (id,name,dob,NIF,phonenumber,email,payment_method);
+			int transport_id = rs.getInt("transport_id");
+			int accomodation_id = rs.getInt("accomodation_id");
+			Camper camper = new Camper (id,name,dob,NIF,phonenumber,email,payment_method,transport_id,accomodation_id);
 			System.out.println(camper);
 		}
 		rs.close();

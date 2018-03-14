@@ -39,6 +39,28 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
+	
+	public void insertCamperTodo (Connection c,Camper camper ) throws SQLException{
+		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id)"+/*"transports"
+				+ "accomodation,materials,activity) "*/
+				 "VALUES (?,?,?,?,?,?,?,?);";
+		PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setString(1, camper.getName());
+		sql.setDate(2, camper.getDateofbirth());
+		sql.setString(3, camper.getNIF());
+		sql.setInt(4, camper.getPhonenumber());
+		sql.setString(5, camper.getEmail());
+		sql.setString(6, camper.getPayment_method());
+		sql.setInt(7, camper.getTransport_id());
+		sql.setInt(8, camper.getAccomodation_id());
+		/*sql.setInt(7, getAccomodation(camper.getId());
+		sql.setTransport(8, camper.getTransports());
+		sql.setMaterial(9, camper.getMaterials());
+		sql.setActivity(10, camper.getActivity);*/
+		
+		sql.executeUpdate();
+		sql.close();
+	}
 	public void insertAccomodation (Connection c,Accomodation accomodation ) throws SQLException{
 		String sql2 = "INSERT INTO accomodation (name, price)"+
 				"VALUES (?,?);";

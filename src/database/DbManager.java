@@ -165,8 +165,8 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertTransport(c.getConnection(), t2);
 	in.insertMaterial(c.getConnection(), m);
 	in.insertMaterial(c.getConnection(), m2);
-	
 	*/
+	
 	//in.insertCamper(c.getConnection(), c2);
 	 Selection s = new Selection();
 	 s.selectCamper(c.getConnection());
@@ -192,7 +192,12 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 ser.SearchMaterial(c.getConnection(), 1);
 	 ser.SearchAccomodation(c.getConnection(), 1);
 	 ser.SearchTransport(c.getConnection(), 1);
-
+	 
+     Camper camper = new Camper(2, "nacho",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",2,1);
+     System.out.println(camper.getTransport_id());
+     ser.SearchTransport(c.getConnection(), 2);
+     in.insertCamperTodo(c.getConnection(), camper);
+	 s.selectCamper(c.getConnection());
 	
 	
 }

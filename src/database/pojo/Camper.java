@@ -15,6 +15,10 @@ public class Camper implements Serializable{
 	private String email;
 	private String payment_method;
 	private Transport transports;
+	private Integer transport_id;
+	private Integer accomodation_id;
+	
+
 	private Accomodation accomodation;
 	private  List<Material> materials;
 
@@ -43,6 +47,25 @@ public class Camper implements Serializable{
 		//i coment this to prove if the insert method works
 		//this.transports= transports;
 		//this.accomodation= accomodation;
+		//this.materials = materials;
+		//this.activities=activities;
+		
+	}
+	
+	public  Camper( int id,String name, LocalDate dateofbirth, String NIF
+			, Integer phonenumber, String email, String payment_method,Integer transport_id, 
+			Integer accomodation_id
+			/*,List<Material> materials,
+			List<Activity> activities*/) {
+		super();
+		this.name = name;
+		this.SetDateBirth(dateofbirth);
+		this.NIF = NIF;
+		this.phone_number= phonenumber;
+		this.email= email;
+		this.payment_method= payment_method;
+		this.transport_id=transport_id;
+		this.accomodation_id = accomodation_id;
 		//this.materials = materials;
 		//this.activities=activities;
 		
@@ -110,6 +133,12 @@ public class Camper implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public Integer getAccomodation_id() {
+		return accomodation_id;
+	}
+	public void setAccomodation_id(Integer accomodation_id) {
+		this.accomodation_id = accomodation_id;
+	}
 	
 	public String getName() {
 		return name;
@@ -128,6 +157,12 @@ public class Camper implements Serializable{
 	}
 	public void setNIF(String nIF) {
 		NIF = nIF;
+	}
+	public Integer getTransport_id() {
+		return transport_id;
+	}
+	public void setTransport_id(Integer transport_id) {
+		this.transport_id = transport_id;
 	}
 	public Integer getPhonenumber() {
 		return phone_number;
@@ -171,7 +206,7 @@ public class Camper implements Serializable{
 	}
 	
 	public String toString() {
-		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
+		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transport_id+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
 	}
 	
 	
