@@ -158,6 +158,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertAccomodation(c.getConnection(), bc);
 
 
+	in.insertInstructor(c.getConnection(), inst);
 	in.insertCamper(c.getConnection(), c1);
 	in.insertTransport(c.getConnection(), t);
 	
