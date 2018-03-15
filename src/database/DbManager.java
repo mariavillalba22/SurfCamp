@@ -128,10 +128,9 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	List <Camper> campers = new ArrayList<Camper>();
 	Transport t = new Transport("avion",500,null,null);
 
+	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
 
 	
-
-	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
 
 	
 	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
@@ -161,7 +160,10 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 
 
 
+
 	in.insertInstructor(c.getConnection(), inst);
+
+
 
 	in.insertCamper(c.getConnection(), c1);
 	in.insertTransport(c.getConnection(), t);
@@ -188,6 +190,7 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 
 	 
 	 //delete
+
 	 //del.deleteCamperId(c.getConnection(), 1);
 	 //s.selectCamper(c.getConnection());
 
@@ -196,6 +199,22 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	 //ser.SearchMaterial(c.getConnection(), 1);
 	 //ser.SearchAccomodation(c.getConnection(), 1);
 	 //ser.SearchTransport(c.getConnection(), 1);
+
+
+	 del.deleteCamperId(c.getConnection(), 1);
+	 s.selectCamper(c.getConnection());
+
+	 ser.SearchInstructor(c.getConnection(), 1);
+	 ser.SearchActivity(c.getConnection(), 1);
+	 ser.SearchMaterial(c.getConnection(), 1);
+	 ser.SearchAccomodation(c.getConnection(), 1);
+	 ser.SearchTransport(c.getConnection(), 1);
+	 
+     Camper camper = new Camper(2, "nacho",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",2,1);
+     System.out.println(camper.getTransport_id());
+     ser.SearchTransport(c.getConnection(), 2);
+     in.insertCamperTodo(c.getConnection(), camper);
+	 s.selectCamper(c.getConnection());
 
 	
 	
