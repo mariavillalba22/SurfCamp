@@ -17,7 +17,7 @@ public class Search {
 	public Search() {}
  
 	// he puesto NIF pq en el checklist pedia buscar por algo distinto al id
-	public void SearchCamper(Connection c , String NIF) throws SQLException {
+	public Camper SearchCamper(Connection c , String NIF) throws SQLException {
 		String sql = "SELECT * FROM camper WHERE NIF LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setString(1, NIF);
@@ -31,7 +31,9 @@ public class Search {
 			String payment_method = rs.getString("payment_method");
 			Camper camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
 			System.out.println(camper);
+			return camper;
 	}
+		return null;
 	}
 	
 	public void SearchInstructor(Connection c , Integer id) throws SQLException {

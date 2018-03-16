@@ -1,6 +1,7 @@
 package database;
 import database.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,15 +28,23 @@ public class Selection {
 			int phonenumber=rs.getInt("phone_number");
 			String email=rs.getString("email");
 			String payment_method=rs.getString("payment_method");
-			int transport_id = rs.getInt("transport_id");
-			int accomodation_id = rs.getInt("accomodation_id");
-			Camper camper = new Camper (id,name,dob,NIF,phonenumber,email,payment_method,transport_id,accomodation_id);
+			Camper camper = new Camper (id,name,dob,NIF,phonenumber,email,payment_method);
 			System.out.println(camper);
 		}
 		rs.close();
 		stmt.close();
 
 	}
+	public void selectTnsC(Connection c, Camper camper)throws SQLException{
+		String sql="SELECT transport_id FROM camper WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int transport_id=rs.getInt("transport_id");
+		System.out.println(transport_id);
+	}
+	
 	public void selectInstructor(Connection c) throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM instructor";
