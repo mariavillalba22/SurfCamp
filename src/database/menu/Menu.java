@@ -368,9 +368,10 @@ public class Menu {
 
                 }
 
-	}catch(IOException ex)
+            }catch(IOException ex)
 	{}
 
+        }
     }
 }
 

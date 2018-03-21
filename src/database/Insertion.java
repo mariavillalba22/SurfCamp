@@ -40,6 +40,7 @@ public class Insertion {
 		sql.close();
 	}
 	
+
 	
 	
 	public void insertCamper_material(Connection c, Camper camper, Material material)throws SQLException{
@@ -53,6 +54,7 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
+	
 	public void insertCamper_activity(Connection c, Camper camper, Activity activity)throws SQLException{
 		String sql10="INSERT INTO camper_activity(id_camper, id_activity"+ 
 					"VALUES(?,?);";
@@ -71,7 +73,6 @@ public class Insertion {
 		PreparedStatement sql = c.prepareStatement(sql11);
 		sql.setInt(1,material.getId());
 		sql.setInt(2, activity.getId());
-	
 		sql.executeUpdate();
 		sql.close();
 	}
