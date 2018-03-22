@@ -14,9 +14,7 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-
 	private Transport transport;
-
 	private Accomodation accomodation;
 	private  List<Material> materials;
 
@@ -32,8 +30,8 @@ public class Camper implements Serializable{
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			,Transport transport/*Accomodation accomodation,List<Material> materials,
-			List<Activity> activities*/) {
+			,Transport transport,Accomodation accomodation, List<Material> material,
+			List<Activity> activities) {
 		super();
 		this.name = name;
 		this.SetDateBirth(dateofbirth);
@@ -42,12 +40,10 @@ public class Camper implements Serializable{
 		this.email= email;
 		this.payment_method= payment_method;
 		this.transport=transport;
-		//this.transports=transports;
-		//i coment this to prove if the insert method works
-		//this.transports= transports;
-		//this.accomodation= accomodation;
-		//this.materials = materials;
-		//this.activities=activities;
+		this.accomodation = accomodation;
+		this.materials = materials;
+		this.activities = activities;
+		
 		
 	}
 	
@@ -55,9 +51,7 @@ public class Camper implements Serializable{
 	
 	
 	public Camper( int id,String name, LocalDate dateofbirth, String NIF
-			, Integer phonenumber, String email, String payment_method
-			/*,Transport transports, Accomodation accomodation,List<Material> materials,
-			List<Activity> activities*/) {
+			, Integer phonenumber, String email, String payment_method) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -66,11 +60,6 @@ public class Camper implements Serializable{
 		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
-		//i coment this to prove if the insert method works
-		//this.transports= transports;
-		//this.accomodation= accomodation;
-		//this.materials = materials;
-		//this.activities=activities;
 		
 	}
 	

@@ -42,8 +42,8 @@ public void createTables(Connection c) {
 				+"	email TEXT NOT NULL,"
 				+"	payment_method TEXT, "
 				+"	transport_id INTEGER REFERENCES transport(id), "
-				+"	accomodation_id INTEGER REFERENCES accomodation(id),"
-				+"	activity_id INTEGER REFERENCES activity(id)),";
+				+"	accomodation_id INTEGER REFERENCES accomodation(id))";
+				
 		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
@@ -73,9 +73,9 @@ public void createTables(Connection c) {
 		
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 
-			    + "	name TEXT NOT NULL,"
+			    + "name TEXT NOT NULL,"
 			    
 			    + "price INTEGER )";
 		stmt6.executeUpdate(transport);
@@ -83,7 +83,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt7 = c.createStatement();
 		String camper_material = "CREATE TABLE camper_material"
-				+"( id_camper INTEGER NOT NULL REFERENCES campers(id),"
+				+"(id_camper INTEGER NOT NULL REFERENCES camper(id),"
 				+ "id_material INTEGER REFERENCES material(id),"
 			    + "	PRIMARY KEY (id_camper,id_material))";
 		stmt7.executeUpdate(camper_material);
@@ -92,7 +92,7 @@ public void createTables(Connection c) {
 		Statement stmt8 = c.createStatement();
 		String camper_activity = "CREATE TABLE camper_activity"
 				+"( id_camper INTEGER NOT NULL REFERENCES camper(id),"
-			    + "	id_activity INTEGER REFERENCES activities(id),"
+			    + "	id_activity INTEGER REFERENCES activity(id),"
 			    + "PRIMARY KEY (id_camper,id_activity))";
 		stmt8.executeUpdate(camper_activity);
 		stmt8.close();
@@ -100,7 +100,7 @@ public void createTables(Connection c) {
 		Statement stmt9 = c.createStatement();
 		String material_activity = "CREATE TABLE material_activity"
 				+"( id_material INTEGER NOT NULL REFERENCES material(id),"
-			    + "	id_activity INTEGER REFERENCES activities(id),"
+			    + "	id_activity INTEGER REFERENCES activity(id),"
 			    + "PRIMARY KEY (id_material,id_activity))";
 		stmt9.executeUpdate(material_activity);
 		stmt9.close();
@@ -116,59 +116,60 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Update up = new Update();
 	Connect c=new Connect();
 	Delete del=new Delete();
+	Selection sel = new Selection();
+	Search ser = new Search();
 	c.connectiondb();
+	List<Material> mat = new ArrayList();
+	List<Activity> activ = new ArrayList();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
 
 	Activity a = new Activity ("natacion",300,null,null);
 	Activity a2 = new Activity( "patinaje", 400,null,null);
+	activ.add(a);
 	
 	Accomodation ac= new Accomodation("hotel",300);
+	Accomodation ac2 = new Accomodation("camping",800);
 	
-	Transport t = new Transport("avion",500,null,null);
+	Transport t = new Transport("plane",600);
 	Transport t2 = new Transport("train",100);
 	
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
+	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
 
 	
-	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2);
-	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2);
-	
-
 	Material m=new Material(1,"row",100);
 	Material m2=new Material(2,"board",200);
+    mat.add(m);
 	
-
-	
-
-/*
 	d.createTables(c.getConnection());
-
-	/*d.createTables(c.getConnection());
-
 	in.insertActivity(c.getConnection(), a);
-	in.insertActivity(c.getConnection(), b);
+	in.insertActivity(c.getConnection(), a2);
 	in.insertAccomodation(c.getConnection(), ac);
-	in.insertAccomodation(c.getConnection(), bc);
-
-
-
+	in.insertAccomodation(c.getConnection(), ac2);
+    in.insertTransport(c.getConnection(), t2);
+    in.insertTransport(c.getConnection(), t);
 	in.insertInstructor(c.getConnection(), inst);
+	in.insertInstructor(c.getConnection(), inst2);
+	
 
+	m = in.insertMaterial(c.getConnection(), m);
+	m2 = in.insertMaterial(c.getConnection(), m2);
+	
+    Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
+   	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
+   	
+	c1 = in.insertCamper(c.getConnection(), c1);
+	c2 = in.insertCamper(c.getConnection(), c2);
+	
+	
+	in.insertCamper_material(c.getConnection(), c1, m);
+	in.insertCamper_material(c.getConnection(), c2, m2);
+	in.insertCamper_activity(c.getConnection(), c1, a);
+	in.insertCamper_activity(c.getConnection(), c2, a2);
+	in.insertMaterial_activity(c.getConnection(), m, a);
+	
 
-
-	in.insertCamper(c.getConnection(), c1);
-	in.insertTransport(c.getConnection(), t);
-	
-	in.insertTransport(c.getConnection(), t2);
-	in.insertMaterial(c.getConnection(), m);
-	in.insertMaterial(c.getConnection(), m2);
-	
-	
-	in.insertCamper(c.getConnection(), c2);
-	*/
-	
-	
 	
 }
 
