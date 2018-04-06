@@ -1,5 +1,7 @@
 package database;
 import database.*;
+
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,15 +37,7 @@ public class Selection {
 		stmt.close();
 
 	}
-	public void selectTnsC(Connection c, Camper camper)throws SQLException{
-		String sql="SELECT transport_id FROM camper WHERE id=?";
-		PreparedStatement prep = c.prepareStatement(sql);
-		prep.setInt(1, camper.getId());
-		ResultSet rs=prep.executeQuery();
-		rs.next();
-		int transport_id=rs.getInt("transport_id");
-		System.out.println(transport_id);
-	}
+	
 	
 	public void selectInstructor(Connection c) throws SQLException{
 		Statement stmt = c.createStatement();
@@ -126,6 +120,28 @@ public class Selection {
 		stmt.close();
 	}
 	
+	public void selectTnsC(Connection c, Camper camper)throws SQLException{
+		String sql="SELECT transport_id FROM camper WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int transport_id=rs.getInt("transport_id");
+		System.out.println(transport_id);
+	}
+	
+	public ArrayList<Integer> selectMaterialC(Connection c, Camper camper)throws SQLException{
+		String sql="SELECT id_material FROM camper_material WHERE id_camper=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		ArrayList<Integer> material = new ArrayList();
+		while(rs.next()) {
+		int material_id=rs.getInt("id_material");
+		material.add(material_id);
+		}
+		return material;
+	}
 	
 	
 }

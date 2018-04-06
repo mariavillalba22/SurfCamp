@@ -168,8 +168,7 @@ public class Camper implements Serializable{
 	
 	public String toString() {
 		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+"]";
-	//return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transport_id+", type of accomodation = "+accomodation_id+", type of materials = "+materials+", type of activities"+activities+"]";
-
+	
 	}
 	
 	//the material ,accomododarion, activity,transport dont need to be printed.

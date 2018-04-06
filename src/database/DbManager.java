@@ -141,8 +141,9 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	Material m=new Material(1,"row",100);
 	Material m2=new Material(2,"board",200);
     mat.add(m);
+    mat.add(m2);
 	
-	d.createTables(c.getConnection());
+	//d.createTables(c.getConnection());
 	in.insertActivity(c.getConnection(), a);
 	in.insertActivity(c.getConnection(), a2);
 	in.insertAccomodation(c.getConnection(), ac);
@@ -163,11 +164,13 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	c2 = in.insertCamper(c.getConnection(), c2);
 	
 	
-	in.insertCamper_material(c.getConnection(), c1, m);
+	/*in.insertCamper_material(c.getConnection(), c1, m);
 	in.insertCamper_material(c.getConnection(), c2, m2);
 	in.insertCamper_activity(c.getConnection(), c1, a);
 	in.insertCamper_activity(c.getConnection(), c2, a2);
-	in.insertMaterial_activity(c.getConnection(), m, a);
+	in.insertMaterial_activity(c.getConnection(), m, a);*/
+	sel.selectTnsC(c.getConnection(), c1);
+	ArrayList<Integer> lis = sel.selectMaterialC(c.getConnection(), c1);
 	
 
 	
