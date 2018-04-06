@@ -4,7 +4,25 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "instructor")
+
 public class Instructor implements Serializable {
+	
+private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="instructor")
+	@TableGenerator(name="instructor", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
+	
 	private Integer id;
 	private String name;
 	private Integer phone_number;
@@ -12,9 +30,12 @@ public class Instructor implements Serializable {
 	private String NIF;
 	private String nationality;
 	private Integer salary;
+	
+	@OneToMany(mappedBy="instructor")
 	private Activity activity;
+	@OneToMany(mappedBy="instructor")
 	private Transport transport;
-	private Instructor instructor;
+	//accomodation???
 	
 	public Instructor() {
 		super();

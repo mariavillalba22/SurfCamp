@@ -6,7 +6,19 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="camper")
+
 public class Camper implements Serializable{
+	private static final long serialVersionUID = -4281575077333973070L;
+	@Id
+	@GeneratedValue(generator="camper")
+	@TableGenerator(name = "camper", table = "sqlite_sequence",
+	pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "camper")
+	
 	private Integer id;
 	private String name;
 	private Date dob;
@@ -14,18 +26,30 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
+	@Basic(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transport_id")
 	private Transport transport;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accomodation_id")
 	private Accomodation accomodation;
-	private  List<Material> materials;
+	@ManyToMany
+	@JoinTable(name="material",
+		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
+	private  List<Material> material;
 
-	private Activity activity;
-	private List<Activity> activities;
+	@ManyToMany
+	@JoinTable(name="activity",
+		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")})
+	private List<Activity> activity;
 	
 	
 	public Camper() {
 		super();
-		this.materials = new ArrayList<Material>();
-		this.activities = new ArrayList<Activity>();
+		this.material = new ArrayList<Material>();
+		this.activity = new ArrayList<Activity>();
 		
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
@@ -41,8 +65,8 @@ public class Camper implements Serializable{
 		this.payment_method= payment_method;
 		this.transport=transport;
 		this.accomodation = accomodation;
-		this.materials = materials;
-		this.activities = activities;
+		this.material = material;
+		this.activity = activity;
 		
 		
 	}
@@ -63,39 +87,39 @@ public class Camper implements Serializable{
 		
 	}
 	
-	public List<Activity> getActivities() {
-		return activities;
+	public List<Activity> getActivity() {
+		return activity;
 	}
-	public void setActivities(List<Activity> activities) {
-		this.activities = activities;
+	public void setActivities(List<Activity> activity) {
+		this.activity = activity;
 	}
-	public List<Material> getMaterials() {
-		return materials;
+	public List<Material> getMaterial() {
+		return material;
 	}
-	public void setMaterials(List<Material> materials) {
-		this.materials = materials;
+	public void setMaterial(List<Material> material) {
+		this.material = material;
 	}
 	
-	public void addActivity(Activity activity) {
-		if (!activities.contains(activity)) {
-			this.activities.add(activity);
+	public void addActivity(Activity activity1) {
+		if (!activity.contains(activity1)) {
+			this.activity.add(activity1);
 		}
 	}
 	
-	public void removeActivity(Activity activity) {
-		if (!activities.contains(activity)) {
-			this.activities.remove(activity);
+	public void removeActivity(Activity activity1) {
+		if (!activity.contains(activity1)) {
+			this.activity.remove(activity1);
 		}
 	}
 	
-	public void addMaterial(Material material) {
-		if (!materials.contains(material)) {
-			this.materials.add(material);
+	public void addMaterial(Material material1) {
+		if (!material.contains(material1)) {
+			this.material.add(material1);
 		}
 	}
-	public void removeMaterial(Material material) {
-		if(materials.contains(material)) {
-			this.materials.remove(material);
+	public void removeMaterial(Material material1) {
+		if(material.contains(material1)) {
+			this.material.remove(material1);
 		}
 	}
 	public Integer getId() {
