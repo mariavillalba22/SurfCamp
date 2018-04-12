@@ -1,6 +1,9 @@
 package database;
 import database.*;
+
+import java.sql.Array;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,12 +13,12 @@ import database.pojo.*;
 
 
 public class Selection {
-
-	public Selection (){
-		
+	Connection c;
+	public Selection (Connection c){
+		this.c=c;
 	}
 	
-	public void selectCamper (Connection c ) throws SQLException{
+	public void selectCamper () throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM camper";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -34,7 +37,9 @@ public class Selection {
 		stmt.close();
 
 	}
-	public void selectInstructor(Connection c) throws SQLException{
+	
+	
+	public void selectInstructor() throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM instructor";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -55,7 +60,7 @@ public class Selection {
 		
 	}
 	
-	public void selectMaterial (Connection c)throws SQLException{
+	public void selectMaterial ()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM material";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -70,7 +75,7 @@ public class Selection {
 		rs.close();
 		stmt.close();
 	}
-	public void selectTransport(Connection c)throws SQLException{
+	public void selectTransport()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM transport";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -85,7 +90,7 @@ public class Selection {
 		stmt.close();
 	}
 	
-	public void selectAccomodation(Connection c)throws SQLException{
+	public void selectAccomodation()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM accomodation";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -100,7 +105,7 @@ public class Selection {
 		stmt.close();
 	}
 	
-	public void selectActivity(Connection c)throws SQLException{
+	public void selectActivity()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM activity";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -115,6 +120,28 @@ public class Selection {
 		stmt.close();
 	}
 	
+	public void selectTnsC( Camper camper)throws SQLException{
+		String sql="SELECT transport_id FROM camper WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int transport_id=rs.getInt("transport_id");
+		System.out.println(transport_id);
+	}
+	
+	public ArrayList<Integer> selectMaterialC( Camper camper)throws SQLException{
+		String sql="SELECT id_material FROM camper_material WHERE id_camper=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		ArrayList<Integer> material = new ArrayList();
+		while(rs.next()) {
+		int material_id=rs.getInt("id_material");
+		material.add(material_id);
+		}
+		return material;
+	}
 	
 	
 }

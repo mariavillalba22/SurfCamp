@@ -6,13 +6,38 @@ import database.pojo.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "activity")
 
 public class Activity  implements Serializable {
 
+	private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="activity")
+	@TableGenerator(name="activity", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="activity")
 	private Integer id;
 	private String name;
 	private Integer price;
+	@ManyToMany
+	@JoinTable(name="camper",
+		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
 	private List<Camper> campers;
+	@ManyToMany
+	@JoinTable(name="material",
+		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
 	private List<Material> material;
 // faltan metodos
 	public Activity() {
@@ -90,12 +115,12 @@ public class Activity  implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getActivity() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setActivity(String activity) {
+		this.name = activity;
 	}
 
 	public Integer getPrice() {

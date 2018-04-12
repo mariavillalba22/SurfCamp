@@ -14,10 +14,13 @@ import database.pojo.*;
 
 
 public class Search {
-	public Search() {}
+	Connection c;
+	public Search(Connection c) {
+		this.c=c;
+	}
  
 	// he puesto NIF pq en el checklist pedia buscar por algo distinto al id
-	public void SearchCamper(Connection c , String NIF) throws SQLException {
+	public Camper SearchCamper( String NIF) throws SQLException {
 		String sql = "SELECT * FROM camper WHERE NIF LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setString(1, NIF);
@@ -31,10 +34,12 @@ public class Search {
 			String payment_method = rs.getString("payment_method");
 			Camper camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
 			System.out.println(camper);
+			return camper;
 	}
+		return null;
 	}
 	
-	public void SearchInstructor(Connection c , Integer id) throws SQLException {
+	public void SearchInstructor( Integer id) throws SQLException {
 		String sql = "SELECT * FROM instructor WHERE id LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -51,7 +56,7 @@ public class Search {
 	}
 	}
 	
-	public void SearchActivity(Connection c, Integer id) throws SQLException {
+	public void SearchActivity( Integer id) throws SQLException {
 		String sql = "SELECT *FROM activity WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -65,7 +70,7 @@ public class Search {
 		
 	}
 	
-	public void SearchMaterial(Connection c , Integer id)throws SQLException{
+	public void SearchMaterial( Integer id)throws SQLException{
 		String sql = "SELECT *FROM material WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -78,7 +83,7 @@ public class Search {
 		}
 	}
 	
-	public void SearchAccomodation(Connection c, Integer id) throws SQLException{
+	public void SearchAccomodation( Integer id) throws SQLException{
 		String sql = "SELECT *FROM accomodation WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -91,7 +96,7 @@ public class Search {
 		}
 	}
 	
-	public void SearchTransport(Connection c, Integer id) throws SQLException{
+	public void SearchTransport( Integer id) throws SQLException{
 		String sql = "SELECT *FROM transport WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);

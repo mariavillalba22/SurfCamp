@@ -1,13 +1,34 @@
 package database.pojo;
 
+
 import java.io.Serializable;
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "transport")
+
 public class Transport implements Serializable{
+	
+private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="transport")
+	@TableGenerator(name="transport", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="transport")
+	
 	private Integer id;
 	private String name;
 	private Integer price;
+	@OneToMany(mappedBy="transport")
 	private List<Camper> campers;
+	@OneToMany(mappedBy="transport")
 	private List<Instructor> instructors;
 	
 	public Transport() {

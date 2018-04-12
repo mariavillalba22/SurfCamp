@@ -10,9 +10,8 @@ import java.time.Month;
 import database.pojo.Camper;
 import database.pojo.*;
 public class DbManager {
-		
+	
 		public DbManager() {
-			
 		}
 		
 public void createTables(Connection c) {
@@ -43,8 +42,8 @@ public void createTables(Connection c) {
 				+"	email TEXT NOT NULL,"
 				+"	payment_method TEXT, "
 				+"	transport_id INTEGER REFERENCES transport(id), "
-				+"	accomodation_id INTEGER REFERENCES accomodation(id),"
-				+"	activity_id INTEGER REFERENCES activity(id))";
+				+"	accomodation_id INTEGER REFERENCES accomodation(id))";
+				
 		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
@@ -74,9 +73,9 @@ public void createTables(Connection c) {
 		
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 
-			    + "	name TEXT NOT NULL,"
+			    + "name TEXT NOT NULL,"
 			    
 			    + "price INTEGER )";
 		stmt6.executeUpdate(transport);
@@ -84,7 +83,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt7 = c.createStatement();
 		String camper_material = "CREATE TABLE camper_material"
-				+"( id_camper INTEGER NOT NULL REFERENCES campers(id),"
+				+"(id_camper INTEGER NOT NULL REFERENCES camper(id),"
 				+ "id_material INTEGER REFERENCES material(id),"
 			    + "	PRIMARY KEY (id_camper,id_material))";
 		stmt7.executeUpdate(camper_material);
@@ -93,7 +92,7 @@ public void createTables(Connection c) {
 		Statement stmt8 = c.createStatement();
 		String camper_activity = "CREATE TABLE camper_activity"
 				+"( id_camper INTEGER NOT NULL REFERENCES camper(id),"
-			    + "	id_activity INTEGER REFERENCES activities(id),"
+			    + "	id_activity INTEGER REFERENCES activity(id),"
 			    + "PRIMARY KEY (id_camper,id_activity))";
 		stmt8.executeUpdate(camper_activity);
 		stmt8.close();
@@ -101,7 +100,7 @@ public void createTables(Connection c) {
 		Statement stmt9 = c.createStatement();
 		String material_activity = "CREATE TABLE material_activity"
 				+"( id_material INTEGER NOT NULL REFERENCES material(id),"
-			    + "	id_activity INTEGER REFERENCES activities(id),"
+			    + "	id_activity INTEGER REFERENCES activity(id),"
 			    + "PRIMARY KEY (id_material,id_activity))";
 		stmt9.executeUpdate(material_activity);
 		stmt9.close();
@@ -110,131 +109,73 @@ public void createTables(Connection c) {
 		e.printStackTrace();
 	}
 }
-public static void main(String args[])throws ClassNotFoundException, SQLException {
+
+public static void main(String args[])throws Exception{
+
 	
-	DbManager d=new DbManager();
-	Insertion in=new Insertion();
-	Update up = new Update();
+	DbManager d =new DbManager();
 	Connect c=new Connect();
+	Insertion in=new Insertion(c.getConnectiondb());
+	Update up = new Update(c.getConnectiondb());
+	Delete del=new Delete(c.getConnectiondb());
+	Selection sel = new Selection(c.getConnectiondb());
+	Search ser = new Search(c.getConnectiondb());
 	c.connectiondb();
+	List<Material> mat = new ArrayList();
+	List<Activity> activ = new ArrayList();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
 	
 
-
 	Activity a = new Activity ("natacion",300,null,null);
-	//Activity a2 = new Activity(3, "patinaje", 400,null,null);
-
-
-
-	Accomodation ac= new Accomodation(1,"hotel",300);
-	List <Instructor> ins= new ArrayList<Instructor>();
-	//Transport t = new Transport("avion",ins);
-	//System.out.println(t);
-	//Instructor i= new Instructor(1,"maria",676767,january1st2014,"american",400,a,t);
-
-	//System.out.println(t);
-	//ins.add(i);
-	Material m = new Material(1,"tabla",400);
-	List<Material> mat = new ArrayList<Material>();
-	mat.add(m);
-	List<Activity> act = new ArrayList<Activity>();
-	act.add(a);
-	//act.add(a2);
-	System.out.println(m);
-	//Camper c = new Camper (1,"jorge",january1st2014 ,"55555",2222222,"mamamam","hshhahahahah",t,ac,mat,act);
-	//a.addCamper(c);
-	System.out.println(c);
-	//a.removeCamper(c);
-	Material l = new Material("paddletabla",700);
-	//c.addMaterial(l);
-	System.out.println(c);
-	//System.out.println(i);
-
-
-	//Activity a=new Activity("natacion", 100);
-	Activity b=new Activity("surf",200);
-
-	//Accomodation ac= new Accomodation("hotel",300);
-
-	Accomodation bc= new Accomodation("Camping",100);
-	Transport t =new Transport("plane",200);
+	Activity a2 = new Activity( "patinaje", 400,null,null);
+	activ.add(a);
+	
+	Accomodation ac= new Accomodation("hotel",300);
+	Accomodation ac2 = new Accomodation("camping",800);
+	
+	Transport t = new Transport("plane",600);
 	Transport t2 = new Transport("train",100);
-	//Instructor i=new Instructor("maria",656765456,january1st2014,"american",500);
-	//Material m=new Material("row",100);
-	Material m2=new Material("board",200);
-	Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
-
-
-
-	//List <Instructor> ins= new ArrayList<Instructor>();
-	List <Camper> campers = new ArrayList<Camper>();
-	//Transport t = new Transport("avion",500,null,null);
-	//in.insertTransport(c.getConnection(), t);
-
-
-	//Transport t = new Transport("avion",500,null,null);
+	
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
+	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
 
 	
-	//Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
-	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card");
-	campers.add(c1);
-	campers.add(c2);
-
-	//Activity act=new Activity("natacion", 100,campers,null);
-	//Activity b=new Activity("surf",200);
-	//Accomodation bc= new Accomodation("Camping",100,campers,ins);
-	Transport tr =new Transport("plane",200,campers,ins);
-	System.out.println(tr);
-	//Transport t2 = new Transport("train",100);
-
-
-	//	Material m2=new Material(2,"board",200);
+	Material m=new Material(1,"row",100);
+	Material m2=new Material(2,"board",200);
+    mat.add(m);
+    mat.add(m2);
+	
+	//d.createTables(c.getConnection());
+	in.insertActivity(a);
+	in.insertActivity(a2);
+	in.insertAccomodation( ac);
+	in.insertAccomodation( ac2);
+    in.insertTransport( t2);
+    in.insertTransport(t);
+	in.insertInstructor( inst);
+	in.insertInstructor( inst2);
 	
 
+	m = in.insertMaterial( m);
+	m2 = in.insertMaterial( m2);
+	
+    Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
+   	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
+   	
+	c1 = in.insertCamper( c1);
+	c2 = in.insertCamper( c2);
+	
+	
+	/*in.insertCamper_material(c.getConnection(), c1, m);
+	in.insertCamper_material(c.getConnection(), c2, m2);
+	in.insertCamper_activity(c.getConnection(), c1, a);
+	in.insertCamper_activity(c.getConnection(), c2, a2);
+	in.insertMaterial_activity(c.getConnection(), m, a);*/
+	sel.selectTnsC( c1);
+	ArrayList<Integer> lis = sel.selectMaterialC( c1);
 	
 
-	/*d.createTables(c.getConnection());
-	in.insertActivity(c.getConnection(), a);
-	in.insertActivity(c.getConnection(), b);
-	in.insertAccomodation(c.getConnection(), ac);
-	in.insertAccomodation(c.getConnection(), bc);
 
-	in.insertCamper(c.getConnection(), c1);
-	in.insertTransport(c.getConnection(), t);
-	
-	in.insertTransport(c.getConnection(), t2);
-	in.insertMaterial(c.getConnection(), m);
-	in.insertMaterial(c.getConnection(), m2);
-*/
-	
-	   Selection s = new Selection();
-	s.selectCamper(c.getConnection());
-	s.selectInstructor(c.getConnection());
-	 s.selectMaterial(c.getConnection());
-	 s.selectTransport(c.getConnection());
-	 s.selectAccomodation(c.getConnection());
-	 s.selectActivity(c.getConnection());
-	 
-	 //up.UpdateMaterial(c.getConnection(), 1, "pala", 600);
-	// s.selectMaterial(c.getConnection());
-	// Search ser = new Search ();
-	 //ser.SearchCamper(c.getConnection(), "567483985g");
-
-     Instructor ins2 = new Instructor(60,"jdnid", 7584, january1st2014,"63763"," ksj", 7656 );
-	  up.UpdateInstructor(c.getConnection(), ins2);
-	  in.insertInstructor(c.getConnection(), ins2);
-	  s.selectInstructor(c.getConnection());
-	 
-	 Search ser = new Search ();
-	 ser.SearchCamper(c.getConnection(), "567483985g");
-	 ser.SearchInstructor(c.getConnection(), 1);
-	 ser.SearchActivity(c.getConnection(), 1);
-	 ser.SearchMaterial(c.getConnection(), 1);
-	 ser.SearchAccomodation(c.getConnection(), 1);
-	 ser.SearchTransport(c.getConnection(), 1);
-	
-	
 }
 
 		

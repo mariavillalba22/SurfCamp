@@ -1,12 +1,36 @@
 package database.pojo;
 import java.io.*;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "material")
 
 public class Material implements Serializable{
+	
+	private static final long serialVersionUID = -4281575077333973070L;
 
+	@Id
+	@GeneratedValue(generator="material")
+	@TableGenerator(name="material", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="material")
 	
 	private Integer id;
 	private String name;
 	private Integer price;
+	@ManyToMany
+	@JoinTable(name="camper",
+		joinColumns={@JoinColumn(name="id_material", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
+	private  List<Camper> camper;
 	
 	public Material() {
 		super();
@@ -35,11 +59,11 @@ public class Material implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getMaterial() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setMaterial(String name) {
 		this.name = name;
 	}
 

@@ -1,12 +1,32 @@
 package database.pojo;
 
 import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "accomodation")
+
 public class Accomodation {
 
+private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="accomodation")
+	@TableGenerator(name="accomodation", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="accomodation")
 	private Integer id;
 	private String name;
 	private Integer price;
+	@OneToMany(mappedBy="accomodation")
 	private List <Camper> campers;
+	// el instructor tiene accomodation ???????
+	@OneToMany(mappedBy="accomodation")
 	private List <Instructor> instructors;
 	
 	public Accomodation() {
@@ -63,11 +83,11 @@ public class Accomodation {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
+	public String getAccomodation() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setAccomodation(String accomodation) {
+		this.name = accomodation;
 	}
 	public List<Instructor> getInstructors() {
 		return instructors;
