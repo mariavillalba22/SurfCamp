@@ -43,7 +43,7 @@ public class Insertion {
 		String sql2 = "INSERT INTO accomodation (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql2);
-		sql.setString(1, accomodation.getAccomodation());
+		sql.setString(1, accomodation.getName());
 		sql.setInt(2, accomodation.getPrice());
 	
 		sql.executeUpdate();
@@ -53,7 +53,7 @@ public class Insertion {
 		String sql3 = "INSERT INTO activity (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
-		sql.setString(1, activity.getActivity());
+		sql.setString(1, activity.getName());
 		sql.setInt(2, activity.getPrice());
 	
 		sql.executeUpdate();
@@ -63,7 +63,7 @@ public class Insertion {
 		String sql4 = "INSERT INTO material (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql4);
-		sql.setString(1, material.getMaterial());
+		sql.setString(1, material.getName());
 		sql.setInt(2, material.getPrice());
 	
 		sql.executeUpdate();
@@ -87,7 +87,7 @@ public class Insertion {
 		sql.setInt(2, instructor.getPhoneNumber());
 		sql.setDate(3, instructor.getDob());
 		sql.setString(4, instructor.getNIF());
-		sql.setString(5, instructor.getNacionality());
+		sql.setString(5, instructor.getNationality());
 		sql.setInt(6, instructor.getSalary());
 		
 		sql.executeUpdate();
