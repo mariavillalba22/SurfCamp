@@ -10,7 +10,7 @@ import java.time.Month;
 import database.pojo.Camper;
 import database.pojo.*;
 public class DbManager {
-		
+	
 		public DbManager() {
 		}
 		
@@ -109,15 +109,11 @@ public void createTables(Connection c) {
 		e.printStackTrace();
 	}
 }
-<<<<<<< HEAD
 
-
-public static void main(String args[])throws ClassNotFoundException, SQLException {
-=======
 public static void main(String args[])throws Exception{
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+
 	
-	DbManager d=new DbManager();
+	DbManager d =new DbManager();
 	Connect c=new Connect();
 	Insertion in=new Insertion(c.getConnectiondb());
 	Update up = new Update(c.getConnectiondb());
@@ -179,7 +175,7 @@ public static void main(String args[])throws Exception{
 	ArrayList<Integer> lis = sel.selectMaterialC( c1);
 	
 
-	
+
 }
 
 		
