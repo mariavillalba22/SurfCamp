@@ -63,8 +63,8 @@ public class Material implements Serializable{
 		return name;
 	}
 
-	public void setMaterial(String material) {
-		this.name = material;
+	public void setMaterial(String name) {
+		this.name = name;
 	}
 
 	public Integer getPrice() {
