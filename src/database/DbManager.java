@@ -109,17 +109,21 @@ public void createTables(Connection c) {
 		e.printStackTrace();
 	}
 }
+<<<<<<< HEAD
 
 
 public static void main(String args[])throws ClassNotFoundException, SQLException {
+=======
+public static void main(String args[])throws Exception{
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	DbManager d=new DbManager();
-	Insertion in=new Insertion();
-	Update up = new Update();
 	Connect c=new Connect();
-	Delete del=new Delete();
-	Selection sel = new Selection();
-	Search ser = new Search();
+	Insertion in=new Insertion(c.getConnectiondb());
+	Update up = new Update(c.getConnectiondb());
+	Delete del=new Delete(c.getConnectiondb());
+	Selection sel = new Selection(c.getConnectiondb());
+	Search ser = new Search(c.getConnectiondb());
 	c.connectiondb();
 	List<Material> mat = new ArrayList();
 	List<Activity> activ = new ArrayList();
@@ -146,24 +150,24 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
     mat.add(m2);
 	
 	//d.createTables(c.getConnection());
-	in.insertActivity(c.getConnection(), a);
-	in.insertActivity(c.getConnection(), a2);
-	in.insertAccomodation(c.getConnection(), ac);
-	in.insertAccomodation(c.getConnection(), ac2);
-    in.insertTransport(c.getConnection(), t2);
-    in.insertTransport(c.getConnection(), t);
-	in.insertInstructor(c.getConnection(), inst);
-	in.insertInstructor(c.getConnection(), inst2);
+	in.insertActivity(a);
+	in.insertActivity(a2);
+	in.insertAccomodation( ac);
+	in.insertAccomodation( ac2);
+    in.insertTransport( t2);
+    in.insertTransport(t);
+	in.insertInstructor( inst);
+	in.insertInstructor( inst2);
 	
 
-	m = in.insertMaterial(c.getConnection(), m);
-	m2 = in.insertMaterial(c.getConnection(), m2);
+	m = in.insertMaterial( m);
+	m2 = in.insertMaterial( m2);
 	
     Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
    	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
    	
-	c1 = in.insertCamper(c.getConnection(), c1);
-	c2 = in.insertCamper(c.getConnection(), c2);
+	c1 = in.insertCamper( c1);
+	c2 = in.insertCamper( c2);
 	
 	
 	/*in.insertCamper_material(c.getConnection(), c1, m);
@@ -171,8 +175,8 @@ public static void main(String args[])throws ClassNotFoundException, SQLExceptio
 	in.insertCamper_activity(c.getConnection(), c1, a);
 	in.insertCamper_activity(c.getConnection(), c2, a2);
 	in.insertMaterial_activity(c.getConnection(), m, a);*/
-	sel.selectTnsC(c.getConnection(), c1);
-	ArrayList<Integer> lis = sel.selectMaterialC(c.getConnection(), c1);
+	sel.selectTnsC( c1);
+	ArrayList<Integer> lis = sel.selectMaterialC( c1);
 	
 
 	

@@ -11,8 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Delete {
+	Connection c;
+	public Delete(Connection c) {
+		this.c=c;
+	}
 
-	public void deleteCamperId (Connection c, int camperID) throws SQLException {
+	public void deleteCamperId ( int camperID) throws SQLException {
         
 		String sql = "DELETE  FROM camper WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
@@ -22,7 +26,7 @@ public class Delete {
 			
 	}
 	
-	public void deleteTransportID (Connection c, int transportID) throws SQLException {
+	public void deleteTransportID ( int transportID) throws SQLException {
         
 		String sql = "DELETE  FROM transport WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
@@ -32,7 +36,7 @@ public class Delete {
 			
 	}
 	
-public void deleteInstructorID (Connection c, int instructorID) throws SQLException {
+public void deleteInstructorID ( int instructorID) throws SQLException {
         
 		String sql = "DELETE  FROM transport WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
@@ -42,7 +46,7 @@ public void deleteInstructorID (Connection c, int instructorID) throws SQLExcept
 			
 	}
 
-public void deleteMaterialtID (Connection c, int materialID) throws SQLException {
+public void deleteMaterialtID ( int materialID) throws SQLException {
     
 	String sql = "DELETE  FROM transport WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
@@ -52,7 +56,7 @@ public void deleteMaterialtID (Connection c, int materialID) throws SQLException
 		
 }
 
-public void deleteAccomodationID (Connection c, int accomodationID) throws SQLException {
+public void deleteAccomodationID ( int accomodationID) throws SQLException {
     
 	String sql = "DELETE  FROM transport WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
@@ -62,7 +66,7 @@ public void deleteAccomodationID (Connection c, int accomodationID) throws SQLEx
 		
 }
 
-public void deleteActivityID (Connection c, int activityID) throws SQLException {
+public void deleteActivityID ( int activityID) throws SQLException {
     
 	String sql = "DELETE  FROM transport WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);

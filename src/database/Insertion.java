@@ -17,10 +17,11 @@ import database.pojo.Material;
 import database.pojo.Transport;
 
 public class Insertion {
+
 	Connection c;
 		public Insertion(Connection c) {	
 			this.c =c;
-		}
+		}	
 
 	public Camper insertCamper (Camper camper ) throws SQLException{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+
@@ -47,7 +48,11 @@ public class Insertion {
 	}
 	
 	
-	public void insertCamper_material(Camper camper, Material material)throws SQLException{
+
+
+
+	public void insertCamper_material( Camper camper, Material material)throws SQLException{
+
 		String sql9="INSERT INTO camper_material(id_camper, id_material)"+ 
 					"VALUES(?,?)";
 		PreparedStatement sql = c.prepareStatement(sql9);
@@ -59,7 +64,7 @@ public class Insertion {
 		
 	}
 	
-	public void insertCamper_activity(Connection c, Camper camper, Activity activity)throws SQLException{
+	public void insertCamper_activity( Camper camper, Activity activity)throws SQLException{
 		String sql10="INSERT INTO camper_activity(id_camper, id_activity)"+ 
 					"VALUES(?,?);";
 	
@@ -70,7 +75,7 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public void insertMaterial_activity(Connection c, Material material, Activity activity)throws SQLException{
+	public void insertMaterial_activity(Material material, Activity activity)throws SQLException{
 		String sql11="INSERT INTO material_activity(id_material, id_activity)"+ 
 					"VALUES(?,?);";
 	
@@ -80,7 +85,7 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
-	public Accomodation insertAccomodation (Connection c,Accomodation accomodation ) throws SQLException{
+	public Accomodation insertAccomodation (Accomodation accomodation ) throws SQLException{
 		String sql2 = "INSERT INTO accomodation (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql2);
@@ -97,7 +102,7 @@ public class Insertion {
 		accomodation.setId(lastId);
 		return accomodation;
 	}
-	public Activity insertActivity (Connection c,Activity activity ) throws SQLException{
+	public Activity insertActivity (Activity activity ) throws SQLException{
 		String sql3 = "INSERT INTO activity (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
@@ -113,7 +118,7 @@ public class Insertion {
 		activity.setId(lastId);
 		return activity;
 	}
-	public Material insertMaterial (Connection c, Material material ) throws SQLException{
+	public Material insertMaterial (Material material ) throws SQLException{
 		String sql4 = "INSERT INTO material (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql4);
@@ -130,7 +135,7 @@ public class Insertion {
 		material.setId(lastId);
 		return material;
 	}
-	public Transport insertTransport (Connection c, Transport transport ) throws SQLException{
+	public Transport insertTransport (Transport transport ) throws SQLException{
 		String sql5 = "INSERT INTO transport (name, price)"+
 				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql5);
@@ -147,7 +152,7 @@ public class Insertion {
 		return transport;
 	}
 	
-	public Instructor insertInstructor (Connection c,Instructor instructor ) throws SQLException{
+	public Instructor insertInstructor (Instructor instructor ) throws SQLException{
 		String sql6 = "INSERT INTO instructor (name,phone_number,dob,NIF,nationality,salary)"+
 				 "VALUES (?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql6);
