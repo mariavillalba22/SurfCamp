@@ -29,15 +29,11 @@ public class Update {
 	public void UpdateAccomodation (Connection c, Accomodation acom) throws SQLException {
 		String sql = "UPDATE accomodation SET name = ?, price =? WHERE id = ?";
 		PreparedStatement prep = c.prepareStatement(sql);
-<<<<<<< HEAD
+
 		prep.setString(1, acom.getName());
 		prep.setInt(2, acom.getPrice());
 		prep.setInt(3, acom.getId());
-=======
-		prep.setString(1, name);
-		prep.setInt(2, price);
-		prep.setInt(3, id);
->>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+
 		prep.executeUpdate();
 		
 	}
