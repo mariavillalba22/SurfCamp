@@ -20,10 +20,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class Connect {
+public class Connect implements ConnectInterface {
 	Connection c;
 	
-	public void connectiondb() throws ClassNotFoundException, SQLException {
+	public void connectiondb() throws Exception {
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:./db/Surfcamp.db");
 		c.createStatement().execute("PRAGMA foreign_keys=ON");

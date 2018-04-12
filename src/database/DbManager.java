@@ -109,6 +109,8 @@ public void createTables(Connection c) {
 		e.printStackTrace();
 	}
 }
+
+
 public static void main(String args[])throws ClassNotFoundException, SQLException {
 	
 	DbManager d=new DbManager();

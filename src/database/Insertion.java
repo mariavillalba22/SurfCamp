@@ -17,11 +17,12 @@ import database.pojo.Material;
 import database.pojo.Transport;
 
 public class Insertion {
-	
-		public Insertion() {	
+	Connection c;
+		public Insertion(Connection c) {	
+			this.c =c;
 		}
 
-	public Camper insertCamper (Connection c,Camper camper ) throws SQLException{
+	public Camper insertCamper (Camper camper ) throws SQLException{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+
 				 "VALUES (?,?,?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
@@ -46,7 +47,7 @@ public class Insertion {
 	}
 	
 	
-	public void insertCamper_material(Connection c, Camper camper, Material material)throws SQLException{
+	public void insertCamper_material(Camper camper, Material material)throws SQLException{
 		String sql9="INSERT INTO camper_material(id_camper, id_material)"+ 
 					"VALUES(?,?)";
 		PreparedStatement sql = c.prepareStatement(sql9);
