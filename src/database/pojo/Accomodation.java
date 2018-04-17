@@ -25,7 +25,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer price;
 	@OneToMany(mappedBy="accomodation")
 	private List <Camper> campers;
-	// el instructor tiene accomodation ???????
 	@OneToMany(mappedBy="accomodation")
 	private List <Instructor> instructors;
 	

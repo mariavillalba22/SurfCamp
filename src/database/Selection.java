@@ -130,18 +130,7 @@ public class Selection {
 		System.out.println(transport_id);
 	}
 	
-	public ArrayList<Integer> selectMaterialC( Camper camper)throws SQLException{
-		String sql="SELECT id_material FROM camper_material WHERE id_camper=?";
-		PreparedStatement prep = c.prepareStatement(sql);
-		prep.setInt(1, camper.getId());
-		ResultSet rs=prep.executeQuery();
-		ArrayList<Integer> material = new ArrayList();
-		while(rs.next()) {
-		int material_id=rs.getInt("id_material");
-		material.add(material_id);
-		}
-		return material;
-	}
+	
 	
 	
 }

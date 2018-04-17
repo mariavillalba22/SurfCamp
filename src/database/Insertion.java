@@ -102,12 +102,13 @@ public class Insertion {
 		accomodation.setId(lastId);
 		return accomodation;
 	}
-	public Activity insertActivity (Activity activity ) throws SQLException{
-		String sql3 = "INSERT INTO activity (name, price)"+
-				"VALUES (?,?);";
+	public Activity insertActivity (Activity activity ) throws Exception{
+		String sql3 = "INSERT INTO activity (name, price, instructor_id)"+
+				"VALUES (?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
 		sql.setString(1, activity.getActivity());
 		sql.setInt(2, activity.getPrice());
+		sql.setInt(3, activity.getInst().getId());
 	
 		sql.executeUpdate();
 		sql.close();
@@ -116,6 +117,7 @@ public class Insertion {
 		ResultSet rs1 = p.executeQuery();
 		Integer lastId = rs1.getInt("lastId");
 		activity.setId(lastId);
+		
 		return activity;
 	}
 	public Material insertMaterial (Material material ) throws SQLException{

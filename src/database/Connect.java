@@ -27,8 +27,8 @@ import database.menu.ConnectInterface;
 public class Connect implements ConnectInterface {
 
 	Connection c;
-	public Connect() {
-		
+	public Connect() throws Exception {
+		this.connectiondb();
 	}
 	
 
@@ -38,6 +38,7 @@ public class Connect implements ConnectInterface {
 		c.createStatement().execute("PRAGMA foreign_keys=ON");
 		System.out.println("Database connection opened.");
 		}
+	
 	public Connection getConnectiondb() {
 		return c;
 	}

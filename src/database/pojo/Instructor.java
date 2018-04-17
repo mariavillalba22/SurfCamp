@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -31,18 +34,26 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private String nationality;
 	private Integer salary;
 	
-	@OneToMany(mappedBy="instructor")
-	private Activity activity;
-	@OneToMany(mappedBy="instructor")
+	@OneToMany(mappedBy="inst")
+	private List<Activity> activities;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transport_id")
 	private Transport transport;
-	//accomodation???
+
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accomodation_id")
+	private Accomodation accomodation;
+
 	
 	public Instructor() {
 		super();
 	}
 
 	public Instructor(String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary,
-			Activity activity, Transport transport) {
+			Transport transport) {
 		super();
 		
 		this.name = name;
@@ -51,7 +62,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.NIF=NIF;
 		this.nationality = nationality;
 		this.salary = salary;
-		this.activity = activity;
 		this.transport = transport;
 	}
 	
@@ -88,7 +98,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 				"Date of birth: "+dob+". "+
         "Nacionality: "+nationality+". "+
 				"Salary: "+salary+". "+
-         "Activity ID: "+activity+
         "Transport "+transport;
 	}
 	
@@ -148,13 +157,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.salary = salary;
 	}
 
-	public Activity getActivity() {
-		return activity;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
+	
 	
 	public Integer getId() {
 		return id;

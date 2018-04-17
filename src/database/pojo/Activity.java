@@ -6,14 +6,8 @@ import database.pojo.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "activity")
@@ -29,6 +23,10 @@ public class Activity  implements Serializable {
 	private Integer id;
 	private String name;
 	private Integer price;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor_id")
+	private Instructor inst;
 	@ManyToMany
 	@JoinTable(name="camper",
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
@@ -45,10 +43,11 @@ public class Activity  implements Serializable {
 		this.campers = new ArrayList<Camper>();
 	}
 
-	public Activity(String activity, Integer price, List<Camper> campers, List<Material> material) {
+	public Activity(String activity, Integer price, Instructor inst,List<Camper> campers, List<Material> material) {
 		super();
 		this.name = activity;
 		this.price = price;
+		this.inst = inst;
 		if(campers!= null)
 		    this.campers = campers;
 		else
@@ -59,6 +58,14 @@ public class Activity  implements Serializable {
 			this.material = new ArrayList<Material>();
 	}
 
+
+	public Instructor getInst() {
+		return inst;
+	}
+
+	public void setInst(Instructor inst) {
+		this.inst = inst;
+	}
 
 	public Activity(String activity, Integer price) {
 		super();

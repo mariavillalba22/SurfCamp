@@ -1,5 +1,8 @@
 package database;
 import java.util.*;
+
+import javax.persistence.EntityManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +11,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import database.pojo.Camper;
+import database.JPA.*;
 import database.pojo.*;
 public class DbManager {
 	
@@ -28,7 +32,8 @@ public void createTables(Connection c) {
 		String activities = "CREATE TABLE activity"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
 			    + "	name TEXT NOT NULL,"
-				+"	price INTEGER NOT NULL)";
+				+ " instructor_id INTEGER NOT NULL REFERENCES instructor(id),"
+				+ "	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
 		stmt2.close();
 		
@@ -65,8 +70,8 @@ public void createTables(Connection c) {
 				+"  NIF TEXT NOT NULL,"
 				+"	nationality TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
-				+"	activity_ID INTEGER ,"
-				+ "	FOREIGN KEY (activity_ID) REFERENCES activity(id))";
+				+"  transport_id INTEGER REFERENCES transport(id),"
+			    +"  accomodation_id INTEGER REFERENCES accomodation(id))";
 
 		stmt5.executeUpdate(instructor);
 		stmt5.close();
@@ -124,10 +129,14 @@ public static void main(String args[])throws Exception{
 	List<Material> mat = new ArrayList();
 	List<Activity> activ = new ArrayList();
 	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
-	
 
-	Activity a = new Activity ("natacion",300,null,null);
-	Activity a2 = new Activity( "patinaje", 400,null,null);
+	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
+	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
+
+	
+// no se pasa inst se pasa id
+	Activity a = new Activity ("natacion",300,inst,null,null);
+	Activity a2 = new Activity( "patinaje", 400,inst,null,null);
 	activ.add(a);
 	
 	Accomodation ac= new Accomodation("hotel",300);
@@ -136,16 +145,12 @@ public static void main(String args[])throws Exception{
 	Transport t = new Transport("plane",600);
 	Transport t2 = new Transport("train",100);
 	
-	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
-	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
-
-	
 	Material m=new Material(1,"row",100);
 	Material m2=new Material(2,"board",200);
     mat.add(m);
     mat.add(m2);
 	
-	//d.createTables(c.getConnection());
+	//d.createTables(c.getConnectiondb());
 	in.insertActivity(a);
 	in.insertActivity(a2);
 	in.insertAccomodation( ac);
@@ -166,13 +171,16 @@ public static void main(String args[])throws Exception{
 	c2 = in.insertCamper( c2);
 	
 	
-	/*in.insertCamper_material(c.getConnection(), c1, m);
-	in.insertCamper_material(c.getConnection(), c2, m2);
-	in.insertCamper_activity(c.getConnection(), c1, a);
-	in.insertCamper_activity(c.getConnection(), c2, a2);
-	in.insertMaterial_activity(c.getConnection(), m, a);*/
+	in.insertCamper_material( c1, m);
+	in.insertCamper_material( c2, m2);
+	in.insertCamper_activity( c1, a);
+	in.insertCamper_activity( c2, a2);
+	in.insertMaterial_activity( m, a);
 	sel.selectTnsC( c1);
-	ArrayList<Integer> lis = sel.selectMaterialC( c1);
+	JPAconnect em=new JPAconnect();
+	JPARead jpa = new JPARead(em.getEntityManager());
+	jpa.ReadMat_Camp(c1);
+	
 	
 
 
