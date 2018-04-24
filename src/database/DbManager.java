@@ -43,8 +43,8 @@ public void createTables(Connection c) {
 			    + "	name TEXT NOT NULL,"
 				+"	dob DATE NOT NULL,"
 				+"  NIF INTEGER NOT NULL ,"
-				+"	phone_number INTEGER NOT NULL,"
-				+"	email TEXT NOT NULL,"
+				+"	phone_number INTEGER ,"
+				+"	email TEXT ,"
 				+"	payment_method TEXT, "
 				+"	transport_id INTEGER REFERENCES transport(id), "
 				+"	accomodation_id INTEGER REFERENCES accomodation(id))";
@@ -151,14 +151,15 @@ public static void main(String args[])throws Exception{
     mat.add(m2);
 	
 	//d.createTables(c.getConnectiondb());
+    in.insertInstructor( inst);
+	in.insertInstructor( inst2);
 	in.insertActivity(a);
 	in.insertActivity(a2);
 	in.insertAccomodation( ac);
 	in.insertAccomodation( ac2);
     in.insertTransport( t2);
     in.insertTransport(t);
-	in.insertInstructor( inst);
-	in.insertInstructor( inst2);
+	
 	
 
 	m = in.insertMaterial( m);
@@ -170,16 +171,18 @@ public static void main(String args[])throws Exception{
 	c1 = in.insertCamper( c1);
 	c2 = in.insertCamper( c2);
 	
-	
+
 	in.insertCamper_material( c1, m);
 	in.insertCamper_material( c2, m2);
 	in.insertCamper_activity( c1, a);
 	in.insertCamper_activity( c2, a2);
 	in.insertMaterial_activity( m, a);
+	
 	sel.selectTnsC( c1);
 	JPAconnect em=new JPAconnect();
 	JPARead jpa = new JPARead(em.getEntityManager());
-	jpa.ReadMat_Camp(c1);
+	c2.addMaterial(m);
+	jpa.ReadMat_Camp(c2);
 	
 	
 

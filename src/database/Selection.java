@@ -53,7 +53,6 @@ public class Selection {
 			int salary = rs.getInt("salary");
 			Instructor instructor = new Instructor (id,name,phone_number,dof,NIF,nacionality,salary);
 			System.out.println(instructor);
-			//estamos print el tranport , necesitamos o no printearlo o ponerle null.
 		}
 		rs.close();
 		stmt.close();
@@ -75,34 +74,39 @@ public class Selection {
 		rs.close();
 		stmt.close();
 	}
-	public void selectTransport()throws SQLException{
+	public List<Transport> selectTransport() throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM transport";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Transport> t = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
 			Transport trans = new Transport (id,name,price);
+			t.add(trans);
 			System.out.println(trans);
 		}
 		rs.close();
 		stmt.close();
+		return t;
 	}
 	
-	public void selectAccomodation()throws SQLException{
+	public List<Accomodation> selectAccomodation()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM accomodation";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Accomodation> acom = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
-			Accomodation accomodation = new Accomodation (id,name,price);
-			System.out.println(accomodation);
+			Accomodation acomodation= new Accomodation (id,name,price);
+			acom.add(acomodation);
 		}
 		rs.close();
 		stmt.close();
+		return acom;
 	}
 	
 	public void selectActivity()throws SQLException{

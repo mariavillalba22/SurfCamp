@@ -26,6 +26,14 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
+	private Integer transport_id;
+	public Integer getTransport_id() {
+		return transport_id;
+	}
+	public void setTransport_id(Integer transport_id) {
+		this.transport_id = transport_id;
+	}
+
 	@Basic(fetch = FetchType.LAZY)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
@@ -44,6 +52,9 @@ public class Camper implements Serializable{
 		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")})
 	private List<Activity> activity;
+	
+	
+	
 	
 	
 	public Camper() {

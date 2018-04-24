@@ -96,17 +96,19 @@ public class Search {
 		}
 	}
 	
-	public void SearchTransport( Integer id) throws SQLException{
-		String sql = "SELECT *FROM transport WHERE id LIKE ?";
+	public Transport SearchTransport(String name) throws SQLException{
+		String sql = "SELECT *FROM transport WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
-		prep.setInt(1, id);
+		prep.setString(1, name);
 		ResultSet rs = prep.executeQuery();
+		Transport trans= new Transport();
 		while(rs.next()) {
-			String name = rs.getString("name");
+			Integer id = rs.getInt("id");
 			Integer price = rs.getInt("price");
-		    Transport trans = new Transport(id, name,price);
+		    trans = new Transport(id, name,price);
 		    System.out.println(trans);
 		}
+		return trans;
 	}
 	
 	
