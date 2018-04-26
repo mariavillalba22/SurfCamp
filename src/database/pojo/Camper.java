@@ -26,7 +26,6 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-	private Integer transport_id;
 	private Integer accomodation_id;
 	
 
@@ -189,19 +188,6 @@ public class Camper implements Serializable{
 	}
 	public void setAccomodation(Accomodation accomodation) {
 		this.accomodation = accomodation;
-	}
-	
-	public Integer getAccomodation_id() {
-		return accomodation_id;
-	}
-	public void setAccomodation_id(Integer accomodation_id) {
-		this.accomodation_id = accomodation_id;
-	}
-	public Integer getTransport_id() {
-		return transport_id;
-	}
-	public void setTransport_id(Integer transport_id) {
-		this.transport_id = transport_id;
 	}
 	
 	public int hashCode() {

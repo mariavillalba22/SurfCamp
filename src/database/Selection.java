@@ -18,10 +18,11 @@ public class Selection {
 		this.c=c;
 	}
 	
-	public void selectCamper () throws SQLException{
+	public List<Camper> selectCamper () throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM camper";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Camper> campers = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
@@ -31,18 +32,20 @@ public class Selection {
 			String email=rs.getString("email");
 			String payment_method=rs.getString("payment_method");
 			Camper camper = new Camper (id,name,dob,NIF,phonenumber,email,payment_method);
-			System.out.println(camper);
+			campers.add(camper);
 		}
 		rs.close();
 		stmt.close();
+		return campers;
 
 	}
 	
 	
-	public void selectInstructor() throws SQLException{
+	public List<Instructor> selectInstructor() throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM instructor";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Instructor> instructors = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
@@ -52,27 +55,29 @@ public class Selection {
 			String nacionality=rs.getString("nationality");
 			int salary = rs.getInt("salary");
 			Instructor instructor = new Instructor (id,name,phone_number,dof,NIF,nacionality,salary);
-			System.out.println(instructor);
+			instructors.add(instructor);
 		}
 		rs.close();
 		stmt.close();
-		
+		return instructors;
 	}
 	
-	public void selectMaterial ()throws SQLException{
+	public List<Material> selectMaterial ()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM material";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Material> materials = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
 			Material mat = new Material (id,name,price);
-			System.out.println(mat);
+			materials.add(mat);
 			
 		}
 		rs.close();
 		stmt.close();
+		return materials;
 	}
 	public List<Transport> selectTransport() throws SQLException{
 		Statement stmt = c.createStatement();
@@ -85,7 +90,7 @@ public class Selection {
 			int price = rs.getInt("price");
 			Transport trans = new Transport (id,name,price);
 			t.add(trans);
-			System.out.println(trans);
+			
 		}
 		rs.close();
 		stmt.close();
@@ -109,29 +114,31 @@ public class Selection {
 		return acom;
 	}
 	
-	public void selectActivity()throws SQLException{
+	public List<Activity> selectActivity()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM activity";
 		ResultSet rs = stmt.executeQuery(sql);
+		List<Activity> activities= new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
 			Activity activity = new Activity (id,name,price);
-			System.out.println(activity);
+			activities.add(activity);
 		}
 		rs.close();
 		stmt.close();
+		return activities;
 	}
 	
-	public void selectTnsC( Camper camper)throws SQLException{
+	public Integer selectTnsC( Camper camper)throws SQLException{
 		String sql="SELECT transport_id FROM camper WHERE id=?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, camper.getId());
 		ResultSet rs=prep.executeQuery();
 		rs.next();
 		int transport_id=rs.getInt("transport_id");
-		System.out.println(transport_id);
+		return transport_id;
 	}
 	
 	

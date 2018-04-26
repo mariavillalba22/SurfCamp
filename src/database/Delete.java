@@ -16,53 +16,53 @@ public class Delete {
 		this.c=c;
 	}
 
-	public void deleteCamperId ( int camperID) throws SQLException {
+	public boolean deleteCamperId ( int camperID) throws SQLException {
         
 		String sql = "DELETE  FROM camper WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, camperID);
 		prep.executeUpdate();
-		System.out.println("Deletion finished");
+		return true;
 			
 	}
 	
-	public void deleteTransportID ( int transportID) throws SQLException {
+	public boolean deleteTransportID ( int transportID) throws SQLException {
         
 		String sql = "DELETE  FROM transport WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, transportID);
 		prep.executeUpdate();
-		System.out.println("Deletion finished");
+		return true;
 			
 	}
 	
-public void deleteInstructorID ( int instructorID) throws SQLException {
+    public boolean deleteInstructorID ( int instructorID) throws SQLException {
         
 		String sql = "DELETE  FROM transport WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, instructorID);
 		prep.executeUpdate();
-		System.out.println("Deletion finished");
+		return true;
 			
 	}
 
-public void deleteMaterialtID ( int materialID) throws SQLException {
+   public boolean deleteMaterialtID ( int materialID) throws SQLException {
     
 	String sql = "DELETE  FROM transport WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, materialID);
 	prep.executeUpdate();
-	System.out.println("Deletion finished");
+	return true;
 		
 }
 
-public void deleteAccomodationID ( int accomodationID) throws SQLException {
+public boolean deleteAccomodationID ( int accomodationID) throws SQLException {
     
 	String sql = "DELETE  FROM transport WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, accomodationID);
 	prep.executeUpdate();
-	System.out.println("Deletion finished");
+	return true;
 		
 }
 

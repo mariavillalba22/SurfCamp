@@ -25,6 +25,7 @@ public class Search {
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setString(1, NIF);
 		ResultSet rs = prep.executeQuery();
+		Camper camper = new Camper();
 		while (rs.next()) {
 			Integer id = rs.getInt("id");
 			String name = rs.getString("name");
@@ -32,18 +33,19 @@ public class Search {
 			Integer phonenumber = rs.getInt("phone_number");
 			String email = rs.getString("email");
 			String payment_method = rs.getString("payment_method");
-			Camper camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
-			System.out.println(camper);
-			return camper;
+			camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
+			
+			
 	}
-		return null;
+		return camper;
 	}
 	
-	public void SearchInstructor( Integer id) throws SQLException {
+	public Instructor SearchInstructor( Integer id) throws SQLException {
 		String sql = "SELECT * FROM instructor WHERE id LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
+		Instructor instructor = new Instructor();
 		while (rs.next()) {
 			String name = rs.getString("name");
 			Integer phonenumber = rs.getInt("phone_number");
@@ -51,49 +53,55 @@ public class Search {
 			LocalDate dob = rs.getDate("dob").toLocalDate();
 			String nationality = rs.getString("nationality");
 			Integer salary = rs.getInt("salary");
-			Instructor instructor= new Instructor(id,name,phonenumber,dob,NIF,nationality,salary);
-			System.out.println(instructor);
+			instructor= new Instructor(id,name,phonenumber,dob,NIF,nationality,salary);
+			
 	}
+		return instructor;
 	}
 	
-	public void SearchActivity( Integer id) throws SQLException {
+	public Activity SearchActivity( Integer id) throws SQLException {
 		String sql = "SELECT *FROM activity WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
+		Activity activity = new Activity();
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    Activity activity = new Activity(id, name,price);
-		    System.out.println(activity);
+		    activity = new Activity(id, name,price);
+		  
 		}
-		
+		return activity;
 	}
 	
-	public void SearchMaterial( Integer id)throws SQLException{
+	public Material SearchMaterial( Integer id)throws SQLException{
 		String sql = "SELECT *FROM material WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
+		Material material = new Material();
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    Material material = new Material(id, name,price);
+		    material = new Material(id, name,price);
 		    System.out.println(material);
 		}
+		return material;
 	}
 	
-	public void SearchAccomodation( Integer id) throws SQLException{
+	public Accomodation SearchAccomodation( Integer id) throws SQLException{
 		String sql = "SELECT *FROM accomodation WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
 		ResultSet rs = prep.executeQuery();
+		Accomodation accomodation = new Accomodation();
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    Accomodation accomodation = new Accomodation(id, name,price);
-		    System.out.println(accomodation);
+		    accomodation = new Accomodation(id, name,price);
+		    
 		}
+		return accomodation;
 	}
 	
 	public Transport SearchTransport(String name) throws SQLException{
@@ -106,7 +114,7 @@ public class Search {
 			Integer id = rs.getInt("id");
 			Integer price = rs.getInt("price");
 		    trans = new Transport(id, name,price);
-		    System.out.println(trans);
+		  
 		}
 		return trans;
 	}

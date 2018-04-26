@@ -47,7 +47,7 @@ public class Menu {
                     + "2) INSERT" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY"
                     + "4) DELETE"
-                    + "5) FINISH"
+                    + "5) EXIT"
                     + ""
                     + "Option number: ");
 
@@ -162,8 +162,7 @@ public class Menu {
         								 System.out.println("Insert the email");
         								 readString = console.readLine();
         								 if(readString.isEmpty()) {
-        									 System.out.println("Invalid email.Try again:");
-        									 readString = console.readLine();
+        									 System.out.println("Invalid email.");
         								 }else {
         									camper1.setEmail(readString);
         									 }
@@ -174,8 +173,8 @@ public class Menu {
                 								 System.out.println("Insert the phonenumber");
                 								 readString = console.readLine();
                 								 if(readString.isEmpty()) {
-                									 System.out.println("Invalid phonenumber.Try again:");
-                									 readString = console.readLine();
+                									 System.out.println("Invalid phonenumber.");
+                								
                 								 }else {
                 									camper1.setPhonenumber(Integer.parseInt(readString));
                 									 }
@@ -189,7 +188,7 @@ public class Menu {
         					}while(readString.isEmpty()&&telephone.isEmpty());
          
         				System.out.println("Insert the payment method you will use: ");
-        				System.out.println("1.VISA  2.MASTERCARD  3. EFECTIVO");
+        				System.out.println("1.VISA  2.MASTERCARD  3. CASH");
         				  do {  
                               readString = console.readLine();
                               if(readString.isEmpty()) {
@@ -211,10 +210,10 @@ public class Menu {
                     		for(Transport trans: transports) {
                     			System.out.println(trans);
                     		}
-                    		System.out.println("Introduce the id of the one you want.");
+                    		System.out.println("Introduce the name of the one you want.");
                     		readString = console.readLine();
-                    		Integer transid = Integer.parseInt(readString);
-                    		camper1.setTransport_id(transid);
+                    		Transport trans1 = ser.SearchTransport(readString);
+                    		camper1.setTransports(trans1);
                     	}
                     }
                     
@@ -231,8 +230,9 @@ public class Menu {
                     		// TERMINAR
                     		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
-                    		Integer accomodationid = Integer.parseInt(readString);
-                    		camper1.setAccomodation_id(accomodationid);
+                    	    Integer accomid = Integer.parseInt(readString);
+                    		Accomodation accomodationid = ser.SearchAccomodation(accomid);
+                    		camper1.setAccomodation(accomodationid);
                     	}
                     }
                     

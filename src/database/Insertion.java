@@ -33,8 +33,8 @@ public class Insertion {
 		sql.setInt(4, camper.getPhonenumber());
 		sql.setString(5, camper.getEmail());
 		sql.setString(6, camper.getPayment_method());
-		sql.setInt(7, camper.getTransport_id());
-        sql.setInt(8, camper.getAccomodation_id());
+		sql.setInt(7, camper.getTransports().getId());
+        sql.setInt(8, camper.getAccomodation().getId());
 		
 		sql.executeUpdate();
 		sql.close();
