@@ -26,10 +26,8 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-	private Integer accomodation_id;
 	
 
-	@Basic(fetch = FetchType.LAZY)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
 	private Transport transport;

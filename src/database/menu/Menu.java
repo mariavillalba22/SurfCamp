@@ -27,9 +27,13 @@ public class Menu {
     	List<Transport> transports = new ArrayList();
     	List<Accomodation> accomodations = new ArrayList();
     	Integer optionNumber  = 0;
+    	JPAconnect em=new JPAconnect();
+   
     	
     	DbManager d =new DbManager();
+
     	Connect c=new Connect();
+
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -42,12 +46,12 @@ public class Menu {
     		Camper camper1 = new Camper();
         try {
 
-            System.out.println("SELECT AN OPTION: "
-                    + "1) VIEW"
-                    + "2) INSERT" // a partir de aqui hay q comprobar si hay algo
-                    + "3) MODIFY"
-                    + "4) DELETE"
-                    + "5) EXIT"
+            System.out.println("SELECT AN OPTION: \n"
+                    + "1) VIEW\n"
+                    + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
+                    + "3) MODIFY\n"
+                    + "4) DELETE\n"
+                    + "5) EXIT\n\n"
                     + ""
                     + "Option number: ");
 

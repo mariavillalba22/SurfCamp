@@ -38,7 +38,7 @@ public class Delete {
 	
     public boolean deleteInstructorID ( int instructorID) throws SQLException {
         
-		String sql = "DELETE  FROM transport WHERE id = ?";
+		String sql = "DELETE  FROM instructor WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, instructorID);
 		prep.executeUpdate();
@@ -48,7 +48,7 @@ public class Delete {
 
    public boolean deleteMaterialtID ( int materialID) throws SQLException {
     
-	String sql = "DELETE  FROM transport WHERE id = ?";
+	String sql = "DELETE  FROM material WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, materialID);
 	prep.executeUpdate();
@@ -58,7 +58,7 @@ public class Delete {
 
 public boolean deleteAccomodationID ( int accomodationID) throws SQLException {
     
-	String sql = "DELETE  FROM transport WHERE id = ?";
+	String sql = "DELETE  FROM accomodation WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, accomodationID);
 	prep.executeUpdate();
@@ -68,7 +68,7 @@ public boolean deleteAccomodationID ( int accomodationID) throws SQLException {
 
 public void deleteActivityID ( int activityID) throws SQLException {
     
-	String sql = "DELETE  FROM transport WHERE id = ?";
+	String sql = "DELETE  FROM activity WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, activityID);
 	prep.executeUpdate();
