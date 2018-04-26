@@ -3,6 +3,8 @@ package database.menu;
 import java.io.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import database.Connect;
@@ -12,15 +14,19 @@ import database.Insertion;
 import database.Search;
 import database.Selection;
 import database.Update;
+import database.JPA.JPACreate;
+import database.JPA.JPARead;
+import database.JPA.JPAconnect;
 import database.pojo.*;
 
 public class Menu {
 //
     public static void main(String[] args) throws Exception {
     	
-    	Camper camper1 = new Camper();
+    
     	List<Transport> transports = new ArrayList();
     	List<Accomodation> accomodations = new ArrayList();
+    	Integer optionNumber  = 0;
     	
     	DbManager d =new DbManager();
     	Connect c=new Connect();
@@ -31,6 +37,9 @@ public class Menu {
     	Search ser = new Search(c.getConnectiondb());
     	c.connectiondb();
     	
+    
+    	do {
+    		Camper camper1 = new Camper();
         try {
 
             System.out.println("SELECT AN OPTION: "
@@ -38,12 +47,13 @@ public class Menu {
                     + "2) INSERT" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY"
                     + "4) DELETE"
+                    + "5) FINISH"
                     + ""
                     + "Option number: ");
 
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
             String readString = console.readLine();
-            int optionNumber = Integer.parseInt(readString);
+            optionNumber = Integer.parseInt(readString);
 
             /*List strings = new ArrayList(String);
 		strings.add("VIEW");
@@ -118,9 +128,11 @@ public class Menu {
                             
                          System.out.println("Insert date of birth (yyyy-mm-dd): ");
         					  readString = console.readLine();
-        					  LocalDate date = checkDate(readString);
-        					  //camper1.setDateofBirth(date);
-        					  // PREGUNTAR RAQUEL Y NACHO
+        					  String withoutTime = readString;
+        					  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+        					  LocalDate date= LocalDate.parse(withoutTime, formatter);
+        					  camper1.setDateBirth(date);
+        					  
 
                         	System.out.println("Insert the NIF of the camper:" );
                             do {  
@@ -199,9 +211,9 @@ public class Menu {
                     		for(Transport trans: transports) {
                     			System.out.println(trans);
                     		}
-                    		System.out.println("Introduce the name of the one you want.");
+                    		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
-                    		Integer transid = ser.SearchTransport(readString).getId();
+                    		Integer transid = Integer.parseInt(readString);
                     		camper1.setTransport_id(transid);
                     	}
                     }
@@ -210,19 +222,23 @@ public class Menu {
                     readString= console.readLine();
                     if(readString.equals("Y")) {
                     	accomodations = sel.selectAccomodation();
-                    	if(transports.isEmpty()) {
+                    	if(accomodations.isEmpty()) {
                     	System.out.println("There is any accomodation abailable. Sorry");
                     	}else {
                     		for(Accomodation acom: accomodations) {
                     			System.out.println(acom);
                     		}
                     		// TERMINAR
-                    		System.out.println("Introduce the name of the one you want.");
+                    		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
-                    		Integer transid = ser.SearchAccomodation(readString).getId();
-                    		camper1.setTransport_id(transid);
+                    		Integer accomodationid = Integer.parseInt(readString);
+                    		camper1.setAccomodation_id(accomodationid);
                     	}
                     }
+                    
+               in.insertCamper(camper1);
+                   // Aqui queda lo delmmaterial y actividad pq nos faltan los selects y esas cosa
+                  
                     
                     
                     
@@ -474,7 +490,7 @@ public class Menu {
             	ex.printStackTrace();
             }
 	
-
+    	}while(optionNumber!=5);
         }
 
 private static LocalDate checkDate(String readString) {

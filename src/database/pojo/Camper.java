@@ -27,12 +27,8 @@ public class Camper implements Serializable{
 	private String email;
 	private String payment_method;
 	private Integer transport_id;
-	public Integer getTransport_id() {
-		return transport_id;
-	}
-	public void setTransport_id(Integer transport_id) {
-		this.transport_id = transport_id;
-	}
+	private Integer accomodation_id;
+	
 
 	@Basic(fetch = FetchType.LAZY)
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -69,7 +65,7 @@ public class Camper implements Serializable{
 			List<Activity> activities) {
 		super();
 		this.name = name;
-		this.SetDateBirth(dateofbirth);
+		this.setDateBirth(dateofbirth);
 		this.NIF = NIF;
 		this.phone_number= phonenumber;
 		this.email= email;
@@ -90,7 +86,7 @@ public class Camper implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
-		this.SetDateBirth(dateofbirth);
+		this.setDateBirth(dateofbirth);
 		this.NIF = NIF;
 		this.phone_number= phonenumber;
 		this.email= email;
@@ -184,14 +180,28 @@ public class Camper implements Serializable{
 	public void setTransports(Transport transports) {
 		this.transport = transports;
 	}
-	public void SetDateBirth(LocalDate d) {
+	public void setDateBirth(LocalDate d)  {
 		this.dob= Date.valueOf(d);
 	}
+	
 	public Accomodation getAccomodation() {
 		return accomodation;
 	}
 	public void setAccomodation(Accomodation accomodation) {
 		this.accomodation = accomodation;
+	}
+	
+	public Integer getAccomodation_id() {
+		return accomodation_id;
+	}
+	public void setAccomodation_id(Integer accomodation_id) {
+		this.accomodation_id = accomodation_id;
+	}
+	public Integer getTransport_id() {
+		return transport_id;
+	}
+	public void setTransport_id(Integer transport_id) {
+		this.transport_id = transport_id;
 	}
 	
 	public int hashCode() {

@@ -23,7 +23,7 @@ public class Insertion {
 			this.c =c;
 		}	
 
-	public Camper insertCamper (Camper camper ) throws SQLException{
+	public Camper insertCamper (Camper camper ) throws Exception{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+
 				 "VALUES (?,?,?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
@@ -33,8 +33,8 @@ public class Insertion {
 		sql.setInt(4, camper.getPhonenumber());
 		sql.setString(5, camper.getEmail());
 		sql.setString(6, camper.getPayment_method());
-		sql.setInt(7, camper.getTransports().getId());
-        sql.setInt(8, camper.getAccomodation().getId());
+		sql.setInt(7, camper.getTransport_id());
+        sql.setInt(8, camper.getAccomodation_id());
 		
 		sql.executeUpdate();
 		sql.close();
