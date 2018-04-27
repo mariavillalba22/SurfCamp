@@ -29,6 +29,7 @@ public class Connect implements ConnectInterface {
 	Connection c;
 	public Connect() throws Exception {
 		this.connectiondb();
+		
 	}
 	
 
@@ -42,7 +43,9 @@ public class Connect implements ConnectInterface {
 	public Connection getConnectiondb() {
 		return c;
 	}
-	
+	public void closeconnection() throws Exception{
+		c.close();
+	}
 	
 	}
 	

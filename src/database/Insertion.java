@@ -23,15 +23,31 @@ public class Insertion {
 			this.c =c;
 		}	
 		
-    public void insertTransInC(Camper camper, Transport transport) {
-    	String sql1 = "INSERT INTO camper (transport_id)"+
-				 "VALUES (?);";
-    	
+    public void insertTransInC(Camper camper, Transport transport) throws SQLException {
+    	String sql1 = "UPDATE camper SET transport_id = ? "+
+				 "WHERE id = ?";
+    	PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setInt(1, transport.getId());
+		sql.setInt(2, camper.getId());
+		
+		sql.executeUpdate();
+		sql.close();
+    }
+    
+    public void insertAccomInC(Camper camper, Accomodation accomodation) throws SQLException {
+    	String sql1 = "UPDATE camper SET accomodation_id = ? "+
+				 "WHERE id = ?";
+    	PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setInt(1, accomodation.getId());
+		sql.setInt(2, camper.getId());
+		
+		sql.executeUpdate();
+		sql.close();
     }
 
 	public Camper insertCamper (Camper camper ) throws Exception{
-		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+
-				 "VALUES (?,?,?,?,?,?,?,?);";
+		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method)"+
+				 "VALUES (?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
 		sql.setString(1, camper.getName());
 		sql.setDate(2, camper.getDateofbirth());
@@ -39,8 +55,7 @@ public class Insertion {
 		sql.setInt(4, camper.getPhonenumber());
 		sql.setString(5, camper.getEmail());
 		sql.setString(6, camper.getPayment_method());
-		sql.setInt(7, camper.getTransports().getId());
-        sql.setInt(8, camper.getAccomodation().getId());
+     
 		
 		sql.executeUpdate();
 		sql.close();

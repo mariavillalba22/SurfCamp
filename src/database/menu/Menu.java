@@ -7,20 +7,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import database.Connect;
-import database.DbManager;
-import database.Delete;
-import database.Insertion;
-import database.Search;
-import database.Selection;
-import database.Update;
-import database.JPA.JPACreate;
-import database.JPA.JPARead;
-import database.JPA.JPAconnect;
+import database.*;
+import database.JPA.*;
 import database.pojo.*;
 
 public class Menu {
-//
+private static final String NULL = null;
+
+
     public static void main(String[] args) throws Exception {
     	
     
@@ -28,18 +22,22 @@ public class Menu {
     	List<Accomodation> accomodations = new ArrayList();
     	Integer optionNumber  = 0;
     	JPAconnect em=new JPAconnect();
+    	em.connectiondb();
    
-    	
+    	Boolean h;
     	DbManager d =new DbManager();
 
     	Connect c=new Connect();
+    	c.connectiondb();
 
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
     	Selection sel = new Selection(c.getConnectiondb());
     	Search ser = new Search(c.getConnectiondb());
-    	c.connectiondb();
+    	
+    	JPACreate create = new JPACreate(em.getEntityManager());
+   
     	
     
     	do {
@@ -203,7 +201,8 @@ public class Menu {
                               }
                               }while(readString.isEmpty());
         			
-                        }
+        				in.insertCamper(camper1);
+        				
                     System.out.println("Does the camper wants a transport? (Y/N)");  
                     readString= console.readLine();
                     if(readString.equals("Y")) {
@@ -217,7 +216,7 @@ public class Menu {
                     		System.out.println("Introduce the name of the one you want.");
                     		readString = console.readLine();
                     		Transport trans1 = ser.SearchTransport(readString);
-                    		camper1.setTransports(trans1);
+                    		in.insertTransInC(camper1, trans1);
                     	}
                     }
                     
@@ -235,33 +234,65 @@ public class Menu {
                     		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
-                    		Accomodation accomodationid = ser.SearchAccomodation(accomid);
-                    		camper1.setAccomodation(accomodationid);
+                    		Accomodation accomodation = ser.SearchAccomodation(accomid);
+                    		in.insertAccomInC(camper1, accomodation);
                     	}
                     }
                     
-               in.insertCamper(camper1);
+                    break;
+              
+                        }
                    // Aqui queda lo delmmaterial y actividad pq nos faltan los selects y esas cosa
                   
                     
-                    
-                    
-                    
-                    
-                     
-                        
-        					
-                        
-
-//+++++++++++++++++++++++++++++++++++++++++ins transport++++++++++++++++++++++++++++++++++++				
-                        case 2: //ins transporte
-                            //AQUI HACE FALTA CONECTARLO CON UN METODO QUE COMPARE
-                            // SI ES UN TRANSPORTE O SI HAY QUE AÑADIRLO
-
+                        case 2: 
+                        	System.out.println("Insert the name of the transport");
+                       
+                        	Transport transport = new Transport();
+                        	do {
+                        	readString = console.readLine();
+                        	
+                        	
+                        		if(ser.SearchTransport(readString).getType_transport()==NULL) {
+                        		    transport.setType_transport(readString);
+                        			h = true;
+                        		}else {
+                        			System.out.println("The name you have introduce exit. Insert a different one.");
+                        			h = false;
+                        		}
+                        		
+                        	}while(h==false);
+                        	
+                        	System.out.println("Insert the price:");
+                        	readString = console.readLine();
+                        	Integer price = Integer.parseInt(readString);
+                        	transport.setPrice(price);
+                        	create.createTransport(transport);
+   
                             break;
 
-                        case 3: //ins acomodation
-                            //IGUAL
+                        case 3: 
+                        	
+                        	System.out.println("Insert the name of the accomodation");
+                        
+                        	Accomodation accomodation = new Accomodation();
+                        	do {
+                        	readString = console.readLine();
+                        	
+                        		if(ser.SearchAccomodation(readString).getAccomodation()==NULL) {
+                        			accomodation.setAccomodation(readString);
+                        			h = true;
+                        		}else {
+                        			System.out.println("The name you have introduce exit. Insert a different one.");
+                        			h = false;
+                        		}
+                        		
+                        	}while(h==false);
+                        	
+                        	System.out.println("Insert the price:");
+                        	readString = console.readLine();
+                        	accomodation.setPrice(Integer.parseInt(readString));
+                        	create.createAccomodation(accomodation);
                             break;
 
                         case 4: //ins activities
@@ -272,38 +303,7 @@ public class Menu {
                             //IGUAL
                             break;
 
-                        case 6: //ins instructors
-                        {
-                            System.out.println("What would you like to insert: "
-                                    + "1) Name"
-                                    + "2) Phone Number"
-                                    + "3) Date of Birth"
-                                    + "4) Nationality"
-                                    + "5) Salary"
-                                    + "6) Activity Taught");
-
-                            readString = console.readLine();
-                            optionNumberInsert = Integer.parseInt(readString);
-
-                            switch (optionNumberInsert) {
-
-                                case 1: // insertas el nombre
-                                    break;
-
-                                case 2: // insertas el numero
-                                    break;
-                                case 3: //insertas la fecha
-                                    break;
-                                case 4: //insertas nacionalidad
-                                    break;
-                                case 5: //insertas salario
-                                    break;
-                                case 6: //insertas la actividad que enseña
-                                    break;
-
-                            }
-                        }
-
+                        
                     }
                 }
                 break;

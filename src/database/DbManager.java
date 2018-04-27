@@ -157,7 +157,7 @@ public static void main(String args[])throws Exception{
 	in.insertActivity(a2);
 	in.insertAccomodation( ac);
 	in.insertAccomodation( ac2);
-    in.insertTransport( t2);
+    t = in.insertTransport( t2);
     in.insertTransport(t);
 	
 	
@@ -177,12 +177,15 @@ public static void main(String args[])throws Exception{
 	in.insertCamper_activity( c1, a);
 	in.insertCamper_activity( c2, a2);
 	in.insertMaterial_activity( m, a);
+	in.insertTransInC(c1, t);
+	
 	
 	sel.selectTnsC( c1);
 	JPAconnect em=new JPAconnect();
+	em.connectiondb();
 	JPARead jpa = new JPARead(em.getEntityManager());
 	c2.addMaterial(m);
-	jpa.ReadMat_Camp(c2);
+
 	
 	
 

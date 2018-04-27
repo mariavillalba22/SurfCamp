@@ -16,11 +16,14 @@ public class JPAconnect implements ConnectInterface{
 			em.getTransaction().begin();
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();
-			em.close();
+			
 			
 		}
 	public EntityManager getEntityManager() {
 		return em;
+	}
+	public void closeconnection() {
+		em.close();
 	}
 	}
 

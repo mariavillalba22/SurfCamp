@@ -104,6 +104,21 @@ public class Search {
 		return accomodation;
 	}
 	
+	public Accomodation SearchAccomodation( String name) throws SQLException{
+		String sql = "SELECT *FROM accomodation WHERE name LIKE ?";
+		PreparedStatement prep  = c.prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		Accomodation accomodation = new Accomodation();
+		while(rs.next()) {
+			Integer id = rs.getInt("id");
+			Integer price = rs.getInt("price");
+		    accomodation = new Accomodation(id, name,price);
+		    
+		}
+		return accomodation;
+	}
+	
 	public Transport SearchTransport(String name) throws SQLException{
 		String sql = "SELECT *FROM transport WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
