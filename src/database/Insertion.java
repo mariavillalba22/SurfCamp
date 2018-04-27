@@ -22,6 +22,12 @@ public class Insertion {
 		public Insertion(Connection c) {	
 			this.c =c;
 		}	
+		
+    public void insertTransInC(Camper camper, Transport transport) {
+    	String sql1 = "INSERT INTO camper (transport_id)"+
+				 "VALUES (?);";
+    	
+    }
 
 	public void insertCamper (Camper camper ) throws Exception{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+

@@ -81,6 +81,7 @@ public boolean deleteAccomodationID ( int accomodationID) throws SQLException {
 
 public void deleteActivityID ( int activityID) throws SQLException {
     
+
 	String sql = "DELETE  FROM activiy WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, activityID);
