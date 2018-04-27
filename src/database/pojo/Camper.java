@@ -91,6 +91,11 @@ public class Camper implements Serializable{
 		
 	}
 	
+	public Camper(int id,String name,int phone) {
+		this.id=id;
+		this.name=name;
+		this.phone_number=phone;		
+	}
 	public List<Activity> getActivity() {
 		return activity;
 	}
@@ -198,6 +203,9 @@ public class Camper implements Serializable{
 	public String toString() {
 		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+"]";
 	
+	}
+	public String showNamePhone(){
+		return "Camper: [id: "+id+" Name: "+name+" Phone:"+phone_number+"]";
 	}
 	
 	//the material ,accomododarion, activity,transport dont need to be printed.

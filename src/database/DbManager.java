@@ -22,7 +22,7 @@ public void createTables(Connection c) {
 	try {
 		Statement stmt1 = c.createStatement();
 		String accomodations = "CREATE TABLE accomodation"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
 				+"	price INTEGER NOT NULL)";
 		stmt1.executeUpdate(accomodations);
@@ -30,7 +30,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt2 = c.createStatement();
 		String activities = "CREATE TABLE activity"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
 				+ " instructor_id INTEGER NOT NULL REFERENCES instructor(id),"
 				+ "	price INTEGER NOT NULL)";
@@ -39,7 +39,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt3 = c.createStatement();
 		String campers = "CREATE TABLE camper"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
 				+"	dob DATE ," // he quitado el not null
 				+"  NIF INTEGER NOT NULL ,"
@@ -55,7 +55,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt4 = c.createStatement();
 		String material = "CREATE TABLE material"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
 				+"	price INTEGER NOT NULL)";
 		stmt4.executeUpdate(material);
@@ -63,7 +63,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt5 = c.createStatement();
 		String instructor = "CREATE TABLE instructor"
-				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
 				+"	phone_number INTEGER NOT NULL,"
 			    +"	dob DATE NOT NULL," 
@@ -78,7 +78,7 @@ public void createTables(Connection c) {
 		
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
-				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT unique,"
+				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 
 			    + "name TEXT NOT NULL,"
 			    
@@ -120,9 +120,9 @@ public static void main(String args[])throws Exception{
 	
 	DbManager d =new DbManager();
 	Connect c=new Connect();
+	Delete del=new Delete(c.getConnectiondb());
 	Insertion in=new Insertion(c.getConnectiondb());
 	Update up = new Update(c.getConnectiondb());
-	Delete del=new Delete(c.getConnectiondb());
 	Selection sel = new Selection(c.getConnectiondb());
 	Search ser = new Search(c.getConnectiondb());
 	c.connectiondb();
@@ -150,7 +150,7 @@ public static void main(String args[])throws Exception{
     mat.add(m);
     mat.add(m2);
 	
-	//d.createTables(c.getConnectiondb());
+	d.createTables(c.getConnectiondb());
     in.insertInstructor( inst);
 	in.insertInstructor( inst2);
 	in.insertActivity(a);
@@ -167,10 +167,12 @@ public static void main(String args[])throws Exception{
 	
     Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
    	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
+   	Camper c3=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
+
    	
-	c1 = in.insertCamper( c1);
-	c2 = in.insertCamper( c2);
-	
+	in.insertCamper( c1);
+	in.insertCamper( c2);
+	in.insertCamper(c3);
 
 	in.insertCamper_material( c1, m);
 	in.insertCamper_material( c2, m2);
@@ -181,16 +183,15 @@ public static void main(String args[])throws Exception{
 	
 	
 	sel.selectTnsC( c1);
+
 	JPAconnect em=new JPAconnect();
 	em.connectiondb();
 	JPARead jpa = new JPARead(em.getEntityManager());
+
 	c2.addMaterial(m);
 
-	
-	
 
+	
 
 }
-
-		
 }
