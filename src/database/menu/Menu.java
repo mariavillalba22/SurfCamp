@@ -395,7 +395,7 @@ public class Menu {
 
                 case 4: //delete
                 {
-                    System.out.println("WHERE WOULD YOU LIKE TO DELETE: "
+                    System.out.println("WHAT WOULD YOU LIKE TO DELETE: "
                             + "1) Campers"
                             + "2) Transport" //DUDA 
                             + "3) Accomodation"//DUDA
@@ -411,66 +411,41 @@ public class Menu {
                     switch (optionNumberModify) {
 
                         case 1: {//campers
-                            System.out.println("WHAT WOULD YOU LIKE TO DELETE: "
-                                    + "1) Name"
-                                    + "2) Date of Birth"
-                                    + "3) Nationality"
-                                    + "4) NIF"
-                                    + "5) Phone Number"
-                                    + "6) Email"
-                                    + "7) Payment method"
-                                    + "8) Transport"
-                                    + "9) Accomodation"
-                                    + "10) Activity"
-                                    + ""
-                                    + "Option number: ");
-
-                            readString = console.readLine();
-                            int optionNumberModifyCamper = Integer.parseInt(readString);
-
-                            switch (optionNumberModifyCamper) {
-
-                                case 1: //delete name
-                                    break;
-
-                                case 2: //delete date of b
-                                    break;
-
-                                case 3: //delete nation
-                                    break;
-
-                                case 4: // delete nif
-                                    break;
-
-                                case 5: //delete phone
-                                    break;
-
-                                case 6: //delete email
-                                    break;
-
-                                case 7: //delete pay
-                                    break;
-
-                                case 8: //delete transp	
-                                    break;
-
-                                case 9: //delete acc
-                                    break;
-
-                                case 10: //delete act
-                                    break;
-                            }
-
+                        System.out.println("Insert the campers name and surname");
+                        List<Camper> list=sel.selectCamperbyName(console.readLine());
+                        for (int i = 0; i < list.size(); i++) {
+							System.out.println(list.get(i).showNamePhone());
+						}
+                        System.out.println("Select the id from the camper to be deleted:");
+                        int num=Integer.parseInt(console.readLine());
+                        del.deleteCamperIdfromA(num);
+                        del.deleteCamperIdfromM(num);
+                        del.deleteCamperId(num);
                         }
                         break;
 
-                        case 2: //delete trans
+                        case 2: {//delete trans
+                        	//no funciona, tengo que pensarlo
+                        	transports = sel.selectTransport();
+                        	if(transports.isEmpty()) {
+                        	System.out.println("There is any transport available to delete. Sorry");
+                        	}else {
+                        		for(Transport trans: transports) {
+                        			System.out.println(trans);
+                        		}
+                        	}
+                        	System.out.println("Insert the id of the transport that you want to delete:");
+                        	int num=Integer.parseInt(console.readLine());
+                        	del.deleteTransportID(num);
+                        	}
                             break;
 
                         case 3: //delete acc
+                        		
                             break;
 
-                        case 4: //delete acti
+                        case 4: {//delete acti
+                        }
                             break;
 
                         case 5: //delete mat

@@ -39,6 +39,23 @@ public class Selection {
 		return campers;
 
 	}
+	public List<Camper> selectCamperbyName(String name) throws SQLException{
+		String sql = "SELECT id,name,phone_number FROM camper WHERE name LIKE ? ";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		List<Camper> campers = new ArrayList();
+		while(rs.next()) {
+			int id=rs.getInt("id");
+			String nm=rs.getString("name");
+			int pn=rs.getInt("phone_number");
+			Camper c=new Camper(id,nm,pn);
+			campers.add(c);
+		}
+		rs.close();
+		prep.close();
+		return campers;
+	}
 	
 	
 	public List<Instructor> selectInstructor() throws SQLException{

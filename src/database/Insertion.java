@@ -23,7 +23,7 @@ public class Insertion {
 			this.c =c;
 		}	
 
-	public Camper insertCamper (Camper camper ) throws Exception{
+	public void insertCamper (Camper camper ) throws Exception{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method,transport_id,accomodation_id)"+
 				 "VALUES (?,?,?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
@@ -44,7 +44,6 @@ public class Insertion {
 		ResultSet rs1 = p.executeQuery();
 		Integer lastId = rs1.getInt("lastId");
 		camper.setId(lastId);
-		return camper;
 	}
 	
 	
