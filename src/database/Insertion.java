@@ -123,6 +123,7 @@ public class Insertion {
 		accomodation.setId(lastId);
 		return accomodation;
 	}
+	
 	public Activity insertActivity (Activity activity ) throws Exception{
 		String sql3 = "INSERT INTO activity (name, price, instructor_id)"+
 				"VALUES (?,?,?);";

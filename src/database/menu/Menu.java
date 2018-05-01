@@ -20,16 +20,20 @@ private static final String NULL = null;
     
     	List<Transport> transports = new ArrayList();
     	List<Accomodation> accomodations = new ArrayList();
+    	List<Instructor>  instructors = new ArrayList();
+    	List<Activity> activities = new ArrayList ();
+    	List<Material> materials = new ArrayList();
+    	
     	Integer optionNumber  = 0;
     	JPAconnect em=new JPAconnect();
     	em.connectiondb();
    
     	Boolean h;
     	DbManager d =new DbManager();
-
+    
     	Connect c=new Connect();
     	c.connectiondb();
-
+    //	d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -57,21 +61,17 @@ private static final String NULL = null;
             String readString = console.readLine();
             optionNumber = Integer.parseInt(readString);
 
-            /*List strings = new ArrayList(String);
-		strings.add("VIEW");
-		strings.add("INSERT");
-		int choice = printMenu(strings)*/ //CONSIDER
+            
             switch (optionNumber) {
-//***********************************view*****************************************************		
+	
                 case 1: {// VIEW
                     System.out.println("WHAT WOULD YOU LIKE TO SEE: "
-                            + "1) Campers"
-                            + "2) Transport" // a partir de aqui hay q comprobar si hay algo
-                            + "3) Accomodation"
-                            + "4) Activities"
-                            + "5) Material"
-                            + "6) Instructor"
-                            + ""
+                            + "1) Campers\n"
+                            + "2) Transport\n" // a partir de aqui hay q comprobar si hay algo
+                            + "3) Accomodation\n"
+                            + "4) Activities\n"
+                            + "5) Material\n"
+                            + "6) Instructor\n\n"
                             + "Option number: ");
 
                     readString = console.readLine();
@@ -102,12 +102,12 @@ private static final String NULL = null;
                 case 2: { //INSERT
 
                     System.out.println("WHAT WOULD YOU LIKE TO INSERT: "
-                            + "1) Campers"
-                            + "2) Transport" 
-                            + "3) Accomodation"
-                            + "4) Activities"
-                            + "5) Material"
-                            + "6) Instructor"
+                            + "1) Campers\n"
+                            + "2) Transport\n" 
+                            + "3) Accomodation\n"
+                            + "4) Activities\n"
+                            + "5) Material\n"
+                            + "6) Instructor\n\n"
                             + ""
                             + "Option number: ");
 
@@ -203,12 +203,12 @@ private static final String NULL = null;
         			
         				in.insertCamper(camper1);
         				
-                    System.out.println("Does the camper wants a transport? (Y/N)");  
+                    System.out.println("Does the camper want a transport? (Y/N)");  
                     readString= console.readLine();
                     if(readString.equals("Y")) {
                     	transports = sel.selectTransport();
                     	if(transports.isEmpty()) {
-                    	System.out.println("There is any transport abailable. Sorry");
+                    	System.out.println("There is any transport available. Sorry");
                     	}else {
                     		for(Transport trans: transports) {
                     			System.out.println(trans);
@@ -220,22 +220,79 @@ private static final String NULL = null;
                     	}
                     }
                     
-                    System.out.println("Does the camper wants an accomodation? (Y/N)");  
+                    System.out.println("Does the camper want an accomodation? (Y/N)");  
                     readString= console.readLine();
                     if(readString.equals("Y")) {
                     	accomodations = sel.selectAccomodation();
                     	if(accomodations.isEmpty()) {
-                    	System.out.println("There is any accomodation abailable. Sorry");
+                    	System.out.println("There is any accomodation available. Sorry");
                     	}else {
                     		for(Accomodation acom: accomodations) {
                     			System.out.println(acom);
                     		}
-                    		// TERMINAR
+                    		
                     		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
                     		Accomodation accomodation = ser.SearchAccomodation(accomid);
                     		in.insertAccomInC(camper1, accomodation);
+                    	}
+                    	
+                    	System.out.println("Does the camper want an activity? (Y/N)");
+                    	readString = console.readLine();
+                    	if(readString.equals("Y")) {
+                    		activities = sel.selectActivity();
+                    		if(activities.isEmpty()) {
+                    			System.out.println("There is any activity available. Sorry.");
+                    		}else {
+                    			for(Activity act : activities) {
+                    				System.out.println(act);
+                    			}
+                    			do {
+                    			System.out.println("Introduce the id of the activity wanted:");
+                    			readString = console.readLine();
+                    			Activity activity = ser.SearchActivity(Integer.parseInt(readString));
+                    			in.insertCamper_activity(camper1, activity);
+                    			System.out.println("Would you want another activity? (Y/N");
+                    			readString = console.readLine();
+                    			if(readString.equals("Y")) {
+                    				h = true;
+                    			}else {
+                    				h = false;
+                    			}
+                    			}while(h == true);
+                    			
+                    		}
+                    		
+                    	}
+                    	
+                    	System.out.println("Does the camper want any material? (Y/N)");
+                    	readString = console.readLine();
+                    	if(readString.equals("Y")) {
+                    		materials = sel.selectMaterial();
+                    		if(materials.isEmpty()) {
+                    			System.out.println("There is any material available. Sorry.");
+                    		}else {
+                    			for(Material mat: materials) {
+                    				System.out.println(mat);
+                    			}
+                    			
+                    			do {
+                    				
+                    			System.out.println("Introduce the id of the material wanted:");
+                    			readString = console.readLine();
+                    			Material mat = ser.SearchMaterial(Integer.parseInt(readString));
+                    			in.insertCamper_material(camper1, mat);
+                    			System.out.println("Would you want another material? (Y/N");
+                    			readString = console.readLine();
+                    			if(readString.equals("Y")) {
+                    				h = true;
+                    			}else {
+                    				h = false;
+                    			}
+                    			}while(h == true);
+                    		}
+                    		
                     	}
                     }
                     
@@ -295,15 +352,46 @@ private static final String NULL = null;
                         	create.createAccomodation(accomodation);
                             break;
 
-                        case 4: //ins activities
-                            //IGUAL
-                            break;
+                        case 4: 
+                        	System.out.println("Insert the name of the activity");
+                         Activity activity = new Activity();
+                        	do {
+                        	readString = console.readLine();
+                        	
+                        		if((ser.SearchActivity(readString)).getActivity()==NULL) {
+                        			activity.setActivity(readString);
+                        			h = true;
+                        		}else {
+                        			System.out.println("The name you have introduce exit. Insert a different one.");
+                        			h = false;
+                        		}
+                        		
+                        	}while(h==false);
+                        	
+                        	System.out.println("Insert the price:");
+                        	readString = console.readLine();
+                         activity.setPrice(Integer.parseInt(readString));
+                         
+                         System.out.println("These are the instructors:");
+                         if(instructors.isEmpty()) {
+                        	 System.out.println("There are any instructors available");
+                         }else {
+                         for(Instructor inst: instructors) {
+                 			System.out.println(inst);
+                 		}}
+                         System.out.println("Introduzca el id of the instructor, who is going to be in charge of the activity:");
+                         readString = console.readLine();
+                         Instructor inst = ser.SearchInstructor(Integer.parseInt(readString));
+                         activity.setInst(inst);
+                         in.insertActivity(activity);
+                         break;
 
                         case 5: //ins material;
                             //IGUAL
+                        	
                             break;
 
-                        
+                        case 6 : //instructor
                     }
                 }
                 break;

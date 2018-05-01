@@ -133,11 +133,9 @@ public static void main(String args[])throws Exception{
 	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
 	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
 
-	
-// no se pasa inst se pasa id
 	Activity a = new Activity ("natacion",300,inst,null,null);
-	Activity a2 = new Activity( "patinaje", 400,inst,null,null);
-	activ.add(a);
+	Activity a2 = new Activity( "patinaje", 400,inst2,null,null);
+	
 	
 	Accomodation ac= new Accomodation("hotel",300);
 	Accomodation ac2 = new Accomodation("camping",800);
@@ -150,11 +148,12 @@ public static void main(String args[])throws Exception{
     mat.add(m);
     mat.add(m2);
 	
-	d.createTables(c.getConnectiondb());
-    in.insertInstructor( inst);
-	in.insertInstructor( inst2);
-	in.insertActivity(a);
-	in.insertActivity(a2);
+	//d.createTables(c.getConnectiondb());
+   inst = in.insertInstructor( inst);
+	inst2 = in.insertInstructor( inst2);
+	a = in.insertActivity(a);
+	a2 = in.insertActivity(a2);
+	
 	in.insertAccomodation( ac);
 	in.insertAccomodation( ac2);
     t = in.insertTransport( t2);
@@ -169,7 +168,7 @@ public static void main(String args[])throws Exception{
    	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
    	Camper c3=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
 
-   	
+   	 
 	in.insertCamper( c1);
 	in.insertCamper( c2);
 	in.insertCamper(c3);

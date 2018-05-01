@@ -73,6 +73,20 @@ public class Search {
 		}
 		return activity;
 	}
+	public Activity SearchActivity( String name) throws SQLException {
+		String sql = "SELECT *FROM activity WHERE name LIKE ?";
+		PreparedStatement prep  = c.prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		Activity activity = new Activity();
+		while(rs.next()) {
+			Integer id = rs.getInt("id");
+			Integer price = rs.getInt("price");
+		    activity = new Activity(id, name,price);
+		  
+		}
+		return activity;
+	}
 	
 	public Material SearchMaterial( Integer id)throws SQLException{
 		String sql = "SELECT *FROM material WHERE id LIKE ?";
