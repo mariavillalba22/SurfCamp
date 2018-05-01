@@ -33,7 +33,7 @@ private static final String NULL = null;
     
     	Connect c=new Connect();
     	c.connectiondb();
-    //	d.createTables(c.getConnectiondb());
+   // d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -323,6 +323,7 @@ private static final String NULL = null;
                         	readString = console.readLine();
                         	Integer price = Integer.parseInt(readString);
                         	transport.setPrice(price);
+                        	//NO ME VA.
                         	create.createTransport(transport);
    
                             break;
@@ -486,22 +487,21 @@ private static final String NULL = null;
 
                 case 4: //delete
                 {
-                    System.out.println("WHAT WOULD YOU LIKE TO DELETE: "
-                            + "1) Campers"
-                            + "2) Transport" //DUDA 
-                            + "3) Accomodation"//DUDA
-                            + "4) Activities"//DUDA
-                            + "5) Material"//DUDA
-                            + "6) Instructor"//DUDA
-                            + ""
-                            + "Option number: ");
+                    System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n "
+                            + "1) Campers\n"
+                            + "2) Transport\n" 
+                            + "3) Accomodation\n"
+                            + "4) Activities\n"
+                            + "5) Material\n"
+                            + "6) Instructor\n"
+                            + "Option:");
 
                     readString = console.readLine();
                     optionNumberModify = Integer.parseInt(readString);
 
                     switch (optionNumberModify) {
 
-                        case 1: {//campers
+                        case 1: {//campers funciona
                         System.out.println("Insert the campers name and surname");
                         List<Camper> list=sel.selectCamperbyName(console.readLine());
                         for (int i = 0; i < list.size(); i++) {
@@ -531,18 +531,76 @@ private static final String NULL = null;
                         	}
                             break;
 
-                        case 3: //delete acc
-                        		
+                        case 3://accomodation funciona 
+                        {
+                        	List<Accomodation> accomodation = sel.selectAccomodation();
+                        	if(accomodation.isEmpty()) {
+                        	System.out.println("There is any accomodations available to delete. Sorry");
+                        	}else {
+                        		for(Accomodation accomodation1: accomodation) {
+                        			System.out.println(accomodation1);
+                        		}
+                        	}
+                        	System.out.println("Insert the id of the transport that you want to delete:");
+                        	int num=Integer.parseInt(console.readLine());
+                        	//sel.selectTnsC(num);
+                        	del.deleteAccomodationID(num);
+                        	}
                             break;
 
-                        case 4: {//delete acti
+                        case 4: //activity funciona
+                        	{
+                         activities = sel.selectActivity();
+                        	if(activities.isEmpty()) {
+                        	System.out.println("There is any activity available to delete. Sorry");
+                        	}else {
+                        		for(Activity activity: activities) {
+                        			System.out.println(activity);
+                        		}
+                        	}
+                        	System.out.println("Insert the id of the activity that you want to delete:");
+                        	int num=Integer.parseInt(console.readLine());
+                        	del.deleteActivityIdfromCA(num);
+                        	del.deleteActivityID(num);
+
                         }
                             break;
 
-                        case 5: //delete mat
+                        case 5:
+                        	//material funciona
+                        {
+                        	List<Material> material = sel.selectMaterial();
+                        	if(material.isEmpty()) {
+                        	System.out.println("There is any material available to delete. Sorry");
+                        	}else {
+                        		for(Material mat: material) {
+                        			System.out.println(materials);
+                        		}
+                        	}
+                        	System.out.println("Insert the id of the material that you want to delete:");
+                        	int num=Integer.parseInt(console.readLine());
+                        	del.deleteMaterialIdfromCM(num);
+                        	del.deleteMaterialIdfromMA(num);
+                        del.deleteMaterialID(num);
+
+                        }
                             break;
 
-                        case 6: //delete instr
+                        case 6: //delete instructor funciona
+                        {
+                        	List<Instructor> instructor = sel.selectInstructor();
+                        	if(instructor.isEmpty()) {
+                        	System.out.println("There is any instructor available to delete. Sorry");
+                        	}else {
+                        		for(Instructor inst:instructor) {
+                        			System.out.println(instructors);
+                        		}
+                        	}
+                        	System.out.println("Insert the id of the instructor that you want to delete:");
+                        	int num=Integer.parseInt(console.readLine());
+                        	del.deleteInstructorID(num);
+
+                        }
                             break;
 
                     }
