@@ -299,7 +299,6 @@ private static final String NULL = null;
                     break;
               
                         }
-                   // Aqui queda lo delmmaterial y actividad pq nos faltan los selects y esas cosa
                   
                     
                         case 2: 
