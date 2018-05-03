@@ -130,6 +130,7 @@ public void createTables(Connection c) {
 		stmt9.executeUpdate(material_activity);
 		stmt9.close();
 		
+		
 	}catch (Exception e) {
 		e.printStackTrace();
 	}

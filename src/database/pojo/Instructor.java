@@ -138,6 +138,10 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.dob = dob;
 		
 	}
+	public void setDateBirth(LocalDate d)  {
+		this.dob= Date.valueOf(d);
+	}
+	
 	public void SetDateBirth(LocalDate d) {
 		this.dob= Date.valueOf(d);
 	}

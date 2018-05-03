@@ -33,7 +33,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-    //d.createTables(c.getConnectiondb());
+   d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -41,7 +41,7 @@ public class Menu {
     	Search ser = new Search(c.getConnectiondb());
     	
     	JPACreate create = new JPACreate(em.getEntityManager());
-   
+
     	
     
     	do {
@@ -656,7 +656,8 @@ public class Menu {
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
                         	accomodation.setPrice(Integer.parseInt(readString));
-                        	create.createAccomodation(accomodation);
+                        	in.insertAccomodation(accomodation);
+                        	
                             break;
 
                         case 4: 
@@ -679,18 +680,31 @@ public class Menu {
                         	readString = console.readLine();
                          activity.setPrice(Integer.parseInt(readString));
                          
+                         in.insertActivity(activity);
+                         
                          System.out.println("These are the instructors:");
                          if(instructors.isEmpty()) {
                         	 System.out.println("There are any instructors available");
                          }else {
                          for(Instructor inst: instructors) {
                  			System.out.println(inst);
-                 		}}
+                 		}
+                         do {
                          System.out.println("Introduzca el id of the instructor, who is going to be in charge of the activity:");
                          readString = console.readLine();
-                         Instructor inst = ser.SearchInstructor(Integer.parseInt(readString));
-                         activity.setInst(inst);
-                         in.insertActivity(activity);
+                         if(readString.isEmpty()){
+                        	 System.out.println("The activity must have an instructor, choose one:");
+                         readString = console.readLine();
+                         }else {
+                        	 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
+                         in.insertInstructorInA(instructor1, activity);
+                        	// activity.setInst(instructor1);
+                         }
+                         
+                         }while(readString.isEmpty());
+                          
+                          }
+                         
                          break;
 
                         case 5: 
@@ -703,12 +717,12 @@ public class Menu {
                     		if(ser.SearchMaterial(readString).getMaterial()==NULL) {
                     			mat.setMaterial(readString);
                     			h = true;
-                    		}else {
+                    		  }else {
                     			System.out.println("The name you have introduce exits. Insert a different one.");
                     			h = false;
-                    		}
+                    		        }
                     		
-                    	}while(h==false);
+                      	}while(h==false);
                     	
                     	System.out.println("Insert the price:");
                     	readString = console.readLine();
@@ -717,7 +731,143 @@ public class Menu {
                         break;
 
 
-                        case 6 :  // Instructor
+                        case 6 : 
+                        	
+                        	System.out.println("Insert the name of the instructor:" );
+                            do {  
+                            readString = console.readLine();
+                            if(readString.isEmpty()) {
+                            	System.out.println("You have to introduce a name. Try again: ");
+                            readString = console.readLine();
+                            }else {
+                            instructor1.setName(readString);
+                            }
+                            }while(readString.isEmpty());
+                            
+                         System.out.println("Insert date of birth (yyyy-mm-dd): ");
+        					  readString = console.readLine();
+        					  String withoutTime = readString;
+        					  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+        					  LocalDate date= LocalDate.parse(withoutTime, formatter);
+        					  instructor1.setDateBirth(date);
+        					  
+
+                        	System.out.println("Insert the NIF of the instructor:" );
+                            do {  
+                            readString = console.readLine();
+                            if(readString.isEmpty()) {
+                            	System.out.println("You have to introduce a NIF. Try again: ");
+                            readString = console.readLine();
+                            }else {
+                            instructor1.setNIF(readString);
+                            }
+                            }while(readString.isEmpty());
+                            
+                            
+                         System.out.println("Insert phone number: ");
+        						do {
+        							readString = console.readLine();
+        						
+        						if(readString.isEmpty()) {
+        							System.out.println("You must introduce a phone number, because we need to contact with the instructor."
+        									+ "\n Insert a correct phone number: ");
+        						readString = console.readLine();
+        						}else {
+        						instructor1.setPhoneNumber(Integer.parseInt(readString));
+        						}
+        						}while(readString.isEmpty());
+        					
+        				System.out.println("Insert the nationality: ");
+        				
+        				  do {  
+                              readString = console.readLine();
+                              if(readString.isEmpty()) {
+                              	System.out.println("You have to introduce a nationality . Try again: ");
+                              readString = console.readLine();
+                              }else {
+                              instructor1.setNationality(readString);
+                              }
+                              }while(readString.isEmpty());
+        			  
+        				  System.out.println("Introduce the salary of the instructor:");
+        				  do {
+        				  readString = console.readLine();
+        				  if(readString.isEmpty()) {
+        					  System.out.println("We need to pay to our employees (IT IS ILEGAL NOT TO"
+        					  		+ "\n Insert the salary again: ");
+        					  readString = console.readLine();
+        				  }else{
+        					  instructor1.setSalary(Integer.parseInt(readString));
+        				  }
+        				  }while(readString.isEmpty());
+        				
+        			    in.insertInstructor(instructor1);
+        				
+                    System.out.println("Does the instructor requires a transport? (Y/N)");  
+                    readString= console.readLine();
+                    if(readString.equals("Y")) {
+                    	transports = sel.selectTransport();
+                    	if(transports.isEmpty()) {
+                    	System.out.println("There is any transport available. Sorry");
+                    	}else {
+                    		for(Transport trans: transports) {
+                    			System.out.println(trans);
+                    		}
+                    		System.out.println("Introduce the name of the one you want.");
+                    		readString = console.readLine();
+                    		Transport trans1 = ser.SearchTransport(readString);
+                    		in.insertTransInI(instructor1, trans1);
+                    	}
+                    }
+                    
+                    System.out.println("Does the instructor want an accomodation? (Y/N)");  
+                    readString= console.readLine();
+                    if(readString.equals("Y")) {
+                    	accomodations = sel.selectAccomodation();
+                    	if(accomodations.isEmpty()) {
+                    	System.out.println("There is any accomodation available. Sorry");
+                    	}else {
+                    		for(Accomodation acom: accomodations) {
+                    			System.out.println(acom);
+                    		}
+                    		
+                    		System.out.println("Introduce the id of the one you want.");
+                    		readString = console.readLine();
+                    	    Integer accomid = Integer.parseInt(readString);
+                    		accomodation = ser.SearchAccomodation(accomid);
+                    		in.insertAccomInI(instructor1, accomodation);
+                    	}
+                    }
+                    
+                    	System.out.println("The instructor must be incharge of an activity.");
+                    	readString = console.readLine();
+                    	if(readString.equals("Y")) {
+                    		activities = sel.selectActivity();
+                    		if(activities.isEmpty()) {
+                    			System.out.println("No activities yet");
+                    		}else {
+                    			for(Activity act : activities) {
+                    				System.out.println(act);
+                    			}
+                    			do {
+                    			System.out.println("Introduce the id of the activity wanted:");
+                    			readString = console.readLine();
+                    			activity = ser.SearchActivity(Integer.parseInt(readString));
+                    			in.insertInstructorInA(instructor1, activity);
+                    			System.out.println("Would you want another activity? (Y/N");
+                    			readString = console.readLine();
+                    			if(readString.equals("Y")) {
+                    				h = true;
+                    			}else {
+                    				h = false;
+                    			}
+                    			}while(h == true);
+                    			
+                    		}
+                    		
+                    	}
+                    	
+                        	
                         	break;
                     }
                 }

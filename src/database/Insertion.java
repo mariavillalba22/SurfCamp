@@ -44,7 +44,29 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
     }
-
+    
+    
+    public void insertTransInI(Instructor instructor, Transport transport) throws SQLException {
+    	String sql1 = "UPDATE instructor SET transport_id = ? "+
+				 "WHERE id = ?";
+    	PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setInt(1, transport.getId());
+		sql.setInt(2, instructor.getId());
+		
+		sql.executeUpdate();
+		sql.close();
+    }
+    
+    public void insertAccomInI(Instructor instructor, Accomodation accomodation) throws SQLException {
+    	String sql1 = "UPDATE instructor SET accomodation_id = ? "+
+				 "WHERE id = ?";
+    	PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setInt(1, accomodation.getId());
+		sql.setInt(2, instructor.getId());
+		
+		sql.executeUpdate();
+		sql.close();
+    }
 
 	public void insertCamper (Camper camper ) throws Exception{
 		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method)"+
@@ -96,6 +118,8 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
+	
+	
 	public void insertMaterial_activity(Material material, Activity activity)throws SQLException{
 		String sql11="INSERT INTO material_activity(id_material, id_activity)"+ 
 					"VALUES(?,?);";
@@ -124,13 +148,13 @@ public class Insertion {
 		return accomodation;
 	}
 	
-	public Activity insertActivity (Activity activity ) throws Exception{
-		String sql3 = "INSERT INTO activity (name, price, instructor_id)"+
-				"VALUES (?,?,?);";
+	public Activity insertActivity (Activity activity) throws Exception{
+		String sql3 = "INSERT INTO activity (name, price)"+
+				"VALUES (?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
 		sql.setString(1, activity.getActivity());
 		sql.setInt(2, activity.getPrice());
-		sql.setInt(3, activity.getInst().getId());
+		
 	
 		sql.executeUpdate();
 		sql.close();
@@ -142,6 +166,18 @@ public class Insertion {
 		
 		return activity;
 	}
+	
+	public void insertInstructorInA(Instructor instructor, Activity activity) throws SQLException {
+    	String sql1 = "UPDATE activity SET instructor_id = ? "+
+				 "WHERE id = ?";
+    	PreparedStatement sql = c.prepareStatement(sql1);
+		sql.setInt(1, instructor.getId());
+		sql.setInt(2, activity.getId());
+		
+		sql.executeUpdate();
+		sql.close();
+    }
+	
 	public Material insertMaterial (Material material ) throws SQLException{
 		String sql4 = "INSERT INTO material (name, price)"+
 				"VALUES (?,?);";
