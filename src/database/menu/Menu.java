@@ -200,7 +200,7 @@ private static final String NULL = null;
                               camper1.setPayment_method(readString);
                               }
                               }while(readString.isEmpty());
-        			
+        			   
         				in.insertCamper(camper1);
         				
                     System.out.println("Does the camper want a transport? (Y/N)");  
@@ -237,7 +237,7 @@ private static final String NULL = null;
                     		Accomodation accomodation = ser.SearchAccomodation(accomid);
                     		in.insertAccomInC(camper1, accomodation);
                     	}
-                    	
+                    }
                     	System.out.println("Does the camper want an activity? (Y/N)");
                     	readString = console.readLine();
                     	if(readString.equals("Y")) {
@@ -298,7 +298,7 @@ private static final String NULL = null;
                     
                     break;
               
-                        }
+                        
                   
                     
                         case 2: 
@@ -386,12 +386,32 @@ private static final String NULL = null;
                          in.insertActivity(activity);
                          break;
 
-                        case 5: //ins material;
-                            //IGUAL
+                        case 5: 
                         	
-                            break;
+                        	System.out.println("Insert the name of the material");
+                        Material mat = new Material();
+                     	do {
+                      	readString = console.readLine();
+                    	
+                    		if(ser.SearchMaterial(readString).getMaterial()==NULL) {
+                    			mat.setMaterial(readString);
+                    			h = true;
+                    		}else {
+                    			System.out.println("The name you have introduce exits. Insert a different one.");
+                    			h = false;
+                    		}
+                    		
+                    	}while(h==false);
+                    	
+                    	System.out.println("Insert the price:");
+                    	readString = console.readLine();
+                     mat.setPrice(Integer.parseInt(readString));
+                    	create.createMaterial(mat);
+                        break;
 
-                        case 6 : //instructor
+
+                        case 6 :  // Instructor
+                        	break;
                     }
                 }
                 break;

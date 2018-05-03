@@ -103,6 +103,20 @@ public class Search {
 		return material;
 	}
 	
+	public Material SearchMaterial( String name)throws SQLException{
+		String sql = "SELECT *FROM material WHERE name LIKE ?";
+		PreparedStatement prep  = c.prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet rs = prep.executeQuery();
+		Material material = new Material();
+		while(rs.next()) {
+			Integer id = rs.getInt("id");
+			Integer price = rs.getInt("price");
+		    material = new Material(id, name,price);
+		    System.out.println(material);
+		}
+		return material;
+	}
 	public Accomodation SearchAccomodation( Integer id) throws SQLException{
 		String sql = "SELECT *FROM accomodation WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
