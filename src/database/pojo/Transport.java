@@ -101,7 +101,11 @@ private static final long serialVersionUID = -4281575077333973070L;
 	
 	@Override
 	public String toString() {
-		return "Transport [id=" + id + ", type_transport=" + name +  "price=" +price+"]";
+		return "Transport [id=" + id + ", type_transport=" + name +  ", price=" +price+"]";
+	}
+	
+	public String showName(){
+		return " transport = " + name;
 	}
 	//problemas a la hora de imprimir las listas en el select
 	

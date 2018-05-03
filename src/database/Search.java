@@ -162,6 +162,21 @@ public class Search {
 		return trans;
 	}
 	
+	public Transport SearchTransport(Integer id) throws SQLException{
+		String sql = "SELECT *FROM transport WHERE id LIKE ?";
+		PreparedStatement prep  = c.prepareStatement(sql);
+		prep.setInt(1, id);
+		ResultSet rs = prep.executeQuery();
+		Transport trans= new Transport();
+		while(rs.next()) {
+			String name = rs.getString("name");
+			Integer price = rs.getInt("price");
+		    trans = new Transport(id, name,price);
+		  
+		}
+		return trans;
+	}
+	
 	
 	
 	

@@ -48,6 +48,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Accomodation accomodation;
 
 	
+	
 	public Instructor() {
 		super();
 	}
@@ -174,6 +175,15 @@ private static final long serialVersionUID = -4281575077333973070L;
 	public void setTransport(Transport transport) {
 		this.transport = transport;
 	}
+	
+	public Accomodation getAccomodation() {
+		return accomodation;
+	}
+
+	public void setAccomodation(Accomodation accomodation) {
+		this.accomodation = accomodation;
+	}
+
 
 	@Override
 	public int hashCode() {

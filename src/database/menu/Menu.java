@@ -12,12 +12,11 @@ import database.JPA.*;
 import database.pojo.*;
 
 public class Menu {
-private static final String NULL = null;
+	private static final String NULL = null;
 
-
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
     	
-    
+    	List <Camper> campers = new ArrayList();
     	List<Transport> transports = new ArrayList();
     	List<Accomodation> accomodations = new ArrayList();
     	List<Instructor>  instructors = new ArrayList();
@@ -30,10 +29,11 @@ private static final String NULL = null;
    
     	Boolean h;
     	DbManager d =new DbManager();
-    
+    	Iterator it;
+    	
     	Connect c=new Connect();
     	c.connectiondb();
-   // d.createTables(c.getConnectiondb());
+    //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -46,6 +46,11 @@ private static final String NULL = null;
     
     	do {
     		Camper camper1 = new Camper();
+    		Transport transport1 = new Transport();
+    		Accomodation accomodation1 =new Accomodation();
+    		Activity activity1=new Activity();
+    		Material material1= new Material();
+    		Instructor instructor1=new Instructor();
         try {
 
             System.out.println("SELECT AN OPTION: \n"
@@ -66,38 +71,340 @@ private static final String NULL = null;
 	
                 case 1: {// VIEW
                     System.out.println("WHAT WOULD YOU LIKE TO SEE: "
-                            + "1) Campers\n"
-                            + "2) Transport\n" // a partir de aqui hay q comprobar si hay algo
-                            + "3) Accomodation\n"
-                            + "4) Activities\n"
-                            + "5) Material\n"
-                            + "6) Instructor\n\n"
-                            + "Option number: ");
+                            + "\n1) Campers\t"
+                            + "\n2) Transport\t" // a partir de aqui hay q comprobar si hay algo
+                            + "\n3) Accomodation\t"
+                            + "\n4) Activities\t"
+                            + "\n5) Material\t"
+                            + "\n6) Instructor\t"
+                            + ""
+                            + "\nOption number:\t ");
 
                     readString = console.readLine();
                     int optionNumberView = Integer.parseInt(readString);
-
                     switch (optionNumberView) {
                         case 1: //Mostrar campers
-                            break;
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all campers (Full view)\t"
+                                    + "\n2) List all campers names\t"
+                                   
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum) {
+                        	
+                        	case 1:
+                        	
+                        		campers=sel.selectCamper();
+                            
+                            		for (Camper camper : campers) {
+                            			System.out.println(camper);
+                            			Transport transport = ser.SearchTransport(sel.selectTnsC(camper));
+                            			System.out.println("The transport for camper "+camper.getId()+" is: "+ transport.getType_transport());
+                            		    Accomodation accomodation = camper.getAccomodation();
+
+									}
+                            		
+                            		
+                        		break;
+                            	
+                        	case 2:
+                        		campers=sel.selectCamper();
+                            	it=campers.iterator();
+                            	while(it.hasNext()) {
+                            		camper1=(Camper) it.next();
+                            		
+                            		System.out.println("Name:\t"+camper1.getName());
+                        	}
+                            	break;  	
+                        	
+                        	}
+                        	
+                        	break;
                         case 2: //Mostrar transporte
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all transports (Full view)\t"
+                                    + "\n2) List all transports available\t"
+                                    + "\n3) List all transports under a specific price"
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum2 = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum2) {
+                        	
+                        	case 1:
+                        		transports=sel.selectTransport();
+                            	it=transports.iterator();
+                            	while(it.hasNext()) {
+                            		transport1=(Transport)it.next();
+                            		System.out.println("ID:\t"+transport1.getId()+"\nType:\t"+
+                            		transport1.getType_transport()+"\nPrice:\t"+transport1.getPrice());
+                            	
+                            	}
+                            	break;
+                            	
+                        	case 2:
+                        		transports=sel.selectTransport();
+                            	it=transports.iterator();
+                            	while(it.hasNext()) {
+                            		transport1=(Transport)it.next();
+                            		System.out.println("\nType:\t"+transport1.getType_transport());
+                            	}
+                            		break;
+                            	
+                            case 3:
+                            	
+                            	System.out.println("Insert a maximum price:\t");
+                            	readString = console.readLine();
+                            	int priceComp = Integer.parseInt(readString);
+                            	transports=sel.selectTransport();
+                            	it=transports.iterator();
+                            	while(it.hasNext()) {
+                            		transport1=(Transport)it.next();
+                            		if(priceComp<=transport1.getPrice())
+                            			System.out.println("\nType:\t"+transport1.getType_transport());
+                            	}
+                            		break;	
+                        	
+                        	
+                        	}
+                        	
                             break;
 
                         case 3: //Mostrar acomodation
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all accomodation (Full view)\t"
+                                    + "\n2) List all accomodation types\t"
+                                    + "\n3) List all accomodation under a specific price"
+                                    + "\n4 List all campers accomodated in a specific place"
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum3 = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum3) {
+                        	
+                        	case 1:
+                        		accomodations=sel.selectAccomodation();
+                            	it=accomodations.iterator();
+                            	while(it.hasNext()) {
+                            		accomodation1=(Accomodation)it.next();
+                            		System.out.println("ID:\t"+accomodation1.getId()+"\nType:\t"+
+                            		accomodation1.getAccomodation()+"\nPrice:\t"+accomodation1.getPrice());
+                            	
+                            	}
+                            	break;
+                            	
+                        	case 2:
+                        		accomodations=sel.selectAccomodation();
+                            	it=accomodations.iterator();
+                            	while(it.hasNext()) {
+                            		accomodation1=(Accomodation)it.next();
+                            		System.out.println("\nType:\t"+accomodation1.getAccomodation());
+                            	}
+                            		break;
+                            	
+                            case 3:
+                            	
+                            	System.out.println("Insert a maximum price:\t");
+                            	readString = console.readLine();
+                            	int priceComp = Integer.parseInt(readString);
+                            	accomodations=sel.selectAccomodation();
+                            	it=accomodations.iterator();
+                            	while(it.hasNext()) {
+                            		accomodation1=(Accomodation)it.next();
+                            		if(priceComp<=transport1.getPrice())
+                            			System.out.println("\nType:\t"+accomodation1.getAccomodation());
+                            	}
+                            		break;	
+                            case 4:
+                            	System.out.println("Insert accomodation name:\t");
+                            	readString = console.readLine();
+                            	accomodations=sel.selectAccomodation();
+                            	it=accomodations.iterator();
+                            	while(it.hasNext()) {
+                            		accomodation1=(Accomodation)it.next();
+                            		if(readString.equalsIgnoreCase(accomodation1.getAccomodation())) {
+                            			System.out.print("\nPeople inside:\t");
+                            			ArrayList<Camper> aux=(ArrayList<Camper>) accomodation1.getCampers();
+                            			for(Camper cam:aux) {
+                            				System.out.print(cam.getName()+" ");
+                            			}
+                            			System.out.println("\nTotal:\t"+aux.size());
+                            		}
+                            			
+                            	}
+                            	
+                        	}
+                        	
+                        	
+                        	
                             break;
 
                         case 4: //mostrar activities
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all activities (Full view)\t"
+                                    + "\n2) List all activities (Names only)\t"
+                                    + "\n3) List all activities under a specific price"
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum4 = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum4) {
+                        	
+                        	case 1:
+                        		activities=sel.selectActivity();
+                            	it=activities.iterator();
+                            	while(it.hasNext()) {
+                            		activity1=(Activity)it.next();
+                            		System.out.println("ID:\t"+activity1.getId()+"\nType:\t"+
+                            		activity1.getActivity()+"\nPrice:\t"+activity1.getPrice()+
+                            		"\nInstructor:\t"+activity1.getInst()+"\nMaterial Requiered:\t"+activity1.getMaterial().toString()+
+                            		"\nNumber of Campers:\t"+activity1.getCampers().size());
+                            	
+                            	}
+                            	break;
+                            	
+                        	case 2:
+                        		activities=sel.selectActivity();
+                            	it=activities.iterator();
+                            	while(it.hasNext()) {
+                            		activity1=(Activity)it.next();
+                            		System.out.println("\nType:\t"+activity1.getActivity());
+                            	}
+                            		break;
+                            	
+                            case 3:
+                            	
+                            	System.out.println("Insert a maximum price:\t");
+                            	readString = console.readLine();
+                            	int priceComp = Integer.parseInt(readString);
+                            	activities=sel.selectActivity();
+                            	it=activities.iterator();
+                            	while(it.hasNext()) {
+                            		activity1=(Activity)it.next();
+                            		if(priceComp<=activity1.getPrice())
+                            			System.out.println("\nType:\t"+activity1.getActivity());
+                            	}
+                            		break;	
+                        	
+                        	
+                        	}
+                        	
+                        	
                             break;
 
                         case 5: //mostrar material;
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all Material (Full view)\t"
+                                    + "\n2) List all Material (names only)\t"
+                                    + "\n3) List all Material under a specific price"
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum5 = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum5) {
+                        	
+                        	case 1:
+                        		materials=sel.selectMaterial();
+                            	it=materials.iterator();
+                            	while(it.hasNext()) {
+                            		material1=(Material)it.next();
+                            		System.out.println("ID:\t"+material1.getId()+"\nType:\t"+
+                            		material1.getMaterial()+"\nPrice:\t"+material1.getPrice());
+                            	
+                            	}
+                            	break;
+                            	
+                        	case 2:
+                        		materials=sel.selectMaterial();
+                            	it=materials.iterator();
+                            	while(it.hasNext()) {
+                            		material1=(Material)it.next();
+                            		System.out.println("\nType:\t"+material1.getMaterial());
+                            	}
+                            		break;
+                            	
+                            case 3:
+                            	
+                            	System.out.println("Insert a maximum price:\t");
+                            	readString = console.readLine();
+                            	int priceComp = Integer.parseInt(readString);
+                            	materials=sel.selectMaterial();
+                            	it=materials.iterator();
+                            	while(it.hasNext()) {
+                            		material1=(Material)it.next();
+                            		if(priceComp<=material1.getPrice())
+                            			System.out.println("\nType:\t"+material1.getMaterial());
+                            	}
+                        	
+                        	
                             break;
 
                         case 6: //mostrar instructors
+                        	
+                        	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
+                                    + "\n1) List all instructors (Full view)\t"
+                                    + "\n2) List all instructors names\t"
+                                    + "\nOption number: \t");
+                        	
+                        	readString = console.readLine();
+                        	int optnum6 = Integer.parseInt(readString);
+                        	
+                        	
+                        	switch (optnum6) {
+                        	
+                        	case 1:
+                        		instructors=sel.selectInstructor();
+                            	it=instructors.iterator();
+                            	Date dat;
+                            	while(it.hasNext()) {
+                            		instructor1=(Instructor) it.next();
+                            		dat=instructor1.getDob();
+                            		System.out.println("ID:\t"+instructor1.getId()+"\nName:\t"+instructor1.getName()+
+                            				"\nDoB:\t"+dat.getDay()+"-"+dat.getMonth()+"-"+dat.getYear()+
+                            				"\nNIF:\t"+instructor1.getNIF()+ "\nPhone Number:\t"+instructor1.getPhoneNumber()+
+                            				"\nNationality:\t"+instructor1.getNationality()+ "\nSalary:\t"+
+                            				instructor1.getSalary()+"\nTransport:\t"+instructor1.getTransport().getType_transport()+
+                            				"\nAccomodation:\t"+instructor1.getAccomodation().getAccomodation());
+                            	}
+                            	break;
+                            	
+                        	case 2:
+                        		instructors=sel.selectInstructor();
+                            	it=instructors.iterator();
+                            	while(it.hasNext()) {
+                            		instructor1=(Instructor) it.next();
+                            		
+                            		System.out.println("Name:\t"+instructor1.getName());
+                        	}
+                            	break;
+                        	
+                        	
+                        	}
+                        	
+                        	
                             break;
                     }
 
                 }
                 break;
+                }
 //*******************************insert**************************************************		
                 case 2: { //INSERT
 
@@ -557,8 +864,8 @@ private static final String NULL = null;
                         	if(accomodation.isEmpty()) {
                         	System.out.println("There is any accomodations available to delete. Sorry");
                         	}else {
-                        		for(Accomodation accomodation1: accomodation) {
-                        			System.out.println(accomodation1);
+                        		for(Accomodation accom: accomodation) {
+                        			System.out.println(accom);
                         		}
                         	}
                         	System.out.println("Insert the id of the transport that you want to delete:");
@@ -637,9 +944,8 @@ private static final String NULL = null;
     	}while(optionNumber!=5);
         }
 
-private static LocalDate checkDate(String readString) {
-	// TODO Auto-generated method stub
-	return null;
+	private static LocalDate checkDate(String readString) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
-    }
-

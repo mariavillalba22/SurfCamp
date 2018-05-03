@@ -20,6 +20,10 @@ public class DbManager {
 		
 public void createTables(Connection c) {
 	try {
+		
+		Statement stmtSeq ;
+		String sqlSeq;
+		
 		Statement stmt1 = c.createStatement();
 		String accomodations = "CREATE TABLE accomodation"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -27,6 +31,10 @@ public void createTables(Connection c) {
 				+"	price INTEGER NOT NULL)";
 		stmt1.executeUpdate(accomodations);
 		stmt1.close();
+		
+		stmtSeq = c.createStatement();
+		sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('accomodation', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt2 = c.createStatement();
 		String activities = "CREATE TABLE activity"
@@ -36,6 +44,10 @@ public void createTables(Connection c) {
 				+ "	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
 		stmt2.close();
+		
+		stmtSeq = c.createStatement();
+        sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('activities', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt3 = c.createStatement();
 		String campers = "CREATE TABLE camper"
@@ -61,6 +73,10 @@ public void createTables(Connection c) {
 		stmt4.executeUpdate(material);
 		stmt4.close();
 		
+		stmtSeq = c.createStatement();
+		sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('material', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
+		
 		Statement stmt5 = c.createStatement();
 		String instructor = "CREATE TABLE instructor"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -82,9 +98,13 @@ public void createTables(Connection c) {
 
 			    + "name TEXT NOT NULL,"
 			    
-			    + "price INTEGER )";
+			    + "price INTEGER NOT NULL )";
 		stmt6.executeUpdate(transport);
 		stmt6.close();
+		
+		stmtSeq = c.createStatement();
+	    sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('transport', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt7 = c.createStatement();
 		String camper_material = "CREATE TABLE camper_material"
