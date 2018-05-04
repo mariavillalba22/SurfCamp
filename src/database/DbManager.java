@@ -170,7 +170,7 @@ public static void main(String args[])throws Exception{
     mat.add(m2);
 	
 	//d.createTables(c.getConnectiondb());
-   inst = in.insertInstructor( inst);
+ /*  inst = in.insertInstructor( inst);
 	inst2 = in.insertInstructor( inst2);
 	a = in.insertActivity(a);
 	a2 = in.insertActivity(a2);
@@ -184,13 +184,13 @@ public static void main(String args[])throws Exception{
 
 	m = in.insertMaterial( m);
 	m2 = in.insertMaterial( m2);
-	
+	*/
     Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
    	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
    	Camper c3=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
 
    	 
-	in.insertCamper( c1);
+	/*in.insertCamper( c1);
 	in.insertCamper( c2);
 	in.insertCamper(c3);
 
@@ -203,13 +203,12 @@ public static void main(String args[])throws Exception{
 	
 	
 	sel.selectTnsC( c1);
-
+*/
 	JPAconnect em=new JPAconnect();
 	em.connectiondb();
 	JPARead jpa = new JPARead(em.getEntityManager());
-
-	c2.addMaterial(m);
-
+   c1.setName("nacho");
+    up.UpdateCamper(c1);
 
 	
 
