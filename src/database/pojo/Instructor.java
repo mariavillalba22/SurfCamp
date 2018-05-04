@@ -48,7 +48,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Accomodation accomodation;
 
 	
-	
 	public Instructor() {
 		super();
 	}
@@ -88,10 +87,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.SetDateBirth(dob);
 		this.nationality = nationality;
 		this.salary = salary;
-		
 	}
-	
-
 	
 	public String toString() {
 		return "Id : "+id+". "
@@ -103,10 +99,7 @@ private static final long serialVersionUID = -4281575077333973070L;
         "Transport "+transport;
 	}
 	
-	// nos imprime continuamente NULL en activity y en transport
 	
-	
-
 	public String getName() {
 		return name;
 	}
