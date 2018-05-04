@@ -41,7 +41,7 @@ public class Menu {
     	Search ser = new Search(c.getConnectiondb());
     	
     	JPACreate create = new JPACreate(em.getEntityManager());
-
+    JPAUpdate update = new JPAUpdate(em.getEntityManager());
     	
     
     	do {
@@ -921,8 +921,7 @@ public class Menu {
                 break;
 
 //*******************************modify****************************************************		
-                case 3: 
-                //modify
+                case 3: //modify
                     System.out.println("WHERE WOULD YOU LIKE TO MODIFY: "
                             + "1) Campers"
                             + "2) Transport" //DUDA 
@@ -939,6 +938,18 @@ public class Menu {
                     switch (optionNumberModify) {
 
                         case 1: {//campers
+                        campers = sel.selectCamper();
+                        	if(campers.isEmpty()) {
+                        	System.out.println("There is any camper available. Sorry");
+                        	}else {
+                        		for(Camper camp: campers) {
+                        			System.out.println(camp);
+                        		}
+                        		System.out.println("Introduce the NIF of the one you want: ");
+                        		readString = console.readLine();
+                        		Camper camp1 = new Camper();
+                        		camp1 = ser.SearchCamper(readString);
+                            
                             System.out.println("WHAT WOULD YOU LIKE TO MODIFY: "
                                     + "1) Name"
                                     + "2) Date of Birth"
@@ -958,9 +969,14 @@ public class Menu {
 
                             switch (optionNumberModifyCamper) {
 
-                                case 1: //mod name
+                                case 1: {
+                                	System.out.println("Insert the new name: ");
+                                
+                                readString = console.readLine();
+                                update.UpdateCampName(camp1, readString);
+                                System.out.println(camp1);
                                     break;
-
+                                }
                                 case 2: //mod date of b
                                     break;
 
@@ -990,7 +1006,7 @@ public class Menu {
                             }
 
                         }
-                        break;
+                        break;}
 
                         case 2: //trans
                             break;
@@ -1001,15 +1017,22 @@ public class Menu {
                         case 4: //acti
                             break;
 
-                        case 5: //mat
-                            break;
+                        case 5:{
+                        	
+                        	System.out.println("Insert the new price of the material: ");
+                        	Material mat1 = new Material();
+                         readString = console.readLine();
+                         mat1.setPrice(Integer.parseInt(readString));
+                         System.out.println(mat1);
+                         up.UpdateMaterial(mat1);
+                                break;
+                                }
 
                         case 6: //instr
                             break;
 
                     }
                     break;
-
                 case 4: //delete
                 {
                     System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n"
