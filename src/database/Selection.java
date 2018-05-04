@@ -158,6 +158,34 @@ public class Selection {
 		return transport_id;
 	}
 	
+	public String selectNameMat(Integer id) throws SQLException {
+		String sql = "SELECT name FROM material WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,id);
+		ResultSet rs = prep.executeQuery();
+		String name = rs.getString("name");
+		return name;
+	}
+	public List<String> selectMaterialNames(Camper camper)throws SQLException{
+
+		String sql = "SELECT id_material FROM camper_material WHERE id_camper =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,camper.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<String> materialname = new ArrayList();
+		while (rs.next()) {
+			int id = rs.getInt("id_material");
+			materialname.add(selectNameMat(id));
+		}
+		rs.close();
+		prep.close();
+		return materialname;
+	}
+	
+	
+	
+	
 	
 	
 	
