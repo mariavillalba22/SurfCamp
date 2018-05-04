@@ -7,10 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 
 @Entity
 @Table(name = "activity")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "activity")
+@XmlType(propOrder = { "id", "name", "instructor_id" })
 
 public class Activity  implements Serializable {
 
@@ -20,12 +31,17 @@ public class Activity  implements Serializable {
 	@GeneratedValue(generator="activity")
 	@TableGenerator(name="activity", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="activity")
+	
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private Integer price;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor_id")
+	@XmlElement(name = "instructor")
 	private Instructor inst;
 	@ManyToMany
 	@JoinTable(name="camper",
@@ -37,6 +53,8 @@ public class Activity  implements Serializable {
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
 	private List<Material> material;
+	//ELIMINAR
+
 // faltan metodos
 	public Activity() {
 		super();

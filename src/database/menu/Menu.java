@@ -917,11 +917,12 @@ public class Menu {
                         	break;
                     }
                     }
-                }
+            
                 break;
 
 //*******************************modify****************************************************		
-                case 3: //modify
+                case 3: 
+                //modify
                     System.out.println("WHERE WOULD YOU LIKE TO MODIFY: "
                             + "1) Campers"
                             + "2) Transport" //DUDA 

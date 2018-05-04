@@ -13,10 +13,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "instructor")
-
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Instructor")
+@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary" })
 public class Instructor implements Serializable {
 	
 private static final long serialVersionUID = -4281575077333973070L;
@@ -35,6 +42,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer salary;
 	
 	@OneToMany(mappedBy="inst")
+	@XmlTransient
 	private List<Activity> activities;
 	
 	
