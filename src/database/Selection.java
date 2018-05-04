@@ -58,6 +58,19 @@ public class Selection {
 	}
 	
 	
+	public List<String> selectCamperName () throws SQLException{
+		Statement stmt = c.createStatement();
+		String sql = "SELECT name FROM camper";
+		ResultSet rs = stmt.executeQuery(sql);
+		List<String> names = new ArrayList();
+		while (rs.next()) {
+			names.add(rs.getString("name"));
+		}
+		rs.close();
+		stmt.close();
+		return names;
+
+	}	
 	public List<Instructor> selectInstructor() throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM instructor";
@@ -158,6 +171,35 @@ public class Selection {
 		return transport_id;
 	}
 	
+	public Integer selectTnsI( Instructor instructor)throws SQLException{
+		String sql="SELECT transport_id FROM instructor WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, instructor.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int transport_id=rs.getInt("transport_id");
+		return transport_id;
+	}
+	
+	public Integer selectAcomI( Instructor instructor)throws SQLException{
+		String sql="SELECT accomodation_id FROM instructor WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, instructor.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int accomodation_id=rs.getInt("accomodation_id");
+		return accomodation_id;
+	}
+	
+	public Integer selectAcomC( Camper camper)throws SQLException{
+		String sql="SELECT accomodation_id FROM camper WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, camper.getId());
+		ResultSet rs=prep.executeQuery();
+		rs.next();
+		int accomodation_id=rs.getInt("accomodation_id");
+		return accomodation_id;
+	}
 	public String selectNameMat(Integer id) throws SQLException {
 		String sql = "SELECT name FROM material WHERE id=?";
 		PreparedStatement prep = c.prepareStatement(sql);

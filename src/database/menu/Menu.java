@@ -93,35 +93,42 @@ public class Menu {
                         	
                         	readString = console.readLine();
                         	int optnum = Integer.parseInt(readString);
-                        	
+                        	campers=sel.selectCamper();
                         	
                         	switch (optnum) {
                         	
                         	case 1:{
                         	
-                        		campers=sel.selectCamper();
+                        		
                             
                             		for (Camper camper : campers) {
                             			System.out.println(camper);
                             			Transport transport = ser.SearchTransport(sel.selectTnsC(camper));
-                            			System.out.println("The transport for camper "+camper.getId()+" is: "+ transport.getType_transport());
-                            		    Accomodation accomodation = camper.getAccomodation();
+                            			accomodation1 = ser.SearchAccomodation(sel.selectAcomC(camper));
+                            			System.out.println("The transport for camper "+camper.getId()+" is "+ transport.getType_transport()+""
+                            					+ "\nThe accomodation is "+accomodation1.getAccomodation());
+                            		   
+                            			List<String> x = new ArrayList();
+                            			x= sel.selectMaterialNames(camper);
+                                         for(String s :x) {
+                                        	System.out.println("the material for this camper is " +s); 
+                                       
+                                         }
 
 									}
 	
                         		}break;//case 1 full view campers
                             	
                         	case 2:{
-                        		campers=sel.selectCamper();
                         		
-                            	//FALTA
                         		
-                        		/*it=campers.iterator();
-                            	while(it.hasNext()) {
-                            		camper1=(Camper) it.next();
-                            		
-                            		System.out.println("Name:\t"+camper1.getName());
-                        	}*/
+                        		List<String>campNames=new ArrayList();
+                        		campNames=sel.selectCamperName();
+                        		for(String camperNames: campNames) {
+                        		System.out.println(camperNames);
+                        		}
+                        		
+                            
                         		}break; //case 2 short view campers 	
                         	
                         	 } //Switch opciones de visualizado de campers
@@ -412,8 +419,14 @@ public class Menu {
                         	
                         	case 1:{
                         		instructors=sel.selectInstructor();
+                        		
                         		for (Instructor instructor : instructors) {
                         			System.out.println(instructor);
+                            transport1 = ser.SearchTransport(sel.selectTnsI(instructor));
+                        	accomodation1 = ser.SearchAccomodation(sel.selectAcomI(instructor));
+                        	System.out.println("The transport for instructor "+instructor.getId()+" is "+ transport1.getType_transport()+""
+                        			+ "\nThe accomodation is "+accomodation1.getAccomodation());
+                        		   
                         		}
                         	}break; //case 1 long instructor
                         			
@@ -664,7 +677,8 @@ public class Menu {
                         	Integer price = Integer.parseInt(readString);
                         	transport.setPrice(price);
                         	//NO ME VA.
-                        	create.createTransport(transport);
+                        	in.insertTransport(transport);
+                        	
    
                             break;
 

@@ -99,8 +99,7 @@ private static final long serialVersionUID = -4281575077333973070L;
         "Telephone number: "+phone_number+ ". "+
 				"Date of birth: "+dob+". "+
         "Nacionality: "+nationality+". "+
-				"Salary: "+salary+". "+
-        "Transport "+transport;
+				"Salary: "+salary+". ";
 	}
 	
 	// nos imprime continuamente NULL en activity y en transport
