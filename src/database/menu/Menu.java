@@ -141,11 +141,17 @@ public class Menu {
                         	
                         	case 1:
                         		transports=sel.selectTransport();
-                            	it=transports.iterator();
+                        		for (Transport transport : transports) {
+                        			System.out.println(transport);
+                        		}
+                        		
+                            	/*it=transports.iterator();
                             	while(it.hasNext()) {
                             		transport1=(Transport)it.next();
                             		System.out.println("ID:\t"+transport1.getId()+"\nType:\t"+
-                            		transport1.getType_transport()+"\nPrice:\t"+transport1.getPrice());
+                            		transport1.getType_transport()+"\nPrice:\t"+transport1.getPrice());*/
+                        		
+                        		
                             	
                             	}
                             	break;
@@ -195,13 +201,17 @@ public class Menu {
                         	
                         	case 1:
                         		accomodations=sel.selectAccomodation();
-                            	it=accomodations.iterator();
+                        		for (Accomodation accomodation : accomodations) {
+                        			System.out.println(accomodation);
+                        		}
+                        		
+                            	/*it=accomodations.iterator();
                             	while(it.hasNext()) {
                             		accomodation1=(Accomodation)it.next();
                             		System.out.println("ID:\t"+accomodation1.getId()+"\nType:\t"+
                             		accomodation1.getAccomodation()+"\nPrice:\t"+accomodation1.getPrice());
                             	
-                            	}
+                            	}*/
                             	break;
                             	
                         	case 2:
@@ -266,7 +276,11 @@ public class Menu {
                         	
                         	case 1:
                         		activities=sel.selectActivity();
-                            	it=activities.iterator();
+                        		for (Activity activity : activities) {
+                        			System.out.println(activity);
+                        		}
+                        		
+                            	/*it=activities.iterator();
                             	while(it.hasNext()) {
                             		activity1=(Activity)it.next();
                             		System.out.println("ID:\t"+activity1.getId()+"\nType:\t"+
@@ -274,7 +288,7 @@ public class Menu {
                             		"\nInstructor:\t"+activity1.getInst()+"\nMaterial Requiered:\t"+activity1.getMaterial().toString()+
                             		"\nNumber of Campers:\t"+activity1.getCampers().size());
                             	
-                            	}
+                            	}*/
                             	break;
                             	
                         	case 2:
@@ -322,13 +336,18 @@ public class Menu {
                         	
                         	case 1:
                         		materials=sel.selectMaterial();
+                        		for (Material material : materials) {
+                        			System.out.println(material);
+                        		}
+                        		
+                        		/*
                             	it=materials.iterator();
                             	while(it.hasNext()) {
                             		material1=(Material)it.next();
                             		System.out.println("ID:\t"+material1.getId()+"\nType:\t"+
                             		material1.getMaterial()+"\nPrice:\t"+material1.getPrice());
                             	
-                            	}
+                            	}*/
                             	break;
                             	
                         	case 2:
@@ -371,7 +390,12 @@ public class Menu {
                         	
                         	case 1:
                         		instructors=sel.selectInstructor();
-                            	it=instructors.iterator();
+                        		for (Instructor instructor : instructors) {
+                        			System.out.println(instructor);
+                        		}
+                        		
+                        		
+                            	/*it=instructors.iterator();
                             	Date dat;
                             	while(it.hasNext()) {
                             		instructor1=(Instructor) it.next();
@@ -382,7 +406,7 @@ public class Menu {
                             				"\nNationality:\t"+instructor1.getNationality()+ "\nSalary:\t"+
                             				instructor1.getSalary()+"\nTransport:\t"+instructor1.getTransport().getType_transport()+
                             				"\nAccomodation:\t"+instructor1.getAccomodation().getAccomodation());
-                            	}
+                            	}*/
                             	break;
                             	
                         	case 2:
