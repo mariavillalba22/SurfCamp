@@ -891,7 +891,7 @@ public class Menu {
                     		if(activities.isEmpty()) {
                     			System.out.println("No activities yet");
                     		}else {
-                    			
+                    			do {
                     			for(Activity act : activities) {
                     				System.out.println(act);
                     			}
@@ -916,7 +916,7 @@ public class Menu {
                     		
                         	break;
                     }
-                    }
+                    }}
             
                 break;
 
