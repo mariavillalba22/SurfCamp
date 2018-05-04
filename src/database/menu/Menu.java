@@ -680,8 +680,6 @@ public class Menu {
                         	readString = console.readLine();
                          activity.setPrice(Integer.parseInt(readString));
                          
-                         in.insertActivity(activity);
-                         
                          System.out.println("These are the instructors:");
                          if(instructors.isEmpty()) {
                         	 System.out.println("There are any instructors available");
@@ -699,10 +697,11 @@ public class Menu {
                         	 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
                          in.insertInstructorInA(instructor1, activity);
                         	// activity.setInst(instructor1);
+                         
                          }
                          
                          }while(readString.isEmpty());
-                          
+                         in.insertActivity(activity);
                           }
                          
                          break;
