@@ -40,7 +40,7 @@ public void createTables(Connection c) {
 		String activities = "CREATE TABLE activity"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
-				+ " instructor_id INTEGER NOT NULL REFERENCES instructor(id),"
+				+ " instructor_id INTEGER REFERENCES instructor(id),"
 				+ "	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
 		stmt2.close();

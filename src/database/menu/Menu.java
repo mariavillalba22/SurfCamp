@@ -33,7 +33,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-   d.createTables(c.getConnectiondb());
+   // d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -455,7 +455,7 @@ public class Menu {
                     int optionNumberInsert = Integer.parseInt(readString);
 //+++++++++++++++++++++++++++++++++++++++ins camper+++++++++++++++++++++++++++++++++++++++++++			
                     switch (optionNumberInsert) {
-                        case 1: {//ins campers
+                        case 1: {
                           
                        	System.out.println("Insert the name of the camper:" );
                             do {  
@@ -712,8 +712,10 @@ public class Menu {
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
                          activity.setPrice(Integer.parseInt(readString));
+                         in.insertActivity(activity);
                          
                          System.out.println("These are the instructors:");
+                         instructors = sel.selectInstructor();
                          if(instructors.isEmpty()) {
                         	 System.out.println("There are any instructors available");
                          }else {
@@ -727,20 +729,20 @@ public class Menu {
                         	 System.out.println("The activity must have an instructor, choose one:");
                          readString = console.readLine();
                          }else {
+                        	 
                         	 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
                          in.insertInstructorInA(instructor1, activity);
-                        	// activity.setInst(instructor1);
-                         
+                        	
                          }
                          
                          }while(readString.isEmpty());
-                         in.insertActivity(activity);
+                         
                           }
                          
                          break;
 
                         case 5: 
-                        	
+                        {
                         	System.out.println("Insert the name of the material");
                         Material mat = new Material();
                      	do {
@@ -760,11 +762,12 @@ public class Menu {
                     	readString = console.readLine();
                      mat.setPrice(Integer.parseInt(readString));
                     	create.createMaterial(mat);
+                        }
                         break;
 
 
                         case 6 : 
-                        	
+                        {
                         	System.out.println("Insert the name of the instructor:" );
                             do {  
                             readString = console.readLine();
@@ -872,12 +875,12 @@ public class Menu {
                     }
                     
                     	System.out.println("The instructor must be incharge of an activity.");
-                    	readString = console.readLine();
-                    	if(readString.equals("Y")) {
+                    		
                     		activities = sel.selectActivity();
                     		if(activities.isEmpty()) {
                     			System.out.println("No activities yet");
                     		}else {
+                    			
                     			for(Activity act : activities) {
                     				System.out.println(act);
                     			}
@@ -897,10 +900,8 @@ public class Menu {
                     			
                     		}
                     		
-                    	}
-                    	
-                        	
                         	break;
+                    }
                     }
                 }
                 break;
@@ -1010,7 +1011,7 @@ public class Menu {
 
                     switch (optionNumberModify) {
 
-                        case 1: {//campers funciona
+                        case 1: {
                         System.out.println("Insert the campers name and surname");
                         List<Camper> list=sel.selectCamperbyName(console.readLine());
                         for (int i = 0; i < list.size(); i++) {
@@ -1024,7 +1025,7 @@ public class Menu {
                         }
                         break;
 
-                        case 2: {//delete trans
+                        case 2: {
                         	//no funciona, tengo que pensarlo
                         	transports = sel.selectTransport();
                         	if(transports.isEmpty()) {
@@ -1097,17 +1098,19 @@ public class Menu {
 
                         case 6: //delete instructor funciona
                         {
-                        	List<Instructor> instructor = sel.selectInstructor();
-                        	if(instructor.isEmpty()) {
+                        instructors = sel.selectInstructor();
+                        	
+                        	if(instructors.isEmpty()) {
                         	System.out.println("There is any instructor available to delete. Sorry");
                         	}else {
-                        		for(Instructor inst:instructor) {
-                        			System.out.println(instructors);
+                        		for(Instructor inst:instructors) {
+                        			System.out.println(inst);
                         		}
                         	}
                         	System.out.println("Insert the id of the instructor that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
                         	del.deleteInstructorID(num);
+                        	// HAY QUE ELIMINAR TB EL 
 
                         }
                             break;
