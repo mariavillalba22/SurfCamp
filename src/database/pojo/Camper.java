@@ -201,7 +201,7 @@ public class Camper implements Serializable{
 	}
 	
 	public String toString() {
-		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+"]";
+		return "Camper id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method;
 	
 	}
 	public String showNamePhone(){

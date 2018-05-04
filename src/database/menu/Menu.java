@@ -454,7 +454,7 @@ public class Menu {
 //*******************************insert**************************************************		
                 case 2: { //INSERT
 
-                    System.out.println("WHAT WOULD YOU LIKE TO INSERT: "
+                    System.out.println("WHAT WOULD YOU LIKE TO INSERT:\n"
                             + "1) Campers\n"
                             + "2) Transport\n" 
                             + "3) Accomodation\n"
@@ -535,11 +535,11 @@ public class Menu {
                 									 }
                 								 }while(readString.isEmpty());
         	
-        						 }else {
-        							 camper1.setEmail(readString);
-        						 }
-        						 }
-        						}
+        						              }else {
+        							          camper1.setEmail(readString);
+        						                     }
+        						             }
+        						}else {camper1.setEmail(readString);}
         					}while(readString.isEmpty()&&telephone.isEmpty());
          
         				System.out.println("Insert the payment method you will use: ");
@@ -566,9 +566,9 @@ public class Menu {
                     		for(Transport trans: transports) {
                     			System.out.println(trans);
                     		}
-                    		System.out.println("Introduce the name of the one you want.");
+                    		System.out.println("Introduce the id of the one you want.");
                     		readString = console.readLine();
-                    		Transport trans1 = ser.SearchTransport(readString);
+                    		Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
                     		in.insertTransInC(camper1, trans1);
                     	}
                     }
@@ -651,9 +651,6 @@ public class Menu {
                     
                     break;
               
-                        
-                  
-                    
                         case 2: 
                         	System.out.println("Insert the name of the transport");
                        
@@ -737,7 +734,7 @@ public class Menu {
                  			System.out.println(inst);
                  		}
                          do {
-                         System.out.println("Introduzca el id of the instructor, who is going to be in charge of the activity:");
+                         System.out.println("Introduce the id of the instructor, who is going to be in charge of the activity:");
                          readString = console.readLine();
                          if(readString.isEmpty()){
                         	 System.out.println("The activity must have an instructor, choose one:");
@@ -898,10 +895,13 @@ public class Menu {
                     			for(Activity act : activities) {
                     				System.out.println(act);
                     			}
-                    			do {
+                    			
                     			System.out.println("Introduce the id of the activity wanted:");
                     			readString = console.readLine();
                     			activity = ser.SearchActivity(Integer.parseInt(readString));
+                    			if(activity.getInst().getName().isEmpty()) {
+                    			}
+                    			
                     			in.insertInstructorInA(instructor1, activity);
                     			System.out.println("Would you want another activity? (Y/N");
                     			readString = console.readLine();
@@ -1011,7 +1011,7 @@ public class Menu {
 
                 case 4: //delete
                 {
-                    System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n "
+                    System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n"
                             + "1) Campers\n"
                             + "2) Transport\n" 
                             + "3) Accomodation\n"
@@ -1124,7 +1124,7 @@ public class Menu {
                         	System.out.println("Insert the id of the instructor that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
                         	del.deleteInstructorID(num);
-                        	// HAY QUE ELIMINAR TB EL 
+                        	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
 
                         }
                             break;

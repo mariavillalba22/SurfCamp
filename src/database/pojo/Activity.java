@@ -84,8 +84,8 @@ public class Activity  implements Serializable {
 	}
 
 	public String toString() {
-    	return " The activity ID is: "+id+"."+
-    "Name of activity: "+name+" Price: "+price;
+    	return " The activity ID is:\t "+id+". "+
+    "Name of activity:\t "+name+".  Price:\t "+price;
     	
     
     }

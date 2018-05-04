@@ -95,7 +95,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.instructors = instructors;
 	}
 	public String toString() {
-		return "Accomodation--> id: "+id+" . Type of accomodation: "+name+" . Price: "+price+ " . Camper: "+campers+". Instructors: "+instructors;
+		return "Accomodation_Id: "+id+" . Type of accomodation: "+name+" . Price: "+price;
 	}
 	public Integer getPrice() {
 		return price;

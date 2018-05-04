@@ -53,7 +53,7 @@ public void createTables(Connection c) {
 		String campers = "CREATE TABLE camper"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
-				+"	dob DATE ," // he quitado el not null
+				+"	dob DATE ," 
 				+"  NIF INTEGER NOT NULL ,"
 				+"	phone_number INTEGER ,"
 				+"	email TEXT ,"
