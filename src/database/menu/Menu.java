@@ -33,7 +33,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-   // d.createTables(c.getConnectiondb());
+    //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -772,7 +772,8 @@ public class Menu {
                     	System.out.println("Insert the price:");
                     	readString = console.readLine();
                      mat.setPrice(Integer.parseInt(readString));
-                    	create.createMaterial(mat);
+                    	in.insertMaterial(mat);
+                    	
                         }
                         break;
 
