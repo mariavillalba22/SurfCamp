@@ -974,8 +974,9 @@ public class Menu {
                                 	System.out.println("Insert the new name: ");
                                 
                                 readString = console.readLine();
-                                update.UpdateCampName(camp1, readString);
-                                System.out.println(camp1);
+                                camp1.setName(readString);
+                                up.UpdateCamper(camp1);
+                                
                                     break;
                                 }
                                 case 2: //mod date of b
