@@ -40,7 +40,7 @@ public void createTables(Connection c) {
 		String activities = "CREATE TABLE activity"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
-				+ " instructor_id INTEGER REFERENCES instructor(id),"
+				+ " instructor_id INTEGER REFERENCES instructor(id) ON DELETE SET NULL,"
 				+ "	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
 		stmt2.close();
@@ -58,8 +58,8 @@ public void createTables(Connection c) {
 				+"	phone_number INTEGER ,"
 				+"	email TEXT ,"
 				+"	payment_method TEXT, "
-				+"	transport_id INTEGER REFERENCES transport(id), "
-				+"	accomodation_id INTEGER REFERENCES accomodation(id))";
+				+"	transport_id INTEGER REFERENCES transport(id) ON DELETE SET NULL, "
+				+"	accomodation_id INTEGER REFERENCES accomodation(id) ON DELETE SET NULL)";
 				
 		//falta material 
 		stmt3.executeUpdate(campers);
@@ -86,8 +86,8 @@ public void createTables(Connection c) {
 				+"  NIF TEXT NOT NULL,"
 				+"	nationality TEXT NOT NULL,"
 			    +"	salary INTEGER NOT NULL,"
-				+"  transport_id INTEGER REFERENCES transport(id),"
-			    +"  accomodation_id INTEGER REFERENCES accomodation(id))";
+				+"  transport_id INTEGER REFERENCES transport(id) ON DELETE SET NULL,"
+			    +"  accomodation_id INTEGER REFERENCES accomodation(id) ON DELETE SET NULL)";
 
 		stmt5.executeUpdate(instructor);
 		stmt5.close();
