@@ -33,7 +33,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-    //d.createTables(c.getConnectiondb());
+   // d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -84,7 +84,10 @@ public class Menu {
                     int optionNumberView = Integer.parseInt(readString);
                     switch (optionNumberView) {
                         case 1:{ //Mostrar campers
-                        	
+                        	campers=sel.selectCamper();
+                        	if(campers.isEmpty()) {
+                        		System.out.println("There are any camper register.\n");
+                        	}else {
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all campers (Full view)\t"
                                     + "\n2) List all campers names\t"
@@ -93,7 +96,7 @@ public class Menu {
                         	
                         	readString = console.readLine();
                         	int optnum = Integer.parseInt(readString);
-                        	campers=sel.selectCamper();
+                        	
                         	
                         	switch (optnum) {
                         	
@@ -133,9 +136,13 @@ public class Menu {
                         	
                         	 } //Switch opciones de visualizado de campers
                         	
-                    }break; //CASE 1 VIEW CAMPERS
+                    }}break; //CASE 1 VIEW CAMPERS
                
                         case 2:{ //Mostrar transporte
+                        	transports = sel.selectTransport();
+                        	if(transports.isEmpty()) {
+                        		System.out.println("There are any transport.");
+                        	}else {
                         	
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all transports (Full view)\t"
@@ -150,30 +157,20 @@ public class Menu {
                         	switch (optnum2) {
                         	
                         	case 1:{
-                        		transports=sel.selectTransport();
+                        		
                         		for (Transport transport : transports) {
                         			System.out.println(transport);
                         		}
                         		
-                            	/*it=transports.iterator();
-                            	while(it.hasNext()) {
-                            		transport1=(Transport)it.next();
-                            		System.out.println("ID:\t"+transport1.getId()+"\nType:\t"+
-                            		transport1.getType_transport()+"\nPrice:\t"+transport1.getPrice());*/
-
                             	}break; //case 1 view full transports
                             	
                             	
                         	case 2:{
-                        		transports=sel.selectTransport();
-                        		
-                        		//FALTA
-                        		
-                            	/*it=transports.iterator();
-                            	while(it.hasNext()) {
-                            		transport1=(Transport)it.next();
-                            		System.out.println("\nType:\t"+transport1.getType_transport());
-                            	}*/
+                        		for(Transport transport: transports) {
+                        			if(transport.checkAvailability()) {
+                        				System.out.println(transport);
+                        			}
+                        		}
                         		}break;
                             	
                             case 3:{
@@ -194,15 +191,18 @@ public class Menu {
                     			}//switch opciones de view transport
                         	
                         	
-                        	}break;//case 2 view transport
+                        	}}break;//case 2 view transport
                         	
                             
 
                         case 3:{ //Mostrar acomodation
-                        	
+                        	accomodations=sel.selectAccomodation();
+                        	if(accomodations.isEmpty()){
+                        		System.out.println("There are any accomodations.");
+                        	}else {
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all accomodation (Full view)\t"
-                                    + "\n2) List all accomodation types\t"
+                                    + "\n2) List all accomodation available\t"
                                     + "\n3) List all accomodation under a specific price"
                                     + "\n4 List all campers accomodated in a specific place"
                                     + "\nOption number: \t");
@@ -214,7 +214,7 @@ public class Menu {
                         	switch (optnum3) {
                         	
                         	case 1:{
-                        		accomodations=sel.selectAccomodation();
+                        		
                         		for (Accomodation accomodation : accomodations) {
                         			System.out.println(accomodation);
                         		}
@@ -229,15 +229,13 @@ public class Menu {
                         	}break;// case 1 accomodation full view
                             	
                         	case 2:{
-                        		accomodations=sel.selectAccomodation();
-                            	
-                        		//FALTA
                         		
-                        		/*it=accomodations.iterator();
-                            	while(it.hasNext()) {
-                            		accomodation1=(Accomodation)it.next();
-                            		System.out.println("\nType:\t"+accomodation1.getAccomodation());
-                            	}*/
+                        		for(Accomodation accomodation : accomodations) {
+                        			if(accomodation.checkAvailability()) {
+                        				System.out.println(accomodation);
+                        			}
+                        		}
+                        		
                         	}break;// case 2 names accomodation
                             	
                             case 3:{
@@ -281,16 +279,19 @@ public class Menu {
                         	
                         	}//switch opciones view accomodation
                         	
-                }break;//case 3 view accomodation
+                }}break;//case 3 view accomodation
                         	
                         	
                             
 
                         case 4:{ //mostrar activities
-                        	
+                        	activities=sel.selectActivity();
+                        	if(activities.isEmpty()) {
+                        		System.out.println("There are any activity available.");
+                        	}else {
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all activities (Full view)\t"
-                                    + "\n2) List all activities (Names only)\t"
+                                    + "\n2) List all activities available\t"
                                     + "\n3) List all activities under a specific price"
                                     + "\nOption number: \t");
                         	
@@ -301,7 +302,7 @@ public class Menu {
                         	switch (optnum4) {
                         	
                         	case 1:{
-                        		activities=sel.selectActivity();
+                        		
                         		for (Activity activity : activities) {
                         			System.out.println(activity);
                         		}
@@ -318,12 +319,11 @@ public class Menu {
                         	}break;//case 1 listar full view actividades
                             	
                         	case 2:{
-                        		activities=sel.selectActivity();
-                            	it=activities.iterator();
-                            	while(it.hasNext()) {
-                            		activity1=(Activity)it.next();
-                            		System.out.println("\nType:\t"+activity1.getActivity());
-                            	}
+                        		for (Activity activity: activities) {
+                        			if(activity.checkAvailability()) {
+                        				System.out.println(activity);
+                        			}
+                        		}
                         	}break;
                             	
                             case 3:{
@@ -345,7 +345,7 @@ public class Menu {
                         	}break;//case 3 mostrar actividad por precio
                         	
                         	}//switch de las 4 opciones
-                        }break;//case 4 mostrar actividades
+                        }}break;//case 4 mostrar actividades
 
                         case 5:{ //mostrar material;
                         	
@@ -567,9 +567,23 @@ public class Menu {
                     			System.out.println(trans);
                     		}
                     		System.out.println("Introduce the id of the one you want.");
-                    		readString = console.readLine();
-                    		Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
-                    		in.insertTransInC(camper1, trans1);
+                    		do {
+                    			readString = console.readLine();
+                    		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
+                    		    if(trans1.checkAvailability()) {
+                    			Integer a = trans1.getAvailable() + 1;
+                    			
+                    			trans1.setAvailable(a);
+                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
+                    		
+                    			in.insertTransInC(camper1, trans1);
+                    			h = true;
+                    		    }else {
+                    		 	   System.out.println("The transport "+trans1.getType_transport()+ " is not abailable. Choose another: ");
+                    		 	   h = false;
+                    		           }
+                          	}while(h= false);
+                    		
                     	}
                     }
                     
@@ -585,12 +599,27 @@ public class Menu {
                     		}
                     		
                     		System.out.println("Introduce the id of the one you want.");
+                    		do {
                     		readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
                     		Accomodation accomodation = ser.SearchAccomodation(accomid);
+                    		if(accomodation.checkAvailability()) {
+                    	    Integer a = accomodation.getAvailability() + 1;
+                    	    accomodation.setAvailability(a);
+                    	 // AQUI TENGO QUE HACER UPDATE DE ACCOMODATION!!
                     		in.insertAccomInC(camper1, accomodation);
+                    		
+                    		h = true;
+                    		}else {
+                    			System.out.println("The accomodation "+ accomodation.getAccomodation()+" is not available. Choose a diferent one:");
+                    			h = false;
+                    	
+                    		}
+                       	}     while(h = false);
                     	}
                     }
+                    
+                    
                     	System.out.println("Does the camper want an activity? (Y/N)");
                     	readString = console.readLine();
                     	if(readString.equals("Y")) {
@@ -603,9 +632,22 @@ public class Menu {
                     			}
                     			do {
                     			System.out.println("Introduce the id of the activity wanted:");
-                    			readString = console.readLine();
-                    			Activity activity = ser.SearchActivity(Integer.parseInt(readString));
-                    			in.insertCamper_activity(camper1, activity);
+                    			do{
+                    				readString = console.readLine();
+                    			
+                    			activity1= ser.SearchActivity(Integer.parseInt(readString));
+                    			if(activity1.checkAvailability()) {
+                    				Integer a = activity1.getAvailability() +1;
+                    				activity1.setAvailability(a);
+                    				//HACER UPDATE THE ACTIVITYY
+                    				in.insertCamper_activity(camper1, activity1);
+                    				h = true;
+                    			}else{
+                    				System.out.println("The activity is already full. CHoose a diferent one:");
+                    				h = false;
+                    			}
+                    			}while(h = false);
+                    			in.insertCamper_activity(camper1, activity1);
                     			System.out.println("Would you want another activity? (Y/N");
                     			readString = console.readLine();
                     			if(readString.equals("Y")) {
@@ -614,6 +656,7 @@ public class Menu {
                     				h = false;
                     			}
                     			}while(h == true);
+                    		
                     			
                     		}
                     		
@@ -673,7 +716,7 @@ public class Menu {
                         	readString = console.readLine();
                         	Integer price = Integer.parseInt(readString);
                         	transport.setPrice(price);
-                        	//NO ME VA.
+                        	transport.setAvailable(0);
                         	in.insertTransport(transport);
                         	
    
@@ -700,6 +743,7 @@ public class Menu {
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
                         	accomodation.setPrice(Integer.parseInt(readString));
+                        	accomodation.setAvailability(0);
                         	in.insertAccomodation(accomodation);
                         	
                             break;
@@ -723,6 +767,8 @@ public class Menu {
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
                          activity.setPrice(Integer.parseInt(readString));
+                         activity.setAvailability(0);
+                         //HACER UPDATE THE ACTIVITY!!
                          in.insertActivity(activity);
                          
                          System.out.println("These are the instructors:");
@@ -861,9 +907,22 @@ public class Menu {
                     			System.out.println(trans);
                     		}
                     		System.out.println("Introduce the name of the one you want.");
-                    		readString = console.readLine();
-                    		Transport trans1 = ser.SearchTransport(readString);
-                    		in.insertTransInI(instructor1, trans1);
+                    		do {
+                    			readString = console.readLine();
+                    		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
+                    		    if(trans1.checkAvailability()) {
+                    			Integer a = trans1.getAvailable() + 1;
+                    			
+                    			trans1.setAvailable(a);
+                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
+                    		
+                    			in.insertTransInI(instructor1, trans1);
+                    			h = true;
+                    		    }else {
+                    		 	   System.out.println("The transport "+trans1.getType_transport()+ " is not abailable. Choose another: ");
+                    		 	   h = false;
+                    		           }
+                          	}while(h= false);
                     	}
                     }
                     
@@ -879,10 +938,18 @@ public class Menu {
                     		}
                     		
                     		System.out.println("Introduce the id of the one you want.");
-                    		readString = console.readLine();
+                    		do{readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
                     		accomodation = ser.SearchAccomodation(accomid);
+                    		if(accomodation.checkAvailability()) {
+                            Integer a = accomodation.getAvailability()+ 1;
+                    			accomodation.setAvailability(a);
+                    			//UPDATE ACCOMODATION
                     		in.insertAccomInI(instructor1, accomodation);
+                    		}else {
+                    			System.out.println("The accomodation is not abailable. Introduce a different one: ");
+                    		}
+                    		}while(h = false);
                     	}
                     }
                     
@@ -900,10 +967,8 @@ public class Menu {
                     			System.out.println("Introduce the id of the activity wanted:");
                     			readString = console.readLine();
                     			activity = ser.SearchActivity(Integer.parseInt(readString));
-                    			if(activity.getInst().getName().isEmpty()) {
-                    			}
+                    		    in.insertInstructorInA(instructor1, activity);
                     			
-                    			in.insertInstructorInA(instructor1, activity);
                     			System.out.println("Would you want another activity? (Y/N");
                     			readString = console.readLine();
                     			if(readString.equals("Y")) {

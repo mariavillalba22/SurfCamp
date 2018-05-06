@@ -68,7 +68,8 @@ public class Search {
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    activity = new Activity(id, name,price);
+			Integer availability = rs.getInt("availability");
+		    activity = new Activity(id, name,price, availability);
 		  
 		}
 		return activity;
@@ -82,7 +83,8 @@ public class Search {
 		while(rs.next()) {
 			Integer id = rs.getInt("id");
 			Integer price = rs.getInt("price");
-		    activity = new Activity(id, name,price);
+			Integer availability = rs.getInt("availability");
+		    activity = new Activity(id, name,price, availability);
 		  
 		}
 		return activity;
@@ -126,7 +128,8 @@ public class Search {
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    accomodation = new Accomodation(id, name,price);
+			Integer availability = rs.getInt("availability");
+		    accomodation = new Accomodation(id, name,price, availability);
 		    
 		}
 		return accomodation;
@@ -141,7 +144,8 @@ public class Search {
 		while(rs.next()) {
 			Integer id = rs.getInt("id");
 			Integer price = rs.getInt("price");
-		    accomodation = new Accomodation(id, name,price);
+			Integer availability = rs.getInt("availability");
+		    accomodation = new Accomodation(id, name,price,availability);
 		    
 		}
 		return accomodation;
@@ -156,8 +160,8 @@ public class Search {
 		while(rs.next()) {
 			Integer id = rs.getInt("id");
 			Integer price = rs.getInt("price");
-		    trans = new Transport(id, name,price);
-		  
+			Integer availability = rs.getInt("availability");
+		    trans = new Transport(id, name,price, availability);
 		}
 		return trans;
 	}
@@ -171,7 +175,8 @@ public class Search {
 		while(rs.next()) {
 			String name = rs.getString("name");
 			Integer price = rs.getInt("price");
-		    trans = new Transport(id, name,price);
+			Integer availability = rs.getInt("availability");
+		    trans = new Transport(id, name,price, availability);
 		  
 		}
 		return trans;

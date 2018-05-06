@@ -23,6 +23,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer id;
 	private String name;
 	private Integer price;
+	private Integer availability;
 	@OneToMany(mappedBy="accomodation")
 	private List <Camper> campers;
 	@OneToMany(mappedBy="accomodation")
@@ -39,11 +40,12 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.name = accomodation;
 		this.price = price;
 	}
-	public Accomodation(Integer id,String accomodation, Integer price) {
+	public Accomodation(Integer id,String accomodation, Integer price, Integer availability) {
 		super();
 		this.id = id;
 		this.name = accomodation;
 		this.price = price;
+		this.availability = availability;
 	}
 	
 	public Accomodation(Integer price, String accomodation,  List<Camper> campers) {
@@ -109,6 +111,15 @@ private static final long serialVersionUID = -4281575077333973070L;
 	public void setCampers(List<Camper> campers) {
 		this.campers = campers;
 	}
+	public boolean checkAvailability() {
+		boolean h;
+		if( getAvailability()>150) {
+			h = false;
+		}else {
+			h=true;
+		}
+		return h;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -144,6 +155,12 @@ private static final long serialVersionUID = -4281575077333973070L;
 		if(campers.contains(camper)) {
 			this.campers.remove(camper);
 		}
+	}
+	public Integer getAvailability() {
+		return availability;
+	}
+	public void setAvailability(Integer availability) {
+		this.availability = availability;
 	}
 
 	

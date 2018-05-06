@@ -118,7 +118,8 @@ public class Selection {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
-			Transport trans = new Transport (id,name,price);
+			Integer availability = rs.getInt("availability");
+			Transport trans = new Transport (id,name,price, availability);
 			t.add(trans);
 			
 		}
@@ -136,7 +137,8 @@ public class Selection {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
-			Accomodation acomodation= new Accomodation (id,name,price);
+			Integer availability = rs.getInt("availability");
+			Accomodation acomodation= new Accomodation (id,name,price, availability);
 			acom.add(acomodation);
 		}
 		rs.close();
@@ -153,7 +155,8 @@ public class Selection {
 			int id = rs.getInt("id");
 			String name = rs.getString("name");
 			int price = rs.getInt("price");
-			Activity activity = new Activity (id,name,price);
+			Integer availability = rs.getInt("availability");
+		    Activity activity = new Activity(id, name,price, availability);
 			activities.add(activity);
 		}
 		rs.close();

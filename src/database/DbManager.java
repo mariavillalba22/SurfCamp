@@ -28,6 +28,7 @@ public void createTables(Connection c) {
 		String accomodations = "CREATE TABLE accomodation"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
+			    + " availability INTEGER NOT NULL,"
 				+"	price INTEGER NOT NULL)";
 		stmt1.executeUpdate(accomodations);
 		stmt1.close();
@@ -40,6 +41,7 @@ public void createTables(Connection c) {
 		String activities = "CREATE TABLE activity"
 				+"( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 			    + "	name TEXT NOT NULL,"
+			    + " availability INTEGER NOT NULL,"
 				+ " instructor_id INTEGER REFERENCES instructor(id) ON DELETE SET NULL,"
 				+ "	price INTEGER NOT NULL)";
 		stmt2.executeUpdate(activities);
@@ -97,6 +99,8 @@ public void createTables(Connection c) {
 				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 
 			    + "name TEXT NOT NULL,"
+			    
+			    + "availability INTEGER NOT NULL,"
 			    
 			    + "price INTEGER NOT NULL )";
 		stmt6.executeUpdate(transport);

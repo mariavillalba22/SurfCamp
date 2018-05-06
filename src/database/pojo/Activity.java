@@ -38,6 +38,8 @@ public class Activity  implements Serializable {
 	private String name;
 	@XmlAttribute
 	private Integer price;
+	@XmlAttribute
+	private Integer availability;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor_id")
@@ -92,18 +94,19 @@ public class Activity  implements Serializable {
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
-	public Activity(Integer id,String activity, Integer price) {
+	public Activity(Integer id,String activity, Integer price, Integer availability) {
 		super();
 		this.id = id;
 		this.name = activity;
 		this.price = price;
+		this.availability = availability;
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
 
 	public String toString() {
-    	return " The activity ID is:\t "+id+". "+
-    "Name of activity:\t "+name+".  Price:\t "+price;
+    	return " The activity ID is: "+id+". "+
+    "Name of activity: "+name+".  Price: "+price;
     	
     
     }
@@ -171,7 +174,23 @@ public class Activity  implements Serializable {
 	public void setMaterial(List<Material> material) {
 		this.material = material;
 	}
+	public Integer getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(Integer availability) {
+		this.availability = availability;
+	}
 	
+	public boolean checkAvailability() {
+		boolean h;
+		if( getAvailability()>15) {
+			h = false;
+		}else {
+			h=true;
+		}
+		return h;
+	}
 	public void addCamper(Camper camper) {
 		if (!campers.contains(camper)) {
 			this.campers.add(camper);

@@ -131,11 +131,12 @@ public class Insertion {
 		sql.close();
 	}
 	public Accomodation insertAccomodation (Accomodation accomodation ) throws SQLException{
-		String sql2 = "INSERT INTO accomodation (name, price)"+
-				"VALUES (?,?);";
+		String sql2 = "INSERT INTO accomodation (name, price, availability)"+
+				"VALUES (?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql2);
 		sql.setString(1, accomodation.getAccomodation());
 		sql.setInt(2, accomodation.getPrice());
+		sql.setInt(3, accomodation.getAvailability());
 	
 		sql.executeUpdate();
 		sql.close();
@@ -149,11 +150,12 @@ public class Insertion {
 	}
 	
 	public Activity insertActivity (Activity activity) throws Exception{
-		String sql3 = "INSERT INTO activity (name, price)"+
-				"VALUES (?,?);";
+		String sql3 = "INSERT INTO activity (name, price, availability)"+
+				"VALUES (?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql3);
 		sql.setString(1, activity.getActivity());
 		sql.setInt(2, activity.getPrice());
+		sql.setInt(3, activity.getAvailability());
 		
 	
 		sql.executeUpdate();
@@ -196,11 +198,12 @@ public class Insertion {
 		return material;
 	}
 	public Transport insertTransport (Transport transport ) throws SQLException{
-		String sql5 = "INSERT INTO transport (name, price)"+
-				"VALUES (?,?);";
+		String sql5 = "INSERT INTO transport (name, price, availability)"+
+				"VALUES (?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql5);
 		sql.setString(1, transport.getType_transport());
 		sql.setInt(2, transport.getPrice());
+		sql.setInt(3, transport.getAvailable());
 		sql.executeUpdate();
 		sql.close();
 		

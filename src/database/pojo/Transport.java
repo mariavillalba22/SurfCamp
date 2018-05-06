@@ -26,6 +26,9 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer id;
 	private String name;
 	private Integer price;
+	private Integer available;
+	
+
 	@OneToMany(mappedBy="transport")
 	private List<Camper> campers;
 	@OneToMany(mappedBy="transport")
@@ -41,13 +44,15 @@ private static final long serialVersionUID = -4281575077333973070L;
 		super();
 		this.name = type_transport;
 		this.price=price;
+		
 	}
 
-	public Transport (Integer id ,String type_transport, Integer price) {
+	public Transport (Integer id ,String type_transport, Integer price, Integer availability) {
 		super();
 		this.id= id;
 		this.name = type_transport;
 		this.price=price;
+		this.available = availability;
 	}
 	
 	public Transport ( String type_transport,Integer price, List<Camper>campers, List <Instructor>instructors) {
@@ -101,7 +106,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	
 	@Override
 	public String toString() {
-		return "Transport id=" + id + ", type_transport=" + name +  ", price=" +price;
+		return "Transport id=" + id + ", type_transport=" + name +  ", price=" +price+ " and number of persons using it = "+ available;
 	}
 	
 	public String showName(){
@@ -117,6 +122,24 @@ private static final long serialVersionUID = -4281575077333973070L;
 
 	public void setInstructors(List<Instructor> instructors) {
 		this.instructors = instructors;
+	}
+	
+	public Integer getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Integer available) {
+		this.available = available;
+	}
+	
+	public boolean checkAvailability() {
+		boolean h;
+		if(getAvailable()>50) {
+			h = false;
+		}else {
+			h=true;
+		}
+		return h;
 	}
 
 	public void addCamper(Camper camper) {
