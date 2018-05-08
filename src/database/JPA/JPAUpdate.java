@@ -48,5 +48,18 @@ package database.JPA;
 			em.getTransaction().commit();
 			em.close();
 		}
+		public void UpdateAccomodationName(Accomodation accomodation,String name) {
+			em.getTransaction().begin();
+			accomodation.setAccomodation(name);
+			em.getTransaction().commit();
+			em.close();
+		}
+		
+		public void UpdateAccomodationPrice(Accomodation accomodation,Integer price) {
+			em.getTransaction().begin();
+			accomodation.setPrice(price);
+			em.getTransaction().commit();
+			em.close();
+		}
 	}
 

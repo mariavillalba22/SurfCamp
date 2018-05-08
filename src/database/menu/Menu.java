@@ -102,7 +102,6 @@ public class Menu {
                         	
                         	case 1:{
                         	
-                        		
                             
                             		for (Camper camper : campers) {
                             			System.out.println(camper);
@@ -927,17 +926,17 @@ public class Menu {
             
                 break;
 
-//*******************************modify****************************************************		
+              //*******************************modify****************************************************		
                 case 3: //modify
-                    System.out.println("WHERE WOULD YOU LIKE TO MODIFY: "
+                    System.out.println("WHERE WOULD YOU LIKE TO MODIFY: \n\n"
                             + "1) Campers"
-                            + "2) Transport" //DUDA 
-                            + "3) Accomodation"//DUDA
-                            + "4) Activities"//DUDA
-                            + "5) Material"//DUDA
-                            + "6) Instructor"//DUDA
+                            + "  2) Transport" //DUDA 
+                            + "  3) Accomodation"//DUDA
+                            + "  4) Activities"//DUDA
+                            + "  5) Material"//DUDA
+                            + "  6) Instructor\n\n"//DUDA
                             + ""
-                            + "Option number: ");
+                            + "  Option number: ");
 
                     readString = console.readLine();
                     int optionNumberModify = Integer.parseInt(readString);
@@ -957,19 +956,19 @@ public class Menu {
                         		Camper camp1 = new Camper();
                         		camp1 = ser.SearchCamper(readString);
                             
-                            System.out.println("WHAT WOULD YOU LIKE TO MODIFY: "
+                            System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
-                                    + "2) Date of Birth"
-                                    + "3) Nationality"
-                                    + "4) NIF"
-                                    + "5) Phone Number"
-                                    + "6) Email"
-                                    + "7) Payment method"
-                                    + "8) Transport"
-                                    + "9) Accomodation"
-                                    + "10) Activity"
+                                    + "  2) Date of Birth"
+                                    + "  3) Nationality"
+                                    + "  4) NIF"
+                                    + "  5) Phone Number"
+                                    + "  6) Email"
+                                    + "  7) Payment method"
+                                    + "  8) Transport"
+                                    + "  9) Accomodation"
+                                    + "  10) Activity\n\n"
                                     + ""
-                                    + "Option number: ");
+                                    + "  Option number: ");
 
                             readString = console.readLine();
                             int optionNumberModifyCamper = Integer.parseInt(readString);
@@ -1016,31 +1015,289 @@ public class Menu {
                         }
                         break;}
 
-                        case 2: //trans
+                        case 2: //transport
+                        	transports = sel.selectTransport();
+                         	if(transports.isEmpty()) {
+                         	System.out.println("There is any transport available. Sorry");
+                         	}else {
+                         		for(Transport trans: transports) {
+                         			System.out.println(trans);
+                         		}
+                         	
+                         		System.out.println("Introduce the name of the transport you want: ");
+                         		readString = console.readLine();
+                         		Transport trans1 = new Transport();
+                         		trans1= ser.SearchTransport(readString);
+                         
+                         		
+                         		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
+                                        + "1) Name\n"
+                                        + "2) Price\n\n"
+                                        + ""
+                                        + "Option number: ");
+
+                                readString = console.readLine();
+                                int optionNumberModifyTransport = Integer.parseInt(readString);
+
+                       switch(optionNumberModifyTransport){
+                          case 1: //Modify type of transport
+                          {	System.out.println("Insert the new type of transport: ");
+                      	
+                             readString = console.readLine();
+                              trans1.setType_transport(readString);
+                              System.out.println(trans1);
+                             // up.UpdateTransport(trans1);
+                              
+                              break;
+                        	  
+                          }
+                          case 2: //Modify price of the transport
+                          {
+                        		System.out.println("Insert the new price of the transport: ");
+                            	
+                                readString = console.readLine();
+                                trans1.setPrice(Integer.parseInt(readString));
+                                System.out.println(trans1);
+                                //up.UpdateTransport(trans1);
+                                       break;
+                          }
+                       }
+                       }
                             break;
 
-                        case 3: //acc
-                            break;
+                          
 
-                        case 4: //acti
-                            break;
+                        case 3: //accomodation 
+                        	   accomodations = sel.selectAccomodation();
+                        	     if(accomodations.isEmpty()) {
+                        	    	 System.out.println("There is any activity aviable. Sorry");
+                        	     }else {
+                        	    	     for(Accomodation acc: accomodations) {
+                        	    	    	     System.out.println(acc);
+                        	    	     }
+                        	    	     System.out.println("Introduce the name of the accomodation you want: ");
+                                  		readString = console.readLine();
+                                  		Accomodation acc1 = new Accomodation();
+                                  		acc1= ser.SearchAccomodation(readString);
+                                  
+                                  		
+                                  		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
+                                                 + "1) Name\n"
+                                                 + "2) Price\n\n"
+                                                 + ""
+                                                 + "Option number: ");
 
-                        case 5:{
-                        	
-                        	System.out.println("Insert the new price of the material: ");
-                        	Material mat1 = new Material();
-                         readString = console.readLine();
-                         mat1.setPrice(Integer.parseInt(readString));
-                         System.out.println(mat1);
-                         up.UpdateMaterial(mat1);
-                                break;
+                                         readString = console.readLine();
+                                         int optionNumberModifyAccomodation = Integer.parseInt(readString);
+
+                                switch(optionNumberModifyAccomodation){
+                                   case 1: //Modify name of the accomodation
+                                   {	System.out.println("Insert the new name of the accomodation: ");
+                               	
+                                      readString = console.readLine();
+                                       acc1.setAccomodation(readString);
+                                       System.out.println(acc1);
+                                       update.UpdateAccomodationName(acc1, readString);
+                                       break;
+                                 	  
+                                   }
+                                   case 2: //Modify price of the accomodation
+                                   {
+                                 		System.out.println("Insert the new price of the accomodation: ");
+                                     	
+                                         readString = console.readLine();
+                                         int p=Integer.parseInt(readString);
+                                         acc1.setPrice(p);
+                                         System.out.println(acc1);
+                                         update.UpdateAccomodationPrice(acc1, p );
+                                                break;
+                                   }
                                 }
+                                }
+                                     break;
+                        	    
 
-                        case 6: //instr
+                        case 4: //activity
+                        	activities = sel.selectActivity();
+                         	if(activities.isEmpty()) {
+                         	System.out.println("There is any activity available. Sorry");
+                         	}else {
+                         		for(Activity act: activities) {
+                         			System.out.println(act);
+                         		}
+                         	
+                         		System.out.println("Introduce the id of the activity you want: ");
+                         		readString = console.readLine();
+                         		Activity act1 = new Activity();
+                         		act1= ser.SearchActivity(Integer.parseInt(readString));
+                         
+                         		
+                         		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
+                                        + "1) Name\n"
+                                        + "2) Price\n\n"
+                                        + ""
+                                        + "Option number: ");
+
+                                readString = console.readLine();
+                                int optionNumberModifyActivity = Integer.parseInt(readString);
+
+                       switch(optionNumberModifyActivity){
+                          case 1: //Modify name of the activity
+                          {	System.out.println("Insert the new name of the activity: ");
+                      	
+                             readString = console.readLine();
+                              act1.setActivity(readString);
+                              System.out.println(act1);
+                              up.UpdateActivity(act1);
+                              break;
+                        	  
+                          }
+                          case 2: //Modify price of the activity
+                          {
+                        		System.out.println("Insert the new price of the activity: ");
+                            	
+                                readString = console.readLine();
+                                act1.setPrice(Integer.parseInt(readString));
+                                System.out.println(act1);
+                                up.UpdateActivity(act1);
+                                       break;
+                          }
+                       }
+                       }
                             break;
+
+                            
+                        case 5://material
+                        	 materials = sel.selectMaterial();
+                         	if(materials.isEmpty()) {
+                         	System.out.println("There is any material available. Sorry");
+                         	}else {
+                         		for(Material mat: materials) {
+                         			System.out.println(mat);
+                         		}
+                         	
+                         		System.out.println("Introduce the name of the material you want: ");
+                         		readString = console.readLine();
+                         		Material mat1 = new Material();
+                         		mat1 = ser.SearchMaterial(readString);
+                         
+                         		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
+                                        + "1) Name\n"
+                                        + "2) Price\n\n"
+                                        + ""
+                                        + "Option number: ");
+
+                                readString = console.readLine();
+                                int optionNumberModifyMaterial = Integer.parseInt(readString);
+
+                       switch(optionNumberModifyMaterial){
+                          case 1: //Modify name of the material
+                          {	System.out.println("Insert the new name of the material: ");
+                      	
+                             readString = console.readLine();
+                              mat1.setMaterial(readString);
+                              System.out.println(mat1);
+                              up.UpdateMaterial(mat1);
+                              break;
+                        	  
+                          }
+                          case 2: //Modify price of the material
+                          {
+                        		System.out.println("Insert the new price of the material: ");
+                            	
+                                readString = console.readLine();
+                                mat1.setPrice(Integer.parseInt(readString));
+                                System.out.println(mat1);
+                                up.UpdateMaterial(mat1);
+                                       break;
+                          }
+                       }
+                       }
+                        	
+
+                        case 6:  //instructor
+                        	
+                        	instructors = sel.selectInstructor();
+                     	if(instructors.isEmpty()) {
+                     	System.out.println("There is any instructor available. Sorry");
+                     	}else {
+                     		for(Instructor ins: instructors) {
+                     			System.out.println(ins);
+                     		}
+                     		System.out.println("Introduce the id of the instructor you want: ");
+                     		readString = console.readLine();
+                     		Instructor ins1 = new Instructor();
+                     		ins1 = ser.SearchInstructor(Integer.parseInt(readString));
+                         
+                     		System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
+                                    + "1) Name"
+                                    + "  2) Date of Birth"
+                                    + "  3) Nationality"
+                                    + "  4) NIF"
+                                    + "  5) Phone Number"
+                                    + "  6) Salary\n\n"
+                                    + "  Option number: ");
+
+                            readString = console.readLine();
+                            int optionNumberModifyInstructor = Integer.parseInt(readString);
+                            
+                            switch(optionNumberModifyInstructor) {
+                            case 1: //Modify name of instructor
+                                {System.out.println("Insert the new name of the instructor: ");
+                        	
+                                 readString = console.readLine();
+                                 ins1.setName(readString);
+                                 System.out.println(ins1);
+                                 up.UpdateInstructor(ins1);
+                                   break;}
+                                
+                            case 2: //Modify date of birth of instructor
+                            {
+                            	break;}
+                            
+                            case 3: //Modify nationality of instructor
+                             { System.out.println("Insert the new nationality of the instructor: ");
+                            	
+                                readString = console.readLine();
+                                ins1.setNationality(readString);
+                                System.out.println(ins1);
+                                up.UpdateInstructor(ins1);
+                                       break;}
+                            
+                            case 4: //Modify nif of instructor
+                              {	System.out.println("Insert the new name of the instructor: ");
+                          	
+                              readString = console.readLine();
+                              ins1.setNIF(readString);
+                              System.out.println(ins1);
+                              up.UpdateInstructor(ins1);
+                                     break; }
+                            
+                            case 5: //Modify phone number of instructor 
+                               {  	System.out.println("Insert the new phone number of the instructor: ");
+                           	
+                               readString = console.readLine();
+                               ins1.setPhoneNumber(Integer.parseInt(readString));
+                               System.out.println(ins1);
+                               up.UpdateInstructor(ins1);
+                                      break;}
+                            
+                            case 6: // Modify salary of instructor
+                               {  System.out.println("Insert the new salary of the instructor: ");
+                           	
+                               readString = console.readLine();
+                               ins1.setSalary(Integer.parseInt(readString));
+                               System.out.println(ins1);
+                               up.UpdateInstructor(ins1);
+                                      break;
+                            	
+                                }
+                            
+                            }
 
                     }
-                    break;
+                    break;}
+                
                 case 4: //delete
                 {
                     System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n"
