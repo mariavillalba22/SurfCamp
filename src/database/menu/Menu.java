@@ -123,8 +123,6 @@ public class Menu {
                         		}break;//case 1 full view campers
                             	
                         	case 2:{
-                        		
-                        		
                         		List<String>campNames=new ArrayList();
                         		campNames=sel.selectCamperName();
                         		for(String camperNames: campNames) {
@@ -179,13 +177,7 @@ public class Menu {
                             	readString = console.readLine();
                             	int priceComp = Integer.parseInt(readString);
                             	transports=sel.selectTransport();
-                            	
-                            	/*it=transports.iterator();
-                            	while(it.hasNext()) {
-                            		transport1=(Transport)it.next();
-                            		if(priceComp<=transport1.getPrice())
-                            			System.out.println("\nType:\t"+transport1.getType_transport());
-                            	}*/
+                            
                     				}break;	
                     				
                     			}//switch opciones de view transport
@@ -219,13 +211,6 @@ public class Menu {
                         			System.out.println(accomodation);
                         		}
                         		
-                            	/*it=accomodations.iterator();
-                            	while(it.hasNext()) {
-                            		accomodation1=(Accomodation)it.next();
-                            		System.out.println("ID:\t"+accomodation1.getId()+"\nType:\t"+
-                            		accomodation1.getAccomodation()+"\nPrice:\t"+accomodation1.getPrice());
-                            	
-                            	}*/
                         	}break;// case 1 accomodation full view
                             	
                         	case 2:{
@@ -236,44 +221,26 @@ public class Menu {
                         			}
                         		}
                         		
-                        	}break;// case 2 names accomodation
+                        	}break;// case 2 availability
                             	
                             case 3:{
                             	
                             	System.out.println("Insert a maximum price:\t");
                             	readString = console.readLine();
                             	int priceComp = Integer.parseInt(readString);
-                            	accomodations=sel.selectAccomodation();
+                            	accomodations=sel.selectAccomodationHigher(priceComp);
+                            	for(Accomodation accomodation: accomodations) {
+                            		System.out.println(accomodation);
+                            	}
                             	
                             	
-                            	
-                            	/*it=accomodations.iterator();
-                            	while(it.hasNext()) {
-                            		accomodation1=(Accomodation)it.next();
-                            		if(priceComp<=transport1.getPrice())
-                            			System.out.println("\nType:\t"+accomodation1.getAccomodation());
-                            	}*/
                             }break;	//case 3 view accomodation price
                             case 4:{
                             	System.out.println("Insert accomodation name:\t");
                             	readString = console.readLine();
+                            	//CREAR UN SELECT
                             	accomodations=sel.selectAccomodation();
                             	
-                            	
-                            	
-                            	/*it=accomodations.iterator();
-                            	while(it.hasNext()) {
-                            		accomodation1=(Accomodation)it.next();
-                            		if(readString.equalsIgnoreCase(accomodation1.getAccomodation())) {
-                            			System.out.print("\nPeople inside:\t");
-                            			ArrayList<Camper> aux=(ArrayList<Camper>) accomodation1.getCampers();
-                            			for(Camper cam:aux) {
-                            				System.out.print(cam.getName()+" ");
-                            			}
-                            			System.out.println("\nTotal:\t"+aux.size());
-                            		}
-                            			
-                            	}*/
                             	
                         	}break;//case 4 mostrar el precio de una acomodacion introducida
                         	
@@ -307,15 +274,6 @@ public class Menu {
                         			System.out.println(activity);
                         		}
                         		
-                            	/*it=activities.iterator();
-                            	while(it.hasNext()) {
-                            		activity1=(Activity)it.next();
-                            		System.out.println("ID:\t"+activity1.getId()+"\nType:\t"+
-                            		activity1.getActivity()+"\nPrice:\t"+activity1.getPrice()+
-                            		"\nInstructor:\t"+activity1.getInst()+"\nMaterial Requiered:\t"+activity1.getMaterial().toString()+
-                            		"\nNumber of Campers:\t"+activity1.getCampers().size());
-                            	
-                            	}*/
                         	}break;//case 1 listar full view actividades
                             	
                         	case 2:{
@@ -331,16 +289,11 @@ public class Menu {
                             	System.out.println("Insert a maximum price:\t");
                             	readString = console.readLine();
                             	int priceComp = Integer.parseInt(readString);
-                            	activities=sel.selectActivity();
-                            	
-                            	//FALTA
-                            	
-                            	/*it=activities.iterator();
-                            	while(it.hasNext()) {
-                            		activity1=(Activity)it.next();
-                            		if(priceComp<=activity1.getPrice())
-                            			System.out.println("\nType:\t"+activity1.getActivity());
-                            	}*/
+                            	activities=sel.selectActivityHigher(priceComp);
+                            	for (Activity activity : activities) {
+                        			System.out.println(activity);
+                        		}
+                            	//PROBARLO
 
                         	}break;//case 3 mostrar actividad por precio
                         	
@@ -367,23 +320,15 @@ public class Menu {
                         			System.out.println(material);
                         		}
                         		
-                        		/*
-                            	it=materials.iterator();
-                            	while(it.hasNext()) {
-                            		material1=(Material)it.next();
-                            		System.out.println("ID:\t"+material1.getId()+"\nType:\t"+
-                            		material1.getMaterial()+"\nPrice:\t"+material1.getPrice());
-                            	
-                            	}*/
+                        		
                         	}break;//case 1 view full materials
                             	
                         	case 2:{
                         		materials=sel.selectMaterial();
-                            	/*it=materials.iterator();
-                            	while(it.hasNext()) {
-                            		material1=(Material)it.next();
-                            		System.out.println("\nType:\t"+material1.getMaterial());
-                            	}*/
+                        		for(Material material: materials) {
+                        			System.out.println(material.getMaterial());
+                        		}
+                            	
                         	}break;//case 2 listar nombres
                             	
                             case 3:{
@@ -391,14 +336,11 @@ public class Menu {
                             	System.out.println("Insert a maximum price:\t");
                             	readString = console.readLine();
                             	int priceComp = Integer.parseInt(readString);
-                            	materials=sel.selectMaterial();
+                            	materials=sel.selectMaterialHigher(priceComp);
+                            	for(Material material: materials) {
+                            		System.out.println(material);
+                            	}
                             	
-                            	/*it=materials.iterator();
-                            	while(it.hasNext()) {
-                            		material1=(Material)it.next();
-                            		if(priceComp<=material1.getPrice())
-                            			System.out.println("\nType:\t"+material1.getMaterial());
-                            	}*/
                             	}break;// case 3 listar por precio
                         	
                         	}//switch opciones material
@@ -433,12 +375,9 @@ public class Menu {
                             	
                         	case 2:{
                         		instructors=sel.selectInstructor();
-                        		//FALTA
-                            	/*it=instructors.iterator();
-                            	while(it.hasNext()) {
-                            		instructor1=(Instructor) it.next();
-                            		System.out.println("Name:\t"+instructor1.getName());
-                            		}*/
+                        		for(Instructor instructor : instructors) {
+                        			System.out.println(instructor.getName());
+                        		}
                         		}break;//case 2 instructor names
 
                         	}//switch optnum6
@@ -574,6 +513,7 @@ public class Menu {
                     			Integer a = trans1.getAvailable() + 1;
                     			
                     			trans1.setAvailable(a);
+                    			
                     			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
                     		
                     			in.insertTransInC(camper1, trans1);
@@ -605,7 +545,8 @@ public class Menu {
                     		Accomodation accomodation = ser.SearchAccomodation(accomid);
                     		if(accomodation.checkAvailability()) {
                     	    Integer a = accomodation.getAvailability() + 1;
-                    	    accomodation.setAvailability(a);
+                    	    System.out.println(a);
+                    	    update.UpdateAccomAvailability(accomodation, a);
                     	 // AQUI TENGO QUE HACER UPDATE DE ACCOMODATION!!
                     		in.insertAccomInC(camper1, accomodation);
                     		

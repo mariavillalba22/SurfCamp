@@ -21,6 +21,13 @@ package database.JPA;
 			em.close();
 		}
 		
+		public void UpdateAccomAvailability(Accomodation acom, Integer a) {
+			em.getTransaction().begin();
+			acom.setAvailability(a);
+			em.getTransaction().commit();
+			em.close();
+		}
+		
 		public void UpdateCampNIF(Camper camp,String NIF) {
 			em.getTransaction().begin();
 			camp.setNIF(NIF);

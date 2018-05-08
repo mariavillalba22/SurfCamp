@@ -146,6 +146,68 @@ public class Selection {
 		return acom;
 	}
 	
+	public List<Accomodation> selectAccomodationHigher(Integer hprice)throws SQLException{
+		
+		String sql = "SELECT * FROM accomodation WHERE price < ?";
+		List<Accomodation> acom = new ArrayList();
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, hprice);
+		ResultSet rs = prep.executeQuery();
+		
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Integer availability = rs.getInt("availability");
+			Accomodation acomodation= new Accomodation (id,name,price, availability);
+			acom.add(acomodation);
+		}
+		rs.close();
+		prep.close();
+		return acom;
+	}
+	
+public List<Activity> selectActivityHigher(Integer hprice)throws SQLException{
+		
+		String sql = "SELECT * FROM activity WHERE price < ?";
+		List<Activity> act = new ArrayList();
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, hprice);
+		ResultSet rs = prep.executeQuery();
+		
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Integer availability = rs.getInt("availability");
+			Activity activity= new Activity (id,name,price, availability);
+			act.add(activity);
+		}
+		rs.close();
+		prep.close();
+		return act;
+	}
+
+public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
+	
+	String sql = "SELECT * FROM material WHERE price < ?";
+	List<Material> mat = new ArrayList();
+	PreparedStatement prep = c.prepareStatement(sql);
+	prep.setInt(1, hprice);
+	ResultSet rs = prep.executeQuery();
+	
+	while (rs.next()) {
+		int id = rs.getInt("id");
+		String name = rs.getString("name");
+		int price = rs.getInt("price");
+		Material material= new Material (id,name,price);
+		mat.add(material);
+	}
+	rs.close();
+	prep.close();
+	return mat;
+}
+	
 	public List<Activity> selectActivity()throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM activity";
