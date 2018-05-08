@@ -32,12 +32,13 @@ public class Update {
   }
 
   public void UpdateAccomodation ( Accomodation acom) throws SQLException {
-      String sql = "UPDATE accomodation SET name = ?, price =? WHERE id = ?";
+      String sql = "UPDATE accomodation SET name = ?, price =?, availability=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
 
       prep.setString(1, acom.getAccomodation());
       prep.setInt(2, acom.getPrice());
-      prep.setInt(3, acom.getId());
+      prep.setInt(3, acom.getAvailability());
+      prep.setInt(4, acom.getId());
 
       prep.executeUpdate();
 

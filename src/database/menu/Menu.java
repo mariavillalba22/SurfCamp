@@ -544,9 +544,9 @@ public class Menu {
                     		Accomodation accomodation = ser.SearchAccomodation(accomid);
                     		if(accomodation.checkAvailability()) {
                     	    Integer a = accomodation.getAvailability() + 1;
-                    	    System.out.println(a);
-                    	    update.UpdateAccomAvailability(accomodation, a);
-                    	 // AQUI TENGO QUE HACER UPDATE DE ACCOMODATION!!
+                    	    accomodation.setAvailability(a);
+                    	    up.UpdateAccomodation(accomodation);
+                    	    
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;
