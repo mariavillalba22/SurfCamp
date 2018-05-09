@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -36,14 +37,14 @@ public class Activity  implements Serializable {
 	private Integer id;
 	@XmlAttribute
 	private String name;
-	@XmlAttribute
+	@XmlElement
 	private Integer price;
-	@XmlAttribute
+	@XmlElement
 	private Integer availability;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor_id")
-	@XmlElement(name = "instructor")
+	@XmlTransient
 	private Instructor inst;
 	@ManyToMany
 	@JoinTable(name="camper",

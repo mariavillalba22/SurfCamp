@@ -546,7 +546,6 @@ public class Menu {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
                     	    up.UpdateAccomodation(accomodation);
-                    	    
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;

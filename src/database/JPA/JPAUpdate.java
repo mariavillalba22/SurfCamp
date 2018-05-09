@@ -25,7 +25,6 @@ package database.JPA;
 			em.getTransaction().begin();
 			acom.setAvailability(a);
 			em.getTransaction().commit();
-			
 		}
 		
 		public void UpdateCampNIF(Camper camp,String NIF) {

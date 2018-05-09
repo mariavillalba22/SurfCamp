@@ -10,9 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "transport")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "transport")
+@XmlType(propOrder = { "id","name","price","availability" })
 
 public class Transport implements Serializable{
 	
@@ -28,7 +39,8 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer price;
 	private Integer available;
 	
-
+    
+    
 	@OneToMany(mappedBy="transport")
 	private List<Camper> campers;
 	@OneToMany(mappedBy="transport")

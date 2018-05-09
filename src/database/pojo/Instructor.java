@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -32,27 +35,39 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@GeneratedValue(generator="instructor")
 	@TableGenerator(name="instructor", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
-	
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private Integer phone_number;
+	@XmlElement
 	private Date dob;
+	@XmlElement
 	private String NIF;
+	@XmlElement
 	private String nationality;
+	@XmlElement
 	private Integer salary;
 	
 	@OneToMany(mappedBy="inst")
-	@XmlTransient
+	@XmlElement(name = "activity")
+	@XmlElementWrapper(name = "activities")
+	//Because many activities can have different instructors
+	//We are not showing the activities in instructor because we 
+	//are showing it in activities
 	private List<Activity> activities;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
+	@XmlTransient
 	private Transport transport;
-
+    //SI DA TIEMPO SE HACE
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "accomodation_id")
+	@XmlTransient
 	private Accomodation accomodation;
 
 	
