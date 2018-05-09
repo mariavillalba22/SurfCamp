@@ -4,11 +4,14 @@ import java.io.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import database.*;
 import database.JPA.*;
+import database.XML.XMLdb;
+import database.XML.XMLmanager;
 import database.pojo.*;
 
 public class Menu {
@@ -42,7 +45,11 @@ public class Menu {
     	
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
-    	
+    XMLmanager xmlm = new XMLmanager();
+    	XMLdb xmldb = new XMLdb(xmlm);
+    	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
+	Instructor inst222=new Instructor(1,"raquel",616525795,january1st2014,"9999999M","Spanish",700);
+    xmlm.marshalldb(inst222);
     
     	do {
     		Camper camper1 = new Camper();
@@ -58,7 +65,8 @@ public class Menu {
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY\n"
                     + "4) DELETE\n"
-                    + "5) EXIT\n\n"
+                    + "5) WORK WITH XML"
+                    + "6) EXIT\n\n"
                     + ""
                     + "Option number: ");
 
@@ -1433,8 +1441,33 @@ public class Menu {
                    
                     break;
                 } 
+                case 5: {
+                	 System.out.println("1. Save instructor in XML file");
+                	 System.out.println("2. Store instructor in Data Base from XML file");
+                	 System.out.println("3. Convert XML into HTML");	 
+                	 System.out.println("Choose the option");
+                	 
+                	 int option=Integer.parseInt(console.readLine());
+                	 switch(option) {
+                	 case 1:
+                	 {
+                		 instructors = new ArrayList();
+                		 for(Instructor ins: instructors) {
+                			 System.out.println(ins);
+                			 
+                		 }
+                		 System.out.println("Select the instructor id that you want to save");
+                		 
+                		 break;
+                	 }
+                	 case 2:
+                	 {
+                		 break;
+                	 }
+                	 }
+                }
                 
-               //DUDA: no habría que poner un case 5 exit(0)???
+               //DUDA: no habrï¿½a que poner un case 5 exit(0)???
                 // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
 
             
@@ -1446,7 +1479,7 @@ public class Menu {
         
 	
     	
-			}while(optionNumber!=5);
+			}while(optionNumber!=6);
 			
 	}//LLAVE DEL MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

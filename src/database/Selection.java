@@ -286,10 +286,8 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		List<String> campersInAcc = new ArrayList();
 		
 		while (rs.next()) {
-			
-			int idcamp = rs.getInt("id");
-			campersInAcc.add(selectCamperNamefromId(idcamp));
-		    
+			String name = rs.getString("name");
+			campersInAcc.add(name);
 		}
 		rs.close();
 		return campersInAcc;
@@ -323,7 +321,23 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		return materialname;
 	}
 	
-	
+	public List<Activity> selectActOfInst(Instructor ins) throws SQLException{
+		String sql = "SELECT * FROM activity WHERE id_instructor =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,ins.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<Activity> act = new ArrayList();
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Integer availability = rs.getInt("availability");
+		    Activity activity = new Activity(id, name,price, availability);
+			act.add(activity);
+		}
+		return act;
+	}
 	
 	
 	

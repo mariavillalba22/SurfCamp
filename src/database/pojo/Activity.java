@@ -7,14 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 
@@ -22,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "activity")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "activity")
-@XmlType(propOrder = { "id", "name", "instructor_id" })
+@XmlType(propOrder = { "id", "name", "price", "availability" })
 
 public class Activity  implements Serializable {
 
@@ -46,12 +39,14 @@ public class Activity  implements Serializable {
 	@JoinColumn(name = "instructor_id")
 	@XmlTransient
 	private Instructor inst;
+	@XmlTransient
 	@ManyToMany
 	@JoinTable(name="camper",
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
 	private List<Camper> campers;
 	@ManyToMany
+	@XmlTransient
 	@JoinTable(name="material",
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
