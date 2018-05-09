@@ -235,6 +235,12 @@ public class Menu {
                             	
                             }break;	//case 3 view accomodation price
                             case 4:{
+                            	
+                           
+                            	for (Accomodation accomodation : accomodations) {
+                        			System.out.println(accomodation);
+                            	 }
+                            	
                             	System.out.println("Insert accomodation id:\t");
                             	readString = console.readLine();
                             	int acc_id = Integer.parseInt(readString);
@@ -1421,13 +1427,16 @@ public class Menu {
                         	del.deleteInstructorID(num);
                         	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
 
-                        }
-                            break;
+                        } break;
+                           
 
                     }
+                   
                     break;
-
-                }
+                } 
+                
+               //DUDA: no habría que poner un case 5 exit(0)???
+                // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
 
             
         }//switch todas las opciones: view, insert,.....
