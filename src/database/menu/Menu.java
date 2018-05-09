@@ -235,11 +235,17 @@ public class Menu {
                             	
                             }break;	//case 3 view accomodation price
                             case 4:{
-                            	System.out.println("Insert accomodation name:\t");
+                            	System.out.println("Insert accomodation id:\t");
                             	readString = console.readLine();
-                            	//CREAR UN SELECT
-                            	accomodations=sel.selectAccomodation();
+                            	int acc_id = Integer.parseInt(readString);
+                            	List<String>camperNamesAcc = new ArrayList();
+                            	camperNamesAcc=sel.selectCamperfromAcc(acc_id);
                             	
+                            	for(String cNA : camperNamesAcc) {
+                            		
+                            		System.out.println(cNA);
+                            	}
+	
                             	
                         	}break;//case 4 mostrar el precio de una acomodacion introducida
                         	
