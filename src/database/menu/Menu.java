@@ -235,11 +235,23 @@ public class Menu {
                             	
                             }break;	//case 3 view accomodation price
                             case 4:{
-                            	System.out.println("Insert accomodation name:\t");
-                            	readString = console.readLine();
-                            	//CREAR UN SELECT
-                            	accomodations=sel.selectAccomodation();
                             	
+                           
+                            	for (Accomodation accomodation : accomodations) {
+                        			System.out.println(accomodation);
+                            	 }
+                            	
+                            	System.out.println("Insert accomodation id:\t");
+                            	readString = console.readLine();
+                            	int acc_id = Integer.parseInt(readString);
+                            	List<String>camperNamesAcc = new ArrayList();
+                            	camperNamesAcc=sel.selectCamperfromAcc(acc_id);
+                            	
+                            	for(String cNA : camperNamesAcc) {
+                            		
+                            		System.out.println(cNA);
+                            	}
+	
                             	
                         	}break;//case 4 mostrar el precio de una acomodacion introducida
                         	
@@ -1414,13 +1426,16 @@ public class Menu {
                         	del.deleteInstructorID(num);
                         	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
 
-                        }
-                            break;
+                        } break;
+                           
 
                     }
+                   
                     break;
-
-                }
+                } 
+                
+               //DUDA: no habría que poner un case 5 exit(0)???
+                // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
 
             
         }//switch todas las opciones: view, insert,.....
