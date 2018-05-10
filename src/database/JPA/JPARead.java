@@ -23,4 +23,12 @@ public class JPARead {
 		List<Material> mat = (List<Material>) q1.getResultList();
 		System.out.println(mat);
 	}
+	
+	public void ReadTransport(Transport transport) {
+		Query q1 = em.createNativeQuery("SELECT * FROM material WHERE id = (SELECT id_material FROM"
+				+ "camper_material WHERE id_camper =  ?", Transport.class);
+		q1.setParameter(1, "%" + transport.getId() + "%");
+		List<Material> mat = (List<Material>) q1.getResultList();
+		System.out.println(mat);
+	}
 }

@@ -927,7 +927,7 @@ public class Menu {
                 break;
 
               //*******************************modify****************************************************		
-                case 3: //modify
+                case 3:{ //modify
                     System.out.println("WHERE WOULD YOU LIKE TO MODIFY: \n\n"
                             + "1) Campers"
                             + "  2) Transport" //DUDA 
@@ -987,35 +987,70 @@ public class Menu {
                                 case 2: //mod date of b
                                     break;
 
-                                case 3: //mod nation
+                                case 3: //nif
+                                	System.out.println("Insert the new NIF: ");
+                                    
+                                    readString = console.readLine();
+                                    camp1.setNIF(readString);
+                                    update.UpdateCampNIF(camp1, readString);
+                                	
                                     break;
 
-                                case 4: // mod nif
+                                case 4: // mod phone
+                                	System.out.println("Insert the new phone number: ");
+                                    
+                                    readString = console.readLine();
+                                    camp1.setPhonenumber(Integer.parseInt(readString));
+                                    update.UpdateCampPhoneNumber(camp1, Integer.parseInt(readString) );
+                                	
                                     break;
 
-                                case 5: //mod phone
+                                case 5: //mod email
+                                	System.out.println("Insert the new email: ");
+                                    
+                                    readString = console.readLine();
+                                    camp1.setEmail(readString);
+                                    update.UpdateCampEmail(camp1, readString);
+                                	
                                     break;
 
-                                case 6: //mod email
+                                case 6: //mod payment method
+                                	System.out.println("Insert the new payment method: ");
+                                    
+                                    readString = console.readLine();
+                                    camp1.setPayment_method(readString);
+                                    up.UpdateCamper(camp1);
+                                	
                                     break;
 
-                                case 7: //mod pay
+                                case 7: //transport
+                                	System.out.println("Insert the new transport: ");
+                                    
+                                    readString = console.readLine();
+                                    //camp1.setTransports(readString);
+                                    up.UpdateCamper(camp1);
+                                	
                                     break;
 
-                                case 8: //mod transp	
+                                case 8: //accomodation	
+                                  System.out.println("Insert the new accomodation: ");
+                                    
+                                    readString = console.readLine();
+                                    //camp1.setAccomodation(readString);
+                                    up.UpdateCamper(camp1);
+                                	
                                     break;
 
-                                case 9: //mod acc
+                                case 9: //activity
                                     break;
 
-                                case 10: //mod act
-                                    break;
+                               
                             }
 
                         }
                         break;}
 
-                        case 2: //transport
+                        case 2:{ //transport
                         	transports = sel.selectTransport();
                          	if(transports.isEmpty()) {
                          	System.out.println("There is any transport available. Sorry");
@@ -1024,7 +1059,7 @@ public class Menu {
                          			System.out.println(trans);
                          		}
                          	
-                         		System.out.println("Introduce the name of the transport you want: ");
+                         		System.out.println("Introduce the name of the transport you want to modify: ");
                          		readString = console.readLine();
                          		Transport trans1 = new Transport();
                          		trans1= ser.SearchTransport(readString);
@@ -1046,7 +1081,7 @@ public class Menu {
                              readString = console.readLine();
                               trans1.setType_transport(readString);
                               System.out.println(trans1);
-                             // up.UpdateTransport(trans1);
+                             update.UpdateTransportName(trans1, readString);
                               
                               break;
                         	  
@@ -1056,14 +1091,15 @@ public class Menu {
                         		System.out.println("Insert the new price of the transport: ");
                             	
                                 readString = console.readLine();
-                                trans1.setPrice(Integer.parseInt(readString));
+                                int price=Integer.parseInt(readString);
+                                
+                                update.UpdateTransportPrice(trans1, price);
                                 System.out.println(trans1);
-                                //up.UpdateTransport(trans1);
                                        break;
                           }
                        }
                        }
-                            break;
+                            break;}
 
                           
 
@@ -1094,10 +1130,10 @@ public class Menu {
                                    case 1: //Modify name of the accomodation
                                    {	System.out.println("Insert the new name of the accomodation: ");
                                	
-                                      readString = console.readLine();
-                                       acc1.setAccomodation(readString);
-                                       System.out.println(acc1);
+                                      readString = console.readLine();  
+                                       
                                        update.UpdateAccomodationName(acc1, readString);
+                                       System.out.println(acc1);
                                        break;
                                  	  
                                    }
@@ -1297,6 +1333,7 @@ public class Menu {
 
                     }
                     break;}
+                    break;}
                 
                 case 4: //delete
                 {
@@ -1310,9 +1347,9 @@ public class Menu {
                             + "Option:");
 
                     readString = console.readLine();
-                    optionNumberModify = Integer.parseInt(readString);
+                     int optionNumberDelete = Integer.parseInt(readString);
 
-                    switch (optionNumberModify) {
+                    switch (optionNumberDelete) {
 
                         case 1: {
                         System.out.println("Insert the campers name and surname");

@@ -54,6 +54,18 @@ package database.JPA;
 			em.getTransaction().commit();
 			
 		}
+		public void UpdateTransportName(Transport transport,String name) {
+			em.getTransaction().begin();
+			transport.setType_transport(name);
+			em.getTransaction().commit();
+			
+		}
+		public void UpdateTransportPrice(Transport transport,int price) {
+			em.getTransaction().begin();
+			transport.setPrice(price);
+			em.getTransaction().commit();
+			
+		}
 		
 		public void UpdateAccomodationPrice(Accomodation accomodation,Integer price) {
 			em.getTransaction().begin();
