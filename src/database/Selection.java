@@ -71,6 +71,17 @@ public class Selection {
 		return names;
 
 	}	
+	
+	public String selectCamperNamefromId (Integer idcamper) throws SQLException{//NUEVO
+		String sql = "SELECT name FROM camper WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, idcamper);
+		ResultSet rs = prep.executeQuery();
+		String name = rs.getString("name");
+		return name;
+	}
+		
+
 	public List<Instructor> selectInstructor() throws SQLException{
 		Statement stmt = c.createStatement();
 		String sql = "SELECT * FROM instructor";
@@ -265,6 +276,26 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		int accomodation_id=rs.getInt("accomodation_id");
 		return accomodation_id;
 	}
+	
+	public List<String> selectCamperfromAcc( Integer accomodation_id)throws SQLException{
+		String sql="SELECT name FROM camper WHERE accomodation_id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, accomodation_id);
+		ResultSet rs=prep.executeQuery();
+
+		List<String> campersInAcc = new ArrayList();
+		
+		while (rs.next()) {
+			String name = rs.getString("name");
+			campersInAcc.add(name);
+		}
+		rs.close();
+		return campersInAcc;
+
+	}
+	
+	
+	
 	public String selectNameMat(Integer id) throws SQLException {
 		String sql = "SELECT name FROM material WHERE id=?";
 		PreparedStatement prep = c.prepareStatement(sql);
@@ -290,7 +321,23 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		return materialname;
 	}
 	
-	
+	public List<Activity> selectActOfInst(Instructor ins) throws SQLException{
+		String sql = "SELECT * FROM activity WHERE id_instructor =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,ins.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<Activity> act = new ArrayList();
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			int price = rs.getInt("price");
+			Integer availability = rs.getInt("availability");
+		    Activity activity = new Activity(id, name,price, availability);
+			act.add(activity);
+		}
+		return act;
+	}
 	
 	
 	

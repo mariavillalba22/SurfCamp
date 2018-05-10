@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -23,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "instructor")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Instructor")
-@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary" })
+@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary","activities" })
 public class Instructor implements Serializable {
 	
 private static final long serialVersionUID = -4281575077333973070L;
@@ -32,27 +35,39 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@GeneratedValue(generator="instructor")
 	@TableGenerator(name="instructor", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
-	
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private Integer phone_number;
+	@XmlElement
 	private Date dob;
+	@XmlElement
 	private String NIF;
+	@XmlElement
 	private String nationality;
+	@XmlElement
 	private Integer salary;
 	
 	@OneToMany(mappedBy="inst")
-	@XmlTransient
+	@XmlElement(name = "activity")
+	@XmlElementWrapper(name = "activities")
+	//Because many activities can have different instructors
+	//We are not showing the activities in instructor because we 
+	//are showing it in activities
 	private List<Activity> activities;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
+	@XmlTransient
 	private Transport transport;
-
+    //SI DA TIEMPO SE HACE
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "accomodation_id")
+	@XmlTransient
 	private Accomodation accomodation;
 
 	
@@ -60,8 +75,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 		super();
 	}
 
-	public Instructor(String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary,
-			Transport transport) {
+	public Instructor (String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary){
 		super();
 		
 		this.name = name;
@@ -70,7 +84,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.NIF=NIF;
 		this.nationality = nationality;
 		this.salary = salary;
-		this.transport = transport;
 	}
 	
 
@@ -86,16 +99,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.salary = salary;
 		
 	}
-	public Instructor(String name, Integer phoneNumber, LocalDate dob, String NIF,String nationality,
-			Integer salary) {
-		super();
-		this.name = name;
-		this.phone_number = phoneNumber;
-		this.NIF=NIF;
-		this.SetDateBirth(dob);
-		this.nationality = nationality;
-		this.salary = salary;
-	}
+	
 	
 	public String toString() {
 		return "Id : "+id+". "

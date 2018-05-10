@@ -4,11 +4,14 @@ import java.io.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import database.*;
 import database.JPA.*;
+import database.XML.XMLdb;
+import database.XML.XMLmanager;
 import database.pojo.*;
 
 public class Menu {
@@ -33,7 +36,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-   // d.createTables(c.getConnectiondb());
+   //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -42,7 +45,11 @@ public class Menu {
     	
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
-    	
+    XMLmanager xmlm = new XMLmanager();
+    	XMLdb xmldb = new XMLdb(xmlm);
+    	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
+	Instructor inst222=new Instructor(1,"raquel",616525795,january1st2014,"9999999M","Spanish",700);
+    xmlm.marshalldb(inst222);
     
     	do {
     		Camper camper1 = new Camper();
@@ -58,7 +65,8 @@ public class Menu {
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY\n"
                     + "4) DELETE\n"
-                    + "5) EXIT\n\n"
+                    + "5) WORK WITH XML"
+                    + "6) EXIT\n\n"
                     + ""
                     + "Option number: ");
 
@@ -235,11 +243,23 @@ public class Menu {
                             	
                             }break;	//case 3 view accomodation price
                             case 4:{
-                            	System.out.println("Insert accomodation name:\t");
-                            	readString = console.readLine();
-                            	//CREAR UN SELECT
-                            	accomodations=sel.selectAccomodation();
                             	
+                           
+                            	for (Accomodation accomodation : accomodations) {
+                        			System.out.println(accomodation);
+                            	 }
+                            	
+                            	System.out.println("Insert accomodation id:\t");
+                            	readString = console.readLine();
+                            	int acc_id = Integer.parseInt(readString);
+                            	List<String>camperNamesAcc = new ArrayList();
+                            	camperNamesAcc=sel.selectCamperfromAcc(acc_id);
+                            	
+                            	for(String cNA : camperNamesAcc) {
+                            		
+                            		System.out.println(cNA);
+                            	}
+	
                             	
                         	}break;//case 4 mostrar el precio de una acomodacion introducida
                         	
@@ -486,11 +506,11 @@ public class Menu {
                               readString = console.readLine();
                               if(readString.isEmpty()) {
                               	System.out.println("You have to introduce a paymentmethod. Try again: ");
-                              readString = console.readLine();
+                              
                               }else {
                               camper1.setPayment_method(readString);
                               }
-                              }while(readString.isEmpty());
+                           }while(readString.isEmpty());
         			   
         				in.insertCamper(camper1);
         				
@@ -510,11 +530,8 @@ public class Menu {
                     		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
                     		    if(trans1.checkAvailability()) {
                     			Integer a = trans1.getAvailable() + 1;
-                    			
                     			trans1.setAvailable(a);
-                    			
-                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
-                    		
+                         	up.UpdateTransport(trans1);
                     			in.insertTransInC(camper1, trans1);
                     			h = true;
                     		    }else {
@@ -546,7 +563,6 @@ public class Menu {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
                     	    up.UpdateAccomodation(accomodation);
-                    	    
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;
@@ -579,7 +595,7 @@ public class Menu {
                     			if(activity1.checkAvailability()) {
                     				Integer a = activity1.getAvailability() +1;
                     				activity1.setAvailability(a);
-                    				//HACER UPDATE THE ACTIVITYY
+                    				up.UpdateActivity(activity1);
                     				in.insertCamper_activity(camper1, activity1);
                     				h = true;
                     			}else{
@@ -854,8 +870,7 @@ public class Menu {
                     			Integer a = trans1.getAvailable() + 1;
                     			
                     			trans1.setAvailable(a);
-                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
-                    		
+                    			up.UpdateTransport(trans1);
                     			in.insertTransInI(instructor1, trans1);
                     			h = true;
                     		    }else {
@@ -884,7 +899,7 @@ public class Menu {
                     		if(accomodation.checkAvailability()) {
                             Integer a = accomodation.getAvailability()+ 1;
                     			accomodation.setAvailability(a);
-                    			//UPDATE ACCOMODATION
+                    			up.UpdateAccomodation(accomodation);
                     		in.insertAccomInI(instructor1, accomodation);
                     		}else {
                     			System.out.println("The accomodation is not abailable. Introduce a different one: ");
@@ -1452,13 +1467,41 @@ public class Menu {
                         	del.deleteInstructorID(num);
                         	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
 
-                        }
-                            break;
+                        } break;
+                           
 
                     }
+                   
                     break;
-
+                } 
+                case 5: {
+                	 System.out.println("1. Save instructor in XML file");
+                	 System.out.println("2. Store instructor in Data Base from XML file");
+                	 System.out.println("3. Convert XML into HTML");	 
+                	 System.out.println("Choose the option");
+                	 
+                	 int option=Integer.parseInt(console.readLine());
+                	 switch(option) {
+                	 case 1:
+                	 {
+                		 instructors = new ArrayList();
+                		 for(Instructor ins: instructors) {
+                			 System.out.println(ins);
+                			 
+                		 }
+                		 System.out.println("Select the instructor id that you want to save");
+                		 
+                		 break;
+                	 }
+                	 case 2:
+                	 {
+                		 break;
+                	 }
+                	 }
                 }
+                
+               //DUDA: no habr�a que poner un case 5 exit(0)???
+                // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
 
             
         }//switch todas las opciones: view, insert,.....
@@ -1469,7 +1512,7 @@ public class Menu {
         
 	
     	
-			}while(optionNumber!=5);
+			}while(optionNumber!=6);
 			
 	}//LLAVE DEL MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
