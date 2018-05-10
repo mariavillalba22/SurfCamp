@@ -26,8 +26,22 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
+<<<<<<< HEAD
+	private Transport transports;
+	private Accomodation accomodation;
+	private  List<Material> materials;
+<<<<<<< HEAD
+	private Activity activity ;
+=======
+=======
 	
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 
+<<<<<<< HEAD
+	private Activity activity;
+	private List<Activity> activities;
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+=======
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
 	private Transport transport;
@@ -48,6 +62,7 @@ public class Camper implements Serializable{
 	
 	
 	
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
 	public Camper() {
