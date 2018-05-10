@@ -151,6 +151,10 @@ public class Camper implements Serializable{
 	public void setDateofbirth(Date dateofbirth) {
 		this.dob = dateofbirth;
 	}
+	
+	//Tenemos dos metodos de date pquno es local date y otro date
+	//Son formatos distintos y hay que convertirlos
+	
 	public String getNIF() {
 		return NIF;
 	}

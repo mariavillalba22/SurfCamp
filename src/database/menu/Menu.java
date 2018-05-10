@@ -1,6 +1,7 @@
 package database.menu;
 
 import java.io.*;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -974,14 +975,13 @@ public class Menu {
                             System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
                                     + "  2) Date of Birth"
-                                    + "  3) Nationality"
-                                    + "  4) NIF"
-                                    + "  5) Phone Number"
-                                    + "  6) Email"
-                                    + "  7) Payment method"
-                                    + "  8) Transport"
-                                    + "  9) Accomodation"
-                                    + "  10) Activity\n\n"
+                                    + "  3) NIF"
+                                    + "  4) Phone Number"
+                                    + "  5) Email"
+                                    + "  6) Payment method"
+                                    + "  7) Transport"
+                                    + "  8) Accomodation"
+                                    + "  9) Activity\n\n"
                                     + ""
                                     + "  Option number: ");
 
@@ -1000,7 +1000,14 @@ public class Menu {
                                     break;
                                 }
                                 case 2: //mod date of b
-                                    break;
+                                	System.out.println("Introduce the new date of birth: (yyyy-mm-dd)");
+                                	readString = console.readLine();
+              					  	String withoutTime = readString;
+              					  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+              					  	LocalDate date= LocalDate.parse(withoutTime, formatter);
+              					  	camp1.setDateBirth(date);
+              					  	up.UpdateCamper(camp1);
+                                	break;
 
                                 case 3: //nif
                                 	System.out.println("Insert the new NIF: ");
@@ -1039,21 +1046,39 @@ public class Menu {
                                     break;
 
                                 case 7: //transport
+                                	transports=sel.selectTransport();
+                                	for (Transport transport : transports) {
+                            			System.out.println(transport);
+                            		}
+                                	
                                 	System.out.println("Insert the new transport: ");
                                     
                                     readString = console.readLine();
-                                    //camp1.setTransports(readString);
-                                    up.UpdateCamper(camp1);
+                                    Transport trans =new Transport();
+                                    trans=ser.SearchTransport(readString);
+                                    
+                                    camp1.setTransports(trans);
+                                    up.UpdateTransportInCamper(trans, camp1);
                                 	
                                     break;
 
                                 case 8: //accomodation	
-                                  System.out.println("Insert the new accomodation: ");
+                                
+                                	
+                                	accomodations=sel.selectAccomodation();
+                                	for (Accomodation accomodation : accomodations) {
+                            			System.out.println(accomodation);
+                            		}
+                                	
+                                	System.out.println("Insert the new accomodation: ");
                                     
                                     readString = console.readLine();
-                                    //camp1.setAccomodation(readString);
-                                    up.UpdateCamper(camp1);
-                                	
+                                    Accomodation accom =new Accomodation();
+                                    accom=ser.SearchAccomodation(readString);
+                                    
+                                    camp1.setAccomodation(accom);
+                                    up.UpdateAccomodationInCamper(accom, camp1);
+ 
                                     break;
 
                                 case 9: //activity
@@ -1066,6 +1091,8 @@ public class Menu {
                         break;}
 
                         case 2:{ //transport
+                        	
+                        
                         	transports = sel.selectTransport();
                          	if(transports.isEmpty()) {
                          	System.out.println("There is any transport available. Sorry");
@@ -1095,10 +1122,11 @@ public class Menu {
                       	
                              readString = console.readLine();
                               trans1.setType_transport(readString);
-                              System.out.println(trans1);
-                             update.UpdateTransportName(trans1, readString);
+                              //System.out.println(trans1);
+                             up.UpdateTransport(trans1);
                               
                               break;
+                              
                         	  
                           }
                           case 2: //Modify price of the transport
@@ -1108,7 +1136,7 @@ public class Menu {
                                 readString = console.readLine();
                                 int price=Integer.parseInt(readString);
                                 
-                                update.UpdateTransportPrice(trans1, price);
+                                up.UpdateTransport(trans1);
                                 System.out.println(trans1);
                                        break;
                           }
@@ -1118,7 +1146,7 @@ public class Menu {
 
                           
 
-                        case 3: //accomodation 
+                        case 3: //accomodation no funciona!!
                         	   accomodations = sel.selectAccomodation();
                         	     if(accomodations.isEmpty()) {
                         	    	 System.out.println("There is any activity aviable. Sorry");
@@ -1146,8 +1174,8 @@ public class Menu {
                                    {	System.out.println("Insert the new name of the accomodation: ");
                                	
                                       readString = console.readLine();  
-                                       
-                                       update.UpdateAccomodationName(acc1, readString);
+                                       acc1.setAccomodation(readString);
+                                       up.UpdateAccomodation(acc1);
                                        System.out.println(acc1);
                                        break;
                                  	  
@@ -1160,7 +1188,7 @@ public class Menu {
                                          int p=Integer.parseInt(readString);
                                          acc1.setPrice(p);
                                          System.out.println(acc1);
-                                         update.UpdateAccomodationPrice(acc1, p );
+                                         up.UpdateAccomodation(acc1 );
                                                 break;
                                    }
                                 }

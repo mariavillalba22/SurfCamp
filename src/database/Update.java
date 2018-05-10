@@ -92,5 +92,29 @@ public class Update {
       prep.executeUpdate();
   }
 
+  public void UpdateTransportInCamper(Transport trans, Camper cam) throws SQLException {
+	  
+	  String sql = "UPDATE camper SET transport_id=? WHERE id=?";
+	  PreparedStatement prep = c.prepareStatement(sql);
+	  prep.setInt(1, trans.getId());
+	  prep.setInt(2, cam.getId());
+	  prep.executeUpdate();
+	  
+	  
+	  
+  }
+  
+public void UpdateAccomodationInCamper(Accomodation accom, Camper cam) throws SQLException {
+	  
+	  String sql = "UPDATE camper SET accomodation_id=? WHERE id=?";
+	  PreparedStatement prep = c.prepareStatement(sql);
+	  prep.setInt(1, accom.getId());
+	  prep.setInt(2, cam.getId());
+	  prep.executeUpdate();
+	  
+	  
+	  
+  }
+
 
 }
