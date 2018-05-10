@@ -4,38 +4,90 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+@Entity
+@Table(name = "instructor")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Instructor")
+@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary","activities" })
 public class Instructor implements Serializable {
+	
+private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="instructor")
+	@TableGenerator(name="instructor", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private Integer phone_number;
+	@XmlElement
 	private Date dob;
+	@XmlElement
 	private String NIF;
-	private String nacionality;
+	@XmlElement
+	private String nationality;
+	@XmlElement
 	private Integer salary;
-	private Activity activity;
+	
+	@OneToMany(mappedBy="inst")
+	@XmlElement(name = "activity")
+	@XmlElementWrapper(name = "activities")
+	//Because many activities can have different instructors
+	//We are not showing the activities in instructor because we 
+	//are showing it in activities
+	private List<Activity> activities;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transport_id")
+	@XmlTransient
 	private Transport transport;
-	private Instructor instructor;
+    //SI DA TIEMPO SE HACE
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accomodation_id")
+	@XmlTransient
+	private Accomodation accomodation;
+
 	
 	public Instructor() {
 		super();
 	}
 
-	public Instructor(String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary,
-			Activity activity, Transport transport) {
+	public Instructor (String name, Integer phoneNumber, LocalDate dob,String NIF, String nacionality, Integer salary){
 		super();
 		
 		this.name = name;
 		this.phone_number = phoneNumber;
 		this.SetDateBirth(dob);
 		this.NIF=NIF;
-		this.nacionality = nacionality;
+		this.nationality = nationality;
 		this.salary = salary;
-		this.activity = activity;
-		this.transport = transport;
 	}
 	
 
-	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String NIF,String nacionality,
+	public Instructor(Integer id,String name, Integer phoneNumber, LocalDate dob, String NIF,String nationality,
 			Integer salary) {
 		super();
 		this.id=id;
@@ -43,28 +95,22 @@ public class Instructor implements Serializable {
 		this.phone_number = phoneNumber;
 		this.NIF=NIF;
 		this.SetDateBirth(dob);
-		this.nacionality = nacionality;
+		this.nationality = nationality;
 		this.salary = salary;
 		
 	}
 	
 	
-
-	
 	public String toString() {
-		return "El monitor es: "+name+". "+
+		return "Id : "+id+". "
+				+ "Name: "+name+". "+
         "Telephone number: "+phone_number+ ". "+
 				"Date of birth: "+dob+". "+
-        "Nacionality: "+nacionality+". "+
-				"Salary: "+salary+". "+
-         "Activity ID: "+activity+
-        "Transport "+transport;
+        "Nacionality: "+nationality+". "+
+				"Salary: "+salary+". ";
 	}
 	
-	// nos imprime continuamente NULL en activity y en transport
 	
-	
-
 	public String getName() {
 		return name;
 	}
@@ -97,16 +143,20 @@ public class Instructor implements Serializable {
 		this.dob = dob;
 		
 	}
+	public void setDateBirth(LocalDate d)  {
+		this.dob= Date.valueOf(d);
+	}
+	
 	public void SetDateBirth(LocalDate d) {
 		this.dob= Date.valueOf(d);
 	}
 
-	public String getNacionality() {
-		return nacionality;
+	public String getNationality() {
+		return nationality;
 	}
 
-	public void setNacionality(String nacionality) {
-		this.nacionality = nacionality;
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
 	public Integer getSalary() {
@@ -117,13 +167,7 @@ public class Instructor implements Serializable {
 		this.salary = salary;
 	}
 
-	public Activity getActivity() {
-		return activity;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
+	
 	
 	public Integer getId() {
 		return id;
@@ -140,6 +184,15 @@ public class Instructor implements Serializable {
 	public void setTransport(Transport transport) {
 		this.transport = transport;
 	}
+	
+	public Accomodation getAccomodation() {
+		return accomodation;
+	}
+
+	public void setAccomodation(Accomodation accomodation) {
+		this.accomodation = accomodation;
+	}
+
 
 	@Override
 	public int hashCode() {

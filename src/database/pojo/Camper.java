@@ -6,7 +6,19 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="camper")
+
 public class Camper implements Serializable{
+	private static final long serialVersionUID = -4281575077333973070L;
+	@Id
+	@GeneratedValue(generator="camper")
+	@TableGenerator(name = "camper", table = "sqlite_sequence",
+	pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "camper")
+	
 	private Integer id;
 	private String name;
 	private Date dob;
@@ -14,98 +26,124 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
+<<<<<<< HEAD
 	private Transport transports;
 	private Accomodation accomodation;
 	private  List<Material> materials;
 <<<<<<< HEAD
 	private Activity activity ;
 =======
+=======
+	
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 
+<<<<<<< HEAD
 	private Activity activity;
 	private List<Activity> activities;
+>>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
+=======
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transport_id")
+	private Transport transport;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accomodation_id")
+	private Accomodation accomodation;
+	@ManyToMany
+	@JoinTable(name="material",
+		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
+	private  List<Material> material;
+
+	@ManyToMany
+	@JoinTable(name="activity",
+		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")})
+	private List<Activity> activity;
+	
+	
+	
 >>>>>>> branch 'master' of https://github.com/mariavillalba22/SurfCamp
 	
 	
 	public Camper() {
 		super();
-		this.materials = new ArrayList<Material>();
-		this.activities = new ArrayList<Activity>();
+		this.material = new ArrayList<Material>();
+		this.activity = new ArrayList<Activity>();
 		
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
 			, Integer phonenumber, String email, String payment_method
-			/*,Transport transports,Accomodation accomodation,List<Material> materials,
-			List<Activity> activities*/) {
+			,Transport transport,Accomodation accomodation, List<Material> material,
+			List<Activity> activities) {
 		super();
 		this.name = name;
-		this.SetDateBirth(dateofbirth);
+		this.setDateBirth(dateofbirth);
 		this.NIF = NIF;
 		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
-		this.transports=transports;
-		//i coment this to prove if the insert method works
-		//this.transports= transports;
-		//this.accomodation= accomodation;
-		//this.materials = materials;
-		//this.activities=activities;
+		this.transport=transport;
+		this.accomodation = accomodation;
+		this.material = material;
+		this.activity = activity;
+		
 		
 	}
+	
+	
 	
 	
 	public Camper( int id,String name, LocalDate dateofbirth, String NIF
-			, Integer phonenumber, String email, String payment_method
-			/*,Transport transports, Accomodation accomodation,List<Material> materials,
-			List<Activity> activities*/) {
+			, Integer phonenumber, String email, String payment_method) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.SetDateBirth(dateofbirth);
+		this.setDateBirth(dateofbirth);
 		this.NIF = NIF;
 		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
-		//i coment this to prove if the insert method works
-		//this.transports= transports;
-		//this.accomodation= accomodation;
-		//this.materials = materials;
-		//this.activities=activities;
 		
 	}
 	
-	public List<Activity> getActivities() {
-		return activities;
+	public Camper(int id,String name,int phone) {
+		this.id=id;
+		this.name=name;
+		this.phone_number=phone;		
 	}
-	public void setActivities(List<Activity> activities) {
-		this.activities = activities;
+	public List<Activity> getActivity() {
+		return activity;
 	}
-	public List<Material> getMaterials() {
-		return materials;
+	public void setActivities(List<Activity> activity) {
+		this.activity = activity;
 	}
-	public void setMaterials(List<Material> materials) {
-		this.materials = materials;
+	public List<Material> getMaterial() {
+		return material;
+	}
+	public void setMaterial(List<Material> material) {
+		this.material = material;
 	}
 	
-	public void addActivity(Activity activity) {
-		if (!activities.contains(activity)) {
-			this.activities.add(activity);
+	public void addActivity(Activity activity1) {
+		if (!activity.contains(activity1)) {
+			this.activity.add(activity1);
 		}
 	}
 	
-	public void removeActivity(Activity activity) {
-		if (!activities.contains(activity)) {
-			this.activities.remove(activity);
+	public void removeActivity(Activity activity1) {
+		if (!activity.contains(activity1)) {
+			this.activity.remove(activity1);
 		}
 	}
 	
-	public void addMaterial(Material material) {
-		if (!materials.contains(material)) {
-			this.materials.add(material);
+	public void addMaterial(Material material1) {
+		if (!material.contains(material1)) {
+			this.material.add(material1);
 		}
 	}
-	public void removeMaterial(Material material) {
-		if(materials.contains(material)) {
-			this.materials.remove(material);
+	public void removeMaterial(Material material1) {
+		if(material.contains(material1)) {
+			this.material.remove(material1);
 		}
 	}
 	public Integer getId() {
@@ -114,6 +152,7 @@ public class Camper implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	
 	public String getName() {
 		return name;
@@ -133,6 +172,7 @@ public class Camper implements Serializable{
 	public void setNIF(String nIF) {
 		NIF = nIF;
 	}
+	
 	public Integer getPhonenumber() {
 		return phone_number;
 	}
@@ -152,14 +192,15 @@ public class Camper implements Serializable{
 		this.payment_method = payment_method;
 	}
 	public Transport getTransports() {
-		return transports;
+		return transport;
 	}
 	public void setTransports(Transport transports) {
-		this.transports = transports;
+		this.transport = transports;
 	}
-	public void SetDateBirth(LocalDate d) {
+	public void setDateBirth(LocalDate d)  {
 		this.dob= Date.valueOf(d);
 	}
+	
 	public Accomodation getAccomodation() {
 		return accomodation;
 	}
@@ -175,10 +216,14 @@ public class Camper implements Serializable{
 	}
 	
 	public String toString() {
-		return "Camper [id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method+",  type of transport "+transports+", type of accomodation = "+accomodation+", type of materials = "+materials+", type of activities"+activities+"]";
+		return "Camper id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method;
+	
+	}
+	public String showNamePhone(){
+		return "Camper: [id: "+id+" Name: "+name+" Phone:"+phone_number+"]";
 	}
 	
-	
+	//the material ,accomododarion, activity,transport dont need to be printed.
 	
 
 }

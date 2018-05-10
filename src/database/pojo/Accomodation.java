@@ -1,12 +1,32 @@
 package database.pojo;
 
 import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name = "accomodation")
+
 public class Accomodation {
 
+private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="accomodation")
+	@TableGenerator(name="accomodation", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="accomodation")
 	private Integer id;
 	private String name;
 	private Integer price;
+	private Integer availability;
+	@OneToMany(mappedBy="accomodation")
 	private List <Camper> campers;
+	@OneToMany(mappedBy="accomodation")
 	private List <Instructor> instructors;
 	
 	public Accomodation() {
@@ -20,11 +40,12 @@ public class Accomodation {
 		this.name = accomodation;
 		this.price = price;
 	}
-	public Accomodation(Integer id,String accomodation, Integer price) {
+	public Accomodation(Integer id,String accomodation, Integer price, Integer availability) {
 		super();
 		this.id = id;
 		this.name = accomodation;
 		this.price = price;
+		this.availability = availability;
 	}
 	
 	public Accomodation(Integer price, String accomodation,  List<Camper> campers) {
@@ -76,7 +97,7 @@ public class Accomodation {
 		this.instructors = instructors;
 	}
 	public String toString() {
-		return "Accomodation--> id: "+id+" . Type of accomodation: "+name+" . Price: "+price+ " . Camper: "+campers+". Instructors: "+instructors;
+		return "Accomodation_Id: "+id+" . Type of accomodation: "+name+" . Price: "+price+ "Availability: "+availability;
 	}
 	public Integer getPrice() {
 		return price;
@@ -89,6 +110,15 @@ public class Accomodation {
 	}
 	public void setCampers(List<Camper> campers) {
 		this.campers = campers;
+	}
+	public boolean checkAvailability() {
+		boolean h;
+		if( getAvailability()>150) {
+			h = false;
+		}else {
+			h=true;
+		}
+		return h;
 	}
 	
 	@Override
@@ -125,6 +155,12 @@ public class Accomodation {
 		if(campers.contains(camper)) {
 			this.campers.remove(camper);
 		}
+	}
+	public Integer getAvailability() {
+		return availability;
+	}
+	public void setAvailability(Integer availability) {
+		this.availability = availability;
 	}
 
 	

@@ -6,24 +6,64 @@ import database.pojo.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+
+
+
+@Entity
+@Table(name = "activity")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "activity")
+@XmlType(propOrder = { "id", "name", "price", "availability" })
 
 public class Activity  implements Serializable {
 
+	private static final long serialVersionUID = -4281575077333973070L;
+	
+	@Id
+	@GeneratedValue(generator="activity")
+	@TableGenerator(name="activity", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="activity")
+	
+	@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private Integer price;
+	@XmlElement
+	private Integer availability;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor_id")
+	@XmlTransient
+	private Instructor inst;
+	@XmlTransient
+	@ManyToMany
+	@JoinTable(name="camper",
+		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
 	private List<Camper> campers;
+	@ManyToMany
+	@XmlTransient
+	@JoinTable(name="material",
+		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
+	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
 	private List<Material> material;
+	//ELIMINAR
+
 // faltan metodos
 	public Activity() {
 		super();
 		this.campers = new ArrayList<Camper>();
 	}
 
-	public Activity(String activity, Integer price, List<Camper> campers, List<Material> material) {
+	public Activity(String activity, Integer price, Instructor inst,List<Camper> campers, List<Material> material) {
 		super();
 		this.name = activity;
 		this.price = price;
+		this.inst = inst;
 		if(campers!= null)
 		    this.campers = campers;
 		else
@@ -35,6 +75,14 @@ public class Activity  implements Serializable {
 	}
 
 
+	public Instructor getInst() {
+		return inst;
+	}
+
+	public void setInst(Instructor inst) {
+		this.inst = inst;
+	}
+
 	public Activity(String activity, Integer price) {
 		super();
 		this.name = activity;
@@ -42,18 +90,19 @@ public class Activity  implements Serializable {
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
-	public Activity(Integer id,String activity, Integer price) {
+	public Activity(Integer id,String activity, Integer price, Integer availability) {
 		super();
 		this.id = id;
 		this.name = activity;
 		this.price = price;
+		this.availability = availability;
 		this.campers = new ArrayList<Camper>();
 		this.material = new ArrayList<Material>();
 	}
 
 	public String toString() {
-    	return " The activity ID is: "+id+"."+
-    "Name of activity: "+name+".";
+    	return " The activity ID is: "+id+". "+
+    "Name of activity: "+name+".  Price: "+price;
     	
     
     }
@@ -121,7 +170,23 @@ public class Activity  implements Serializable {
 	public void setMaterial(List<Material> material) {
 		this.material = material;
 	}
+	public Integer getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(Integer availability) {
+		this.availability = availability;
+	}
 	
+	public boolean checkAvailability() {
+		boolean h;
+		if( getAvailability()>15) {
+			h = false;
+		}else {
+			h=true;
+		}
+		return h;
+	}
 	public void addCamper(Camper camper) {
 		if (!campers.contains(camper)) {
 			this.campers.add(camper);
