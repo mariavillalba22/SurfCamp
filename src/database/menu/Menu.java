@@ -36,7 +36,7 @@ public class Menu {
     	
     	Connect c=new Connect();
     	c.connectiondb();
-   // d.createTables(c.getConnectiondb());
+   //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -506,11 +506,11 @@ public class Menu {
                               readString = console.readLine();
                               if(readString.isEmpty()) {
                               	System.out.println("You have to introduce a paymentmethod. Try again: ");
-                              readString = console.readLine();
+                              
                               }else {
                               camper1.setPayment_method(readString);
                               }
-                              }while(readString.isEmpty());
+                           }while(readString.isEmpty());
         			   
         				in.insertCamper(camper1);
         				
@@ -530,11 +530,8 @@ public class Menu {
                     		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
                     		    if(trans1.checkAvailability()) {
                     			Integer a = trans1.getAvailable() + 1;
-                    			
                     			trans1.setAvailable(a);
-                    			
-                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
-                    		
+                         	up.UpdateTransport(trans1);
                     			in.insertTransInC(camper1, trans1);
                     			h = true;
                     		    }else {
@@ -598,7 +595,7 @@ public class Menu {
                     			if(activity1.checkAvailability()) {
                     				Integer a = activity1.getAvailability() +1;
                     				activity1.setAvailability(a);
-                    				//HACER UPDATE THE ACTIVITYY
+                    				up.UpdateActivity(activity1);
                     				in.insertCamper_activity(camper1, activity1);
                     				h = true;
                     			}else{
@@ -873,8 +870,7 @@ public class Menu {
                     			Integer a = trans1.getAvailable() + 1;
                     			
                     			trans1.setAvailable(a);
-                    			// AQUI TENGO QUE HACER UPDATE DE TRANSPORT!!
-                    		
+                    			up.UpdateTransport(trans1);
                     			in.insertTransInI(instructor1, trans1);
                     			h = true;
                     		    }else {
@@ -903,7 +899,7 @@ public class Menu {
                     		if(accomodation.checkAvailability()) {
                             Integer a = accomodation.getAvailability()+ 1;
                     			accomodation.setAvailability(a);
-                    			//UPDATE ACCOMODATION
+                    			up.UpdateAccomodation(accomodation);
                     		in.insertAccomInI(instructor1, accomodation);
                     		}else {
                     			System.out.println("The accomodation is not abailable. Introduce a different one: ");

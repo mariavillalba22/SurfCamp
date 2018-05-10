@@ -54,11 +54,12 @@ public class Update {
   }
 
   public void UpdateTransport ( Transport trans) throws SQLException {
-      String sql = "UPDATE transport SET name = ?, price =? WHERE id = ?";
+      String sql = "UPDATE transport SET name = ?, price =?, availability=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, trans.getType_transport());
       prep.setInt(2, trans.getPrice());
-      prep.setInt(3, trans.getId());
+      prep.setInt(3, trans.getAvailable());
+      prep.setInt(4, trans.getId());
       prep.executeUpdate();
   }
 

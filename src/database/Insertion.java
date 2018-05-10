@@ -69,7 +69,7 @@ public class Insertion {
     }
 
 	public void insertCamper (Camper camper ) throws Exception{
-		String sql1 = "INSERT INTO camper (name, dob, NIF,phone_number,email,payment_method)"+
+		String sql1 = "INSERT INTO camper (name, dob, NIF, phone_number, email, payment_method)"+
 				 "VALUES (?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
 		sql.setString(1, camper.getName());
