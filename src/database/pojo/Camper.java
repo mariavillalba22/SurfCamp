@@ -26,8 +26,9 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-	
-
+	private Transport transports;
+	private  List<Material> materials;
+	private List<Activity> activities;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
 	private Transport transport;
@@ -45,7 +46,6 @@ public class Camper implements Serializable{
 		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")})
 	private List<Activity> activity;
-	
 	
 	
 	
@@ -151,6 +151,10 @@ public class Camper implements Serializable{
 	public void setDateofbirth(Date dateofbirth) {
 		this.dob = dateofbirth;
 	}
+	
+	//Tenemos dos metodos de date pquno es local date y otro date
+	//Son formatos distintos y hay que convertirlos
+	
 	public String getNIF() {
 		return NIF;
 	}
