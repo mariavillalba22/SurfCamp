@@ -44,7 +44,11 @@ public class Connect implements ConnectInterface {
 		return c;
 	}
 	public void closeconnection() throws Exception{
+		try {
 		c.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	}

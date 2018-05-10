@@ -322,7 +322,7 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 	}
 	
 	public List<Activity> selectActOfInst(Instructor ins) throws SQLException{
-		String sql = "SELECT * FROM activity WHERE id_instructor =?";
+		String sql = "SELECT * FROM activity WHERE instructor_id =?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1,ins.getId());
 		ResultSet rs = prep.executeQuery();

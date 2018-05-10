@@ -38,9 +38,10 @@ public class XMLmanager {
 	 	return false;
 	}
 	
-	public Instructor unmarshalldb(Instructor instructordb) {
+	public Instructor unmarshalldb(File file) {
+	Instructor instructordb = new Instructor();
 		try {
-			instructordb = XMLdb.xmlToJavadb(unmarshaller,xml, instructordb);
+			instructordb = XMLdb.xmlToJavadb(unmarshaller, file);
 		}catch(Exception e) {
 	 		e.printStackTrace();
 	 	}
@@ -48,14 +49,18 @@ public class XMLmanager {
 		
 	}
 	
-	public static void simpleTransform(String sourcePath, String xsltPath,String resultDir) {
+	public static boolean simpleTransform(String sourcePath, String xsltPath,String resultDir) {
+		Boolean h = false;
 		TransformerFactory tFactory = TransformerFactory.newInstance();
 		try {
 			Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
 			transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
+			h = true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
+		return h;
 	}
 	
 	

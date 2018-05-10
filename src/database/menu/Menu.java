@@ -32,11 +32,20 @@ public class Menu {
    
     	Boolean h;
     	DbManager d =new DbManager();
+
     	Iterator it;
     	
     	Connect c=new Connect();
     	c.connectiondb();
-   //d.createTables(c.getConnectiondb());
+    	
+    	//NO FUNCIONA
+    	try {
+    		d.createTables(c.getConnectiondb());
+    		System.out.println("Tables have been created succesfully.");
+    	}catch(Exception ex) {
+    		System.out.println("Tables are already created.");
+    	}
+    //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -47,9 +56,6 @@ public class Menu {
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
     XMLmanager xmlm = new XMLmanager();
     	XMLdb xmldb = new XMLdb(xmlm);
-    	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
-	Instructor inst222=new Instructor(1,"raquel",616525795,january1st2014,"9999999M","Spanish",700);
-    xmlm.marshalldb(inst222);
     
     	do {
     		Camper camper1 = new Camper();
@@ -65,7 +71,7 @@ public class Menu {
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY\n"
                     + "4) DELETE\n"
-                    + "5) WORK WITH XML"
+                    + "5) WORK WITH XML\n"
                     + "6) EXIT\n\n"
                     + ""
                     + "Option number: ");
@@ -1484,21 +1490,48 @@ public class Menu {
                 	 switch(option) {
                 	 case 1:
                 	 {
-                		 instructors = new ArrayList();
+                		 instructors = sel.selectInstructor();
                 		 for(Instructor ins: instructors) {
-                			 System.out.println(ins);
-                			 
+                			 System.out.println(ins); 
                 		 }
                 		 System.out.println("Select the instructor id that you want to save");
+                		 readString = console.readLine();
+                		 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
+                		 activities = sel.selectActOfInst(instructor1);
+                		 instructor1.setActivities(activities);
+                		 xmlm.marshalldb(instructor1);
                 		 
                 		 break;
                 	 }
                 	 case 2:
                 	 {
+                		 System.out.println("Introduce the file where the instructor is located:");
+                		 readString = console.readLine();
+                		 File file = new File(readString);
+                		 Instructor inst = xmlm.unmarshalldb( file);
+                		 in.insertInstructor(inst);
+                		 System.out.println("The instructor obtain is: "+inst);
+
+                	 }
+                		 break;
+                	 case 3:
+                		 
+                		Boolean check =  xmlm.simpleTransform("xml/Instructor.xml", "xml/Instructordb.xslt", "xml/ExternalInstructor.html");
+                		 if(check==true) {
+                			 System.out.println("The .html file has been correctly created.");
+                		 }else {
+                			 System.out.println("Sorry there was an error. Your .html cannot be created.");
+                		 }
                 		 break;
                 	 }
-                	 }
-                }
+                }break;
+                
+                case 6:
+                	c.closeconnection();
+                	em.closeconnection();
+                	System.out.println("You have exit the database.");
+                	System.exit(0);
+                	
                 
                //DUDA: no habr�a que poner un case 5 exit(0)???
                 // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
@@ -1513,13 +1546,11 @@ public class Menu {
 	
     	
 			}while(optionNumber!=6);
-			
+    	
+    	c.closeconnection();
+    	em.closeconnection();
 	}//LLAVE DEL MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-	private static LocalDate checkDate(String readString) {
-		// TODO Auto-generated method stub
-		return null;
-		}
 	
 	
 	}

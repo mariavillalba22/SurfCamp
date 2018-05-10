@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+import database.XML.*;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 @Entity
 @Table(name = "instructor")
@@ -42,6 +46,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@XmlElement
 	private Integer phone_number;
 	@XmlElement
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dob;
 	@XmlElement
 	private String NIF;
@@ -58,7 +63,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	//are showing it in activities
 	private List<Activity> activities;
 	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
 	@XmlTransient
@@ -167,7 +172,15 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.salary = salary;
 	}
 
+
 	
+	public List<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
 	
 	public Integer getId() {
 		return id;

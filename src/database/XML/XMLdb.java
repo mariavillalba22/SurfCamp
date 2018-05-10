@@ -3,7 +3,6 @@ package database.XML;
 import java.io.File;
 
 import javax.xml.bind.Unmarshaller;
-import com.sun.xml.internal.ws.util.Pool.Marshaller;
 import database.pojo.Instructor;
 import javax.xml.bind.*;
 import javax.xml.transform.*;
@@ -20,7 +19,7 @@ public class XMLdb {
 	public static boolean javaToXmlDb(javax.xml.bind.Marshaller marshaller, Instructor instructor, File xml) {
 		try {
 			
-			//marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.marshal(instructor,xml);
 			return true;
 		}catch(Exception ex) {
@@ -29,7 +28,8 @@ public class XMLdb {
 		return false;
 	}
 	
-	public static Instructor xmlToJavadb(Unmarshaller unmarshaller, File xml, Instructor instructor) {
+	public static Instructor xmlToJavadb(Unmarshaller unmarshaller, File xml) {
+		Instructor instructor = new Instructor() ;
 		try {
 			instructor = (Instructor) unmarshaller.unmarshal(xml);
 			
