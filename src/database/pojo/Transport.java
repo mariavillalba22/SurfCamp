@@ -4,6 +4,7 @@ package database.pojo;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,6 +38,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	private Integer id;
 	private String name;
 	private Integer price;
+	@Column(name="availability")
 	private Integer available;
 	
     
