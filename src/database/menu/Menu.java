@@ -471,7 +471,7 @@ public class Menu {
                             
                          System.out.println("Insert phone number: ");
         						String telephone = console.readLine();
-        						camper1.setPhonenumber(Integer.parseInt(readString));
+        						camper1.setPhonenumber(Integer.parseInt(telephone));
         					
         					System.out.println("Insert email:");
         						do {
