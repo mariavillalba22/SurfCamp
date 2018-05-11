@@ -70,15 +70,14 @@ public class Menu {
     		Instructor instructor1=new Instructor();
         try {
 
-			System.out.println("____________________________________________________");
+			System.out.println("____________________________________________________\n");
             System.out.println("SELECT AN OPTION: \n"
                     + "1) VIEW\n"
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY\n"
                     + "4) DELETE\n"
                     + "5) WORK WITH XML\n"
-                    + "6) EXIT\n\n");
-
+                    + "6) EXIT");
 			System.out.println("____________________________________________________");
             
             do {
