@@ -45,7 +45,7 @@ public class Menu {
     	try {
     		d.createTables(c.getConnectiondb());
     		System.out.println("Tables have been created succesfully.");
-    	}catch(Exception ex) {
+    	}catch(SQLException ex) {
     		System.out.println("Tables are already created.");
     	}
     //d.createTables(c.getConnectiondb());

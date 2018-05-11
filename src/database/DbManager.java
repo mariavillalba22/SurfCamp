@@ -18,9 +18,8 @@ public class DbManager {
 		public DbManager() {
 		}
 		
-public void createTables(Connection c) {
-	try {
-		
+public void createTables(Connection c) throws SQLException{
+	
 		Statement stmtSeq ;
 		String sqlSeq;
 		
@@ -134,10 +133,7 @@ public void createTables(Connection c) {
 		stmt9.executeUpdate(material_activity);
 		stmt9.close();
 		
-		
-	}catch (Exception e) {
-		e.printStackTrace();
-	}
+	
 }
 
 public static void main(String args[])throws Exception{
