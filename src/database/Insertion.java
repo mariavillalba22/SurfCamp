@@ -130,6 +130,7 @@ public class Insertion {
 		sql.executeUpdate();
 		sql.close();
 	}
+	
 	public Accomodation insertAccomodation (Accomodation accomodation ) throws SQLException{
 		String sql2 = "INSERT INTO accomodation (name, price, availability)"+
 				"VALUES (?,?,?);";
@@ -197,6 +198,7 @@ public class Insertion {
 		material.setId(lastId);
 		return material;
 	}
+	
 	public Transport insertTransport (Transport transport ) throws SQLException{
 		String sql5 = "INSERT INTO transport (name, price, availability)"+
 				"VALUES (?,?,?);";

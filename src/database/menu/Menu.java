@@ -32,6 +32,8 @@ public class Menu {
     	em.connectiondb();
    
     	Boolean h;
+    	String readString ;
+    	BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
     	DbManager d =new DbManager();
 
     	Iterator it;
@@ -55,6 +57,7 @@ public class Menu {
     	
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
+    JPARead read = new JPARead(em.getEntityManager());
     XMLmanager xmlm = new XMLmanager();
     	XMLdb xmldb = new XMLdb(xmlm);
     
@@ -67,21 +70,23 @@ public class Menu {
     		Instructor instructor1=new Instructor();
         try {
 
+			System.out.println("____________________________________________________");
             System.out.println("SELECT AN OPTION: \n"
                     + "1) VIEW\n"
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
                     + "3) MODIFY\n"
                     + "4) DELETE\n"
                     + "5) WORK WITH XML\n"
-                    + "6) EXIT\n\n"
-                    + ""
-                    + "Option number: ");
+                    + "6) EXIT\n\n");
 
-            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-            String readString = console.readLine();
-            optionNumber = Integer.parseInt(readString);
-
+			System.out.println("____________________________________________________");
             
+            do {
+             	System.out.println("Option number[1-6]: ");
+			 	readString = console.readLine();
+		        optionNumber = Integer.parseInt(readString);
+			} while (optionNumber < 1 || optionNumber > 6);
+
             switch (optionNumber) {
 	
                 case 1: {// VIEW
@@ -116,8 +121,6 @@ public class Menu {
                         	switch (optnum) {
                         	
                         	case 1:{
-                        	
-                            
                             		for (Camper camper : campers) {
                             			System.out.println(camper);
                             			Transport transport = ser.SearchTransport(sel.selectTnsC(camper));
@@ -169,9 +172,10 @@ public class Menu {
                         	switch (optnum2) {
                         	
                         	case 1:{
-                        		
+                        		transports = read.ReadTransports();
                         		for (Transport transport : transports) {
                         			System.out.println(transport);
+                        			
                         		}
                         		
                             	}break; //case 1 view full transports
@@ -518,8 +522,9 @@ public class Menu {
                               camper1.setPayment_method(readString);
                               }
                            }while(readString.isEmpty());
-        			   
-        				in.insertCamper(camper1);
+
+        	            create.createCamper(camper1);
+        				
         				
                     System.out.println("Does the camper want a transport? (Y/N)");  
                     readString= console.readLine();
@@ -659,14 +664,13 @@ public class Menu {
               
                         case 2: 
                         	System.out.println("Insert the name of the transport");
-                       
-                        	Transport transport = new Transport();
+                       transport1 = new Transport();
                         	do {
                         	readString = console.readLine();
                         	
                         	
                         		if(ser.SearchTransport(readString).getType_transport()==NULL) {
-                        		    transport.setType_transport(readString);
+                        		    transport1.setType_transport(readString);
                         			h = true;
                         		}else {
                         			System.out.println("The name you have introduce exit. Insert a different one.");
@@ -678,9 +682,10 @@ public class Menu {
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
                         	Integer price = Integer.parseInt(readString);
-                        	transport.setPrice(price);
-                        	transport.setAvailable(0);
-                        	in.insertTransport(transport);
+                        	transport1.setPrice(price);
+                        	transport1.setAvailable(0);
+                        	//Me dice que no exite la tabla de available!! PREGUNTAR
+                        	create.createTransport(transport1);
                         	
    
                             break;
@@ -688,13 +693,12 @@ public class Menu {
                         case 3: 
                         	
                         	System.out.println("Insert the name of the accomodation");
-                        
-                        	Accomodation accomodation = new Accomodation();
+                        accomodation1 = new Accomodation();
                         	do {
                         	readString = console.readLine();
                         	
                         		if(ser.SearchAccomodation(readString).getAccomodation()==NULL) {
-                        			accomodation.setAccomodation(readString);
+                        			accomodation1.setAccomodation(readString);
                         			h = true;
                         		}else {
                         			System.out.println("The name you have introduce exit. Insert a different one.");
@@ -705,20 +709,20 @@ public class Menu {
                         	
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
-                        	accomodation.setPrice(Integer.parseInt(readString));
-                        	accomodation.setAvailability(0);
-                        	in.insertAccomodation(accomodation);
+                        	accomodation1.setPrice(Integer.parseInt(readString));
+                        	accomodation1.setAvailability(0);
+                        	create.createAccomodation(accomodation1);
                         	
                             break;
 
                         case 4: 
                         	System.out.println("Insert the name of the activity");
-                         Activity activity = new Activity();
+                         activity1 = new Activity();
                         	do {
                         	readString = console.readLine();
                         	
                         		if((ser.SearchActivity(readString)).getActivity()==NULL) {
-                        			activity.setActivity(readString);
+                        			activity1.setActivity(readString);
                         			h = true;
                         		}else {
                         			System.out.println("The name you have introduce exit. Insert a different one.");
@@ -729,10 +733,10 @@ public class Menu {
                         	
                         	System.out.println("Insert the price:");
                         	readString = console.readLine();
-                         activity.setPrice(Integer.parseInt(readString));
-                         activity.setAvailability(0);
+                         activity1.setPrice(Integer.parseInt(readString));
+                         activity1.setAvailability(0);
                          //HACER UPDATE THE ACTIVITY!!
-                         in.insertActivity(activity);
+                         in.insertActivity(activity1);
                          
                          System.out.println("These are the instructors:");
                          instructors = sel.selectInstructor();
@@ -751,7 +755,7 @@ public class Menu {
                          }else {
                         	 
                         	 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
-                         in.insertInstructorInA(instructor1, activity);
+                         in.insertInstructorInA(instructor1, activity1);
                         	
                          }
                          
@@ -764,12 +768,12 @@ public class Menu {
                         case 5: 
                         {
                         	System.out.println("Insert the name of the material");
-                        Material mat = new Material();
+                        material1 = new Material();
                      	do {
                       	readString = console.readLine();
                     	
                     		if(ser.SearchMaterial(readString).getMaterial()==NULL) {
-                    			mat.setMaterial(readString);
+                    			material1.setMaterial(readString);
                     			h = true;
                     		  }else {
                     			System.out.println("The name you have introduce exits. Insert a different one.");
@@ -780,8 +784,8 @@ public class Menu {
                     	
                     	System.out.println("Insert the price:");
                     	readString = console.readLine();
-                     mat.setPrice(Integer.parseInt(readString));
-                    	in.insertMaterial(mat);
+                     material1.setPrice(Integer.parseInt(readString));
+                     create.createMaterial(material1);
                     	
                         }
                         break;
@@ -857,7 +861,7 @@ public class Menu {
         				  }
         				  }while(readString.isEmpty());
         				
-        			    in.insertInstructor(instructor1);
+        			    create.createInstructor(instructor1);
         				
                     System.out.println("Does the instructor requires a transport? (Y/N)");  
                     readString= console.readLine();
@@ -872,16 +876,16 @@ public class Menu {
                     		System.out.println("Introduce the name of the one you want.");
                     		do {
                     			readString = console.readLine();
-                    		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
-                    		    if(trans1.checkAvailability()) {
-                    			Integer a = trans1.getAvailable() + 1;
+                    		    transport1 = ser.SearchTransport(Integer.parseInt(readString));
+                    		    if(transport1.checkAvailability()) {
+                    			Integer a = transport1.getAvailable() + 1;
                     			
-                    			trans1.setAvailable(a);
-                    			up.UpdateTransport(trans1);
-                    			in.insertTransInI(instructor1, trans1);
+                    			transport1.setAvailable(a);
+                    			up.UpdateTransport(transport1);
+                    			in.insertTransInI(instructor1, transport1);
                     			h = true;
                     		    }else {
-                    		 	   System.out.println("The transport "+trans1.getType_transport()+ " is not abailable. Choose another: ");
+                    		 	   System.out.println("The transport "+transport1.getType_transport()+ " is not abailable. Choose another: ");
                     		 	   h = false;
                     		           }
                           	}while(h= false);
@@ -902,12 +906,12 @@ public class Menu {
                     		System.out.println("Introduce the id of the one you want.");
                     		do{readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
-                    		accomodation = ser.SearchAccomodation(accomid);
-                    		if(accomodation.checkAvailability()) {
-                            Integer a = accomodation.getAvailability()+ 1;
-                    			accomodation.setAvailability(a);
-                    			up.UpdateAccomodation(accomodation);
-                    		in.insertAccomInI(instructor1, accomodation);
+                    		accomodation1 = ser.SearchAccomodation(accomid);
+                    		if(accomodation1.checkAvailability()) {
+                            Integer a = accomodation1.getAvailability()+ 1;
+                    			accomodation1.setAvailability(a);
+                    			up.UpdateAccomodation(accomodation1);
+                    		in.insertAccomInI(instructor1, accomodation1);
                     		}else {
                     			System.out.println("The accomodation is not abailable. Introduce a different one: ");
                     		}
@@ -928,8 +932,8 @@ public class Menu {
                     			
                     			System.out.println("Introduce the id of the activity wanted:");
                     			readString = console.readLine();
-                    			activity = ser.SearchActivity(Integer.parseInt(readString));
-                    		    in.insertInstructorInA(instructor1, activity);
+                    			activity1 = ser.SearchActivity(Integer.parseInt(readString));
+                    		    in.insertInstructorInA(instructor1, activity1);
                     			
                     			System.out.println("Would you want another activity? (Y/N");
                     			readString = console.readLine();
@@ -975,8 +979,8 @@ public class Menu {
                         		}
                         		System.out.println("Introduce the NIF of the one you want: ");
                         		readString = console.readLine();
-                        		Camper camp1 = new Camper();
-                        		camp1 = ser.SearchCamper(readString);
+                        		camper1 = new Camper();
+                        		camper1 = ser.SearchCamper(readString);
                             
                             System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
@@ -1000,8 +1004,8 @@ public class Menu {
                                 	System.out.println("Insert the new name: ");
                                 
                                 readString = console.readLine();
-                                camp1.setName(readString);
-                                up.UpdateCamper(camp1);
+                                camper1.setName(readString);
+                                up.UpdateCamper(camper1);
                                 
                                     break;
                                 }
@@ -1011,16 +1015,16 @@ public class Menu {
               					  	String withoutTime = readString;
               					  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
               					  	LocalDate date= LocalDate.parse(withoutTime, formatter);
-              					  	camp1.setDateBirth(date);
-              					  	up.UpdateCamper(camp1);
+              					  	camper1.setDateBirth(date);
+              					  	up.UpdateCamper(camper1);
                                 	break;
 
                                 case 3: //nif
                                 	System.out.println("Insert the new NIF: ");
                                     
                                     readString = console.readLine();
-                                    camp1.setNIF(readString);
-                                    update.UpdateCampNIF(camp1, readString);
+                                    camper1.setNIF(readString);
+                                    update.UpdateCampNIF(camper1, readString);
                                 	
                                     break;
 
@@ -1028,8 +1032,8 @@ public class Menu {
                                 	System.out.println("Insert the new phone number: ");
                                     
                                     readString = console.readLine();
-                                    camp1.setPhonenumber(Integer.parseInt(readString));
-                                    update.UpdateCampPhoneNumber(camp1, Integer.parseInt(readString) );
+                                    camper1.setPhonenumber(Integer.parseInt(readString));
+                                    update.UpdateCampPhoneNumber(camper1, Integer.parseInt(readString) );
                                 	
                                     break;
 
@@ -1037,8 +1041,8 @@ public class Menu {
                                 	System.out.println("Insert the new email: ");
                                     
                                     readString = console.readLine();
-                                    camp1.setEmail(readString);
-                                    update.UpdateCampEmail(camp1, readString);
+                                    camper1.setEmail(readString);
+                                    update.UpdateCampEmail(camper1, readString);
                                 	
                                     break;
 
@@ -1046,8 +1050,8 @@ public class Menu {
                                 	System.out.println("Insert the new payment method: ");
                                     
                                     readString = console.readLine();
-                                    camp1.setPayment_method(readString);
-                                    up.UpdateCamper(camp1);
+                                    camper1.setPayment_method(readString);
+                                    up.UpdateCamper(camper1);
                                 	
                                     break;
 
@@ -1063,8 +1067,8 @@ public class Menu {
                                     Transport trans =new Transport();
                                     trans=ser.SearchTransport(readString);
                                     
-                                    camp1.setTransports(trans);
-                                    up.UpdateTransportInCamper(trans, camp1);
+                                    camper1.setTransports(trans);
+                                    up.UpdateTransportInCamper(trans, camper1);
                                 	
                                     break;
 
@@ -1082,8 +1086,8 @@ public class Menu {
                                     Accomodation accom =new Accomodation();
                                     accom=ser.SearchAccomodation(readString);
                                     
-                                    camp1.setAccomodation(accom);
-                                    up.UpdateAccomodationInCamper(accom, camp1);
+                                    camper1.setAccomodation(accom);
+                                    up.UpdateAccomodationInCamper(accom, camper1);
  
                                     break;
 
@@ -1109,8 +1113,8 @@ public class Menu {
                          	
                          		System.out.println("Introduce the name of the transport you want to modify: ");
                          		readString = console.readLine();
-                         		Transport trans1 = new Transport();
-                         		trans1= ser.SearchTransport(readString);
+                         		transport1 = new Transport();
+                         		transport1= ser.SearchTransport(readString);
                          
                          		
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1127,9 +1131,9 @@ public class Menu {
                           {	System.out.println("Insert the new type of transport: ");
                       	
                              readString = console.readLine();
-                              trans1.setType_transport(readString);
+                              transport1.setType_transport(readString);
                               //System.out.println(trans1);
-                             up.UpdateTransport(trans1);
+                             up.UpdateTransport(transport1);
                               
                               break;
                               
@@ -1142,8 +1146,8 @@ public class Menu {
                                 readString = console.readLine();
                                 int price=Integer.parseInt(readString);
                                 
-                                up.UpdateTransport(trans1);
-                                System.out.println(trans1);
+                                up.UpdateTransport(transport1);
+                                System.out.println(transport1);
                                        break;
                           }
                        }
@@ -1162,8 +1166,8 @@ public class Menu {
                         	    	     }
                         	    	     System.out.println("Introduce the name of the accomodation you want: ");
                                   		readString = console.readLine();
-                                  		Accomodation acc1 = new Accomodation();
-                                  		acc1= ser.SearchAccomodation(readString);
+                                  		accomodation1 = new Accomodation();
+                                  		accomodation1= ser.SearchAccomodation(readString);
                                   
                                   		
                                   		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1180,9 +1184,9 @@ public class Menu {
                                    {	System.out.println("Insert the new name of the accomodation: ");
                                	
                                       readString = console.readLine();  
-                                       acc1.setAccomodation(readString);
-                                       up.UpdateAccomodation(acc1);
-                                       System.out.println(acc1);
+                                      accomodation1.setAccomodation(readString);
+                                       up.UpdateAccomodation(accomodation1);
+                                       System.out.println(accomodation1);
                                        break;
                                  	  
                                    }
@@ -1192,9 +1196,9 @@ public class Menu {
                                      	
                                          readString = console.readLine();
                                          int p=Integer.parseInt(readString);
-                                         acc1.setPrice(p);
-                                         System.out.println(acc1);
-                                         up.UpdateAccomodation(acc1 );
+                                         accomodation1.setPrice(p);
+                                         System.out.println(accomodation1);
+                                         up.UpdateAccomodation(accomodation1);
                                                 break;
                                    }
                                 }
@@ -1213,8 +1217,8 @@ public class Menu {
                          	
                          		System.out.println("Introduce the id of the activity you want: ");
                          		readString = console.readLine();
-                         		Activity act1 = new Activity();
-                         		act1= ser.SearchActivity(Integer.parseInt(readString));
+                         		activity1 = new Activity();
+                         		activity1= ser.SearchActivity(Integer.parseInt(readString));
                          
                          		
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1231,9 +1235,9 @@ public class Menu {
                           {	System.out.println("Insert the new name of the activity: ");
                       	
                              readString = console.readLine();
-                              act1.setActivity(readString);
-                              System.out.println(act1);
-                              up.UpdateActivity(act1);
+                              activity1.setActivity(readString);
+                              System.out.println(activity1);
+                              up.UpdateActivity(activity1);
                               break;
                         	  
                           }
@@ -1242,9 +1246,9 @@ public class Menu {
                         		System.out.println("Insert the new price of the activity: ");
                             	
                                 readString = console.readLine();
-                                act1.setPrice(Integer.parseInt(readString));
-                                System.out.println(act1);
-                                up.UpdateActivity(act1);
+                                activity1.setPrice(Integer.parseInt(readString));
+                                System.out.println(activity1);
+                                up.UpdateActivity(activity1);
                                        break;
                           }
                        }
@@ -1263,8 +1267,8 @@ public class Menu {
                          	
                          		System.out.println("Introduce the name of the material you want: ");
                          		readString = console.readLine();
-                         		Material mat1 = new Material();
-                         		mat1 = ser.SearchMaterial(readString);
+                         		material1 = new Material();
+                         		material1 = ser.SearchMaterial(readString);
                          
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
                                         + "1) Name\n"
@@ -1280,9 +1284,9 @@ public class Menu {
                           {	System.out.println("Insert the new name of the material: ");
                       	
                              readString = console.readLine();
-                              mat1.setMaterial(readString);
-                              System.out.println(mat1);
-                              up.UpdateMaterial(mat1);
+                              material1.setMaterial(readString);
+                              System.out.println(material1);
+                              up.UpdateMaterial(material1);
                               break;
                         	  
                           }
@@ -1291,9 +1295,9 @@ public class Menu {
                         		System.out.println("Insert the new price of the material: ");
                             	
                                 readString = console.readLine();
-                                mat1.setPrice(Integer.parseInt(readString));
-                                System.out.println(mat1);
-                                up.UpdateMaterial(mat1);
+                                material1.setPrice(Integer.parseInt(readString));
+                                System.out.println(material1);
+                                up.UpdateMaterial(material1);
                                        break;
                           }
                        }
@@ -1311,8 +1315,8 @@ public class Menu {
                      		}
                      		System.out.println("Introduce the id of the instructor you want: ");
                      		readString = console.readLine();
-                     		Instructor ins1 = new Instructor();
-                     		ins1 = ser.SearchInstructor(Integer.parseInt(readString));
+                     		instructor1 = new Instructor();
+                     		instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
                          
                      		System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
@@ -1331,9 +1335,9 @@ public class Menu {
                                 {System.out.println("Insert the new name of the instructor: ");
                         	
                                  readString = console.readLine();
-                                 ins1.setName(readString);
-                                 System.out.println(ins1);
-                                 up.UpdateInstructor(ins1);
+                                 instructor1 .setName(readString);
+                                 System.out.println(instructor1 );
+                                 up.UpdateInstructor(instructor1 );
                                    break;}
                                 
                             case 2: //Modify date of birth of instructor
@@ -1344,36 +1348,36 @@ public class Menu {
                              { System.out.println("Insert the new nationality of the instructor: ");
                             	
                                 readString = console.readLine();
-                                ins1.setNationality(readString);
-                                System.out.println(ins1);
-                                up.UpdateInstructor(ins1);
+                                instructor1 .setNationality(readString);
+                                System.out.println(instructor1 );
+                                up.UpdateInstructor(instructor1 );
                                        break;}
                             
                             case 4: //Modify nif of instructor
                               {	System.out.println("Insert the new name of the instructor: ");
                           	
                               readString = console.readLine();
-                              ins1.setNIF(readString);
-                              System.out.println(ins1);
-                              up.UpdateInstructor(ins1);
+                              instructor1 .setNIF(readString);
+                              System.out.println(instructor1 );
+                              up.UpdateInstructor(instructor1 );
                                      break; }
                             
                             case 5: //Modify phone number of instructor 
                                {  	System.out.println("Insert the new phone number of the instructor: ");
                            	
                                readString = console.readLine();
-                               ins1.setPhoneNumber(Integer.parseInt(readString));
-                               System.out.println(ins1);
-                               up.UpdateInstructor(ins1);
+                               instructor1 .setPhoneNumber(Integer.parseInt(readString));
+                               System.out.println(instructor1 );
+                               up.UpdateInstructor(instructor1 );
                                       break;}
                             
                             case 6: // Modify salary of instructor
                                {  System.out.println("Insert the new salary of the instructor: ");
                            	
                                readString = console.readLine();
-                               ins1.setSalary(Integer.parseInt(readString));
-                               System.out.println(ins1);
-                               up.UpdateInstructor(ins1);
+                               instructor1 .setSalary(Integer.parseInt(readString));
+                               System.out.println(instructor1 );
+                               up.UpdateInstructor(instructor1 );
                                       break;
                             	
                                 }
@@ -1415,7 +1419,7 @@ public class Menu {
                         break;
 
                         case 2: {
-                        	//no funciona, tengo que pensarlo
+                        
                         	transports = sel.selectTransport();
                         	if(transports.isEmpty()) {
                         	System.out.println("There is any transport available to delete. Sorry");
@@ -1432,11 +1436,11 @@ public class Menu {
 
                         case 3://accomodation funciona 
                         {
-                        	List<Accomodation> accomodation = sel.selectAccomodation();
-                        	if(accomodation.isEmpty()) {
+                        accomodations = sel.selectAccomodation();
+                        	if(accomodations.isEmpty()) {
                         	System.out.println("There is any accomodations available to delete. Sorry");
                         	}else {
-                        		for(Accomodation accom: accomodation) {
+                        		for(Accomodation accom: accomodations) {
                         			System.out.println(accom);
                         		}
                         	}
@@ -1468,11 +1472,11 @@ public class Menu {
                         case 5:
                         	//material funciona
                         {
-                        	List<Material> material = sel.selectMaterial();
-                        	if(material.isEmpty()) {
+                        materials = sel.selectMaterial();
+                        	if(materials.isEmpty()) {
                         	System.out.println("There is any material available to delete. Sorry");
                         	}else {
-                        		for(Material mat: material) {
+                        		for(Material mat: materials) {
                         			System.out.println(materials);
                         		}
                         	}
@@ -1517,7 +1521,7 @@ public class Menu {
                 	 int option=Integer.parseInt(console.readLine());
                 	 switch(option) {
                 	 case 1:
-                	 {
+                	     //We transform a instructor from java to xml
                 		 instructors = sel.selectInstructor();
                 		 for(Instructor ins: instructors) {
                 			 System.out.println(ins); 
@@ -1530,9 +1534,9 @@ public class Menu {
                 		 xmlm.marshalldb(instructor1);
                 		 
                 		 break;
-                	 }
+                	 
                 	 case 2:
-                	 {
+                	     //We obtain the instructor from a xml file and inserted in our database
                 		 System.out.println("Introduce the file where the instructor is located:");
                 		 readString = console.readLine();
                 		 File file = new File(readString);
@@ -1540,10 +1544,10 @@ public class Menu {
                 		 in.insertInstructor(inst);
                 		 System.out.println("The instructor obtain is: "+inst);
 
-                	 }
+                	 
                 		 break;
                 	 case 3:
-                		 
+                		 //Here is where we transform the instructor from xml to html
                 		Boolean check =  xmlm.simpleTransform("xml/Instructor.xml", "xml/Instructordb.xslt", "xml/ExternalInstructor.html");
                 		 if(check==true) {
                 			 System.out.println("The .html file has been correctly created.");
@@ -1551,6 +1555,7 @@ public class Menu {
                 			 System.out.println("Sorry there was an error. Your .html cannot be created.");
                 		 }
                 		 break;
+                		 
                 	 }
                 }break;
                 
@@ -1560,10 +1565,6 @@ public class Menu {
                 	System.out.println("You have exit the database.");
                 	System.exit(0);
                 	
-                
-               //DUDA: no habr�a que poner un case 5 exit(0)???
-                // Cuando quieres salir, aunq metas la opcion 5 no para la ejecucion
-
             
         }//switch todas las opciones: view, insert,.....
                 

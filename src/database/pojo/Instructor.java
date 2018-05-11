@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @Table(name = "instructor")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Instructor")
-@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary","activities" })
+@XmlType(propOrder = {  "name", "phone_number","dob","NIF","nationality","salary","activities" })
 public class Instructor implements Serializable {
 	
 private static final long serialVersionUID = -4281575077333973070L;
@@ -39,7 +39,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@GeneratedValue(generator="instructor")
 	@TableGenerator(name="instructor", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
-	@XmlAttribute
+	@XmlTransient
 	private Integer id;
 	@XmlAttribute
 	private String name;
