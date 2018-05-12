@@ -1,5 +1,6 @@
 package database.pojo;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Material implements Serializable{
 	@JoinTable(name="camper",
 		joinColumns={@JoinColumn(name="id_material", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
-	private  List<Camper> camper;
+	List<Camper> campers =new ArrayList();
 	
 	public Material() {
 		super();
@@ -74,6 +75,25 @@ public class Material implements Serializable{
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+	
+	public boolean addCamper(Camper camper) {
+		Boolean h = false;
+			if (!campers.contains(camper)) {
+				this.campers.add(camper);
+				h = true;
+			}
+			return h;
+		}
+		public boolean removeCamper(Camper camper) {
+			Boolean h = false;
+			if(campers.contains(camper)) {
+				this.campers.remove(camper);
+				h = true;
+			}
+			return h;
+		}
+		
+		
 
 	@Override
 	public int hashCode() {

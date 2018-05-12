@@ -26,8 +26,7 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-	private  List<Material> materials;
-	private List<Activity> activities;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
 	private Transport transport;
@@ -38,21 +37,21 @@ public class Camper implements Serializable{
 	@JoinTable(name="material",
 		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
-	private  List<Material> material;
+	private  List<Material> materials;
 
 	@ManyToMany
 	@JoinTable(name="activity",
 		joinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")})
-	private List<Activity> activity;
+	private List<Activity> activities;
 	
 	
 	
 	
 	public Camper() {
 		super();
-		this.material = new ArrayList<Material>();
-		this.activity = new ArrayList<Activity>();
+		this.materials = new ArrayList<Material>();
+		this.activities = new ArrayList<Activity>();
 		
 	}
 	public Camper( String name, LocalDate dateofbirth, String NIF
@@ -68,8 +67,8 @@ public class Camper implements Serializable{
 		this.payment_method= payment_method;
 		this.transport=transport;
 		this.accomodation = accomodation;
-		this.material = material;
-		this.activity = activity;
+		this.materials = material;
+		this.activities = activities;
 		
 		
 	}
@@ -96,39 +95,51 @@ public class Camper implements Serializable{
 		this.phone_number=phone;		
 	}
 	public List<Activity> getActivity() {
-		return activity;
+		return activities;
 	}
 	public void setActivities(List<Activity> activity) {
-		this.activity = activity;
+		this.activities = activity;
 	}
 	public List<Material> getMaterial() {
-		return material;
+		return materials;
 	}
 	public void setMaterial(List<Material> material) {
-		this.material = material;
+		this.materials = material;
 	}
 	
-	public void addActivity(Activity activity1) {
-		if (!activity.contains(activity1)) {
-			this.activity.add(activity1);
+	public Boolean addActivity(Activity activity1) {
+	Boolean h = false;
+		if (!activities.contains(activity1)) {
+			h = true;
+			this.activities.add(activity1);
 		}
+		return h;
 	}
 	
-	public void removeActivity(Activity activity1) {
-		if (!activity.contains(activity1)) {
-			this.activity.remove(activity1);
+	public boolean removeActivity(Activity activity1) {
+		Boolean h = false;
+		if (!activities.contains(activity1)) {
+			h = true;
+			this.activities.remove(activity1);
 		}
+		return h;
 	}
 	
-	public void addMaterial(Material material1) {
-		if (!material.contains(material1)) {
-			this.material.add(material1);
+	public boolean addMaterial(Material material1) {
+		Boolean h = false;
+		if (!materials.contains(material1)) {
+			h = true;
+			this.materials.add(material1);
 		}
+		return h;
 	}
-	public void removeMaterial(Material material1) {
-		if(material.contains(material1)) {
-			this.material.remove(material1);
+	public boolean removeMaterial(Material material1) {
+		Boolean h = false;
+		if(materials.contains(material1)) {
+			h = true;
+			this.materials.remove(material1);
 		}
+		return h;
 	}
 	public Integer getId() {
 		return id;

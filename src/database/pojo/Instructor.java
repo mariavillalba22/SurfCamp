@@ -206,7 +206,23 @@ private static final long serialVersionUID = -4281575077333973070L;
 		this.accomodation = accomodation;
 	}
 
-
+	public Boolean addActivity(Activity activity1) {
+		Boolean h = false;
+			if (!activities.contains(activity1)) {
+				h = true;
+				this.activities.add(activity1);
+			}
+			return h;
+		}
+		
+		public boolean removeActivity(Activity activity1) {
+			Boolean h = false;
+			if (!activities.contains(activity1)) {
+				h = true;
+				this.activities.remove(activity1);
+			}
+			return h;
+		}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
