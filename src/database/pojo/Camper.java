@@ -26,7 +26,6 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
-	private Transport transports;
 	private  List<Material> materials;
 	private List<Activity> activities;
 	@ManyToOne(fetch = FetchType.LAZY)
