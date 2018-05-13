@@ -61,10 +61,12 @@ public void createTables(Connection c) throws SQLException{
 				+"	payment_method TEXT, "
 				+"	transport_id INTEGER REFERENCES transport(id) ON DELETE SET NULL, "
 				+"	accomodation_id INTEGER REFERENCES accomodation(id) ON DELETE SET NULL)";
-				
-		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
+		
+		stmtSeq = c.createStatement();
+        sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('camper', 1)";
+		stmtSeq.executeUpdate(sqlSeq);;
 		
 		Statement stmt4 = c.createStatement();
 		String material = "CREATE TABLE material"

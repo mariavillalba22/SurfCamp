@@ -1102,6 +1102,7 @@ public class Menu {
                                         	System.out.println("There is any activity available. Sorry");
                                     	}
                                 		else {
+                                			do {
                                         	System.out.println("Choose the new activity: ");
                                 		for(Activity act : activities) {
                                 			System.out.println(act);
@@ -1112,6 +1113,14 @@ public class Menu {
                                 	act1=ser.SearchActivity(readString);
                                 	camper1.addActivity(act1);
                                 	up.updateActICamper(act1,camper1);
+                                	System.out.println("Would you want another activity? (Y/N");
+                        			readString = console.readLine();
+                        			if(readString.equals("Y")) {
+                        				h = true;
+                        			}else {
+                        				h = false;
+                        			}
+                        			}while(h == true);
                                 		}break;
                                     
                                 case 10:
