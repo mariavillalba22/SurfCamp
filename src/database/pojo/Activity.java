@@ -101,8 +101,8 @@ public class Activity  implements Serializable {
 	}
 
 	public String toString() {
-    	return " The activity ID is: "+id+". "+
-    "Name of activity: "+name+".  Price: "+price;
+    	return " The activity ID is= "+id+". "+
+    "Name of activity: "+name+".  Price: "+price+ ". People taking this activity: "+availability;
     	
     
     }

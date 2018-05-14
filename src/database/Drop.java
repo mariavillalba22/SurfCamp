@@ -14,14 +14,14 @@ public class Drop {
 				
 				public void dropCampers() throws SQLException {
 				Statement stmt1 = c.createStatement();
-				String d1 = "DROP TABLE campers";
+				String d1 = "DROP TABLE camper";
 				stmt1.executeUpdate(d1);
 				stmt1.close();
 				}
 				
 				public void dropInstructors() throws SQLException {
 				Statement stmt2 = c.createStatement();
-				String d2 = "DROP TABLE instructors";
+				String d2 = "DROP TABLE instructor";
 				stmt2.executeUpdate(d2);
 				stmt2.close();
 				}
@@ -49,7 +49,7 @@ public class Drop {
 				
 				public void dropActivities() throws SQLException {
 				Statement stmt6 = c.createStatement();
-				String d6 = "DROP TABLE activities";
+				String d6 = "DROP TABLE activity";
 				stmt6.executeUpdate(d6);
 				stmt6.close();
 				}		

@@ -107,7 +107,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	
 	
 	public String toString() {
-		return "Id : "+id+". "
+		return "The id of the instructor is: "+id+". "
 				+ "Name: "+name+". "+
         "Telephone number: "+phone_number+ ". "+
 				"Date of birth: "+dob+". "+

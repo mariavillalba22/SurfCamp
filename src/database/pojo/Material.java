@@ -50,7 +50,7 @@ public class Material implements Serializable{
 	}
 	
     public String toString() {
-    	return "Material ID: "+id+" . Name: "+name+" . Price: "+price;
+    	return "The Material ID is: "+id+" . Name: "+name+" . Price: "+price;
     }
 	public Integer getId() {
 		return id;

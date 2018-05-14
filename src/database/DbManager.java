@@ -58,7 +58,8 @@ public void createTables(Connection c) throws SQLException{
 				+"  NIF INTEGER NOT NULL ,"
 				+"	phone_number INTEGER ,"
 				+"	email TEXT ,"
-				+"	payment_method TEXT, "
+				+"	payment_method TEXT,"
+				+"  needtopay INTEGER NOT NULL, "
 				+"	transport_id INTEGER REFERENCES transport(id) ON DELETE SET NULL, "
 				+"	accomodation_id INTEGER REFERENCES accomodation(id) ON DELETE SET NULL)";
 				
@@ -169,7 +170,7 @@ public static void main(String args[])throws Exception{
     mat.add(m);
     mat.add(m2);
 	
-	//d.createTables(c.getConnectiondb());
+	d.createTables(c.getConnectiondb());
  /*  inst = in.insertInstructor( inst);
 	inst2 = in.insertInstructor( inst2);
 	a = in.insertActivity(a);

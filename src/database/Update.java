@@ -80,7 +80,7 @@ public class Update {
   }
 
   public void UpdateCamper ( Camper cam) throws SQLException{
-      String sql = "UPDATE camper SET name =?, phone_number =?, dob =?, NIF =?, email =?, payment_method =? WHERE id = ?";
+      String sql = "UPDATE camper SET name =?, phone_number =?, dob =?, NIF =?, email =?, payment_method =?, needtopay=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, cam.getName());
       prep.setInt(2, cam.getPhonenumber());
@@ -88,7 +88,9 @@ public class Update {
       prep.setString(4, cam.getNIF());
       prep.setString(5, cam.getEmail());
       prep.setString(6, cam.getPayment_method());
-      prep.setInt(7, cam.getId());
+      prep.setInt(7, cam.getNeedtopay());
+      prep.setInt(8, cam.getId());
+      
       prep.executeUpdate();
   }
 

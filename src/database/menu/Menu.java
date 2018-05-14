@@ -41,17 +41,18 @@ public class Menu {
     	Connect c=new Connect();
     	c.connectiondb();
     	
-    	//NO FUNCIONA
+    
     	try {
     		d.createTables(c.getConnectiondb());
-    		System.out.println("Tables have been created succesfully.");
+    		System.out.println("\n\nTables have been created succesfully.");
     	}catch(SQLException ex) {
-    		System.out.println("Tables are already created.");
+    		System.out.println("\n\nTables are already created.");
     	}
     //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
+    	Drop drop = new Drop(c.getConnectiondb());
     	Selection sel = new Selection(c.getConnectiondb());
     	Search ser = new Search(c.getConnectiondb());
     	
@@ -70,7 +71,7 @@ public class Menu {
     		Instructor instructor1=new Instructor();
         try {
 
-			System.out.println("____________________________________________________\n");
+			System.out.println("\n ____________________________________________________\n");
             System.out.println("SELECT AN OPTION: \n"
                     + "1) VIEW\n"
                     + "2) INSERT\n" // a partir de aqui hay q comprobar si hay algo
@@ -521,8 +522,10 @@ public class Menu {
                               camper1.setPayment_method(readString);
                               }
                            }while(readString.isEmpty());
-
-        	            create.createCamper(camper1);
+        				  
+        				camper1.setNeedtopay(0);
+        				in.insertCamper(camper1);
+    
         				
         				
                     System.out.println("Does the camper want a transport? (Y/N)");  
@@ -543,7 +546,10 @@ public class Menu {
                     			Integer a = trans1.getAvailable() + 1;
                     			trans1.setAvailable(a);
                          	up.UpdateTransport(trans1);
+                         	camper1.addNeedToPay(trans1.getPrice());
+                         	up.UpdateCamper(camper1);
                     			in.insertTransInC(camper1, trans1);
+                    			
                     			h = true;
                     		    }else {
                     		 	   System.out.println("The transport "+trans1.getType_transport()+ " is not abailable. Choose another: ");
@@ -574,6 +580,8 @@ public class Menu {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
                     	    up.UpdateAccomodation(accomodation);
+                    	    camper1.addNeedToPay(accomodation.getPrice());
+                         up.UpdateCamper(camper1);
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;
@@ -607,6 +615,8 @@ public class Menu {
                     				Integer a = activity1.getAvailability() +1;
                     				activity1.setAvailability(a);
                     				up.UpdateActivity(activity1);
+                    				camper1.addNeedToPay(activity1.getPrice());
+                                 up.UpdateCamper(camper1);
                     				in.insertCamper_activity(camper1, activity1);
                     				h = true;
                     			}else{
@@ -615,7 +625,7 @@ public class Menu {
                     			}
                     			}while(h = false);
                     			in.insertCamper_activity(camper1, activity1);
-                    			System.out.println("Would you want another activity? (Y/N");
+                    			System.out.println("Would you want another activity? (Y/N) ");
                     			readString = console.readLine();
                     			if(readString.equals("Y")) {
                     				h = true;
@@ -645,8 +655,10 @@ public class Menu {
                     			System.out.println("Introduce the id of the material wanted:");
                     			readString = console.readLine();
                     			Material mat = ser.searchMaterial(Integer.parseInt(readString));
+                    			camper1.addNeedToPay(mat.getPrice());
+                             up.UpdateCamper(camper1);
                     			in.insertCamper_material(camper1, mat);
-                    			System.out.println("Would you want another material? (Y/N");
+                    			System.out.println("Would you want another material? (Y/N) ");
                     			readString = console.readLine();
                     			if(readString.equals("Y")) {
                     				h = true;
@@ -683,7 +695,6 @@ public class Menu {
                         	Integer price = Integer.parseInt(readString);
                         	transport1.setPrice(price);
                         	transport1.setAvailable(0);
-                        	//Me dice que no exite la tabla de available!! PREGUNTAR
                         	create.createTransport(transport1);
                         	
    
@@ -734,7 +745,6 @@ public class Menu {
                         	readString = console.readLine();
                          activity1.setPrice(Integer.parseInt(readString));
                          activity1.setAvailability(0);
-                         //HACER UPDATE THE ACTIVITY!!
                          in.insertActivity(activity1);
                          
                          System.out.println("These are the instructors:");
@@ -878,7 +888,6 @@ public class Menu {
                     		    transport1 = ser.searchTransport(Integer.parseInt(readString));
                     		    if(transport1.checkAvailability()) {
                     			Integer a = transport1.getAvailable() + 1;
-                    			
                     			transport1.setAvailable(a);
                     			up.UpdateTransport(transport1);
                     			in.insertTransInI(instructor1, transport1);
@@ -1389,6 +1398,13 @@ public class Menu {
                 
                 case 4: //delete
                 {
+                	
+                	 System.out.println("Do you want to delete one thing (1) or all the table(2)?");
+                	 System.out.println("Chose one option:");
+                	 readString = console.readLine();
+                	 
+                		 
+                	 
                     System.out.println("WHAT WOULD YOU LIKE TO DELETE:\n"
                             + "1) Campers\n"
                             + "2) Transport\n" 
@@ -1510,7 +1526,8 @@ public class Menu {
                     }
                    
                     break;
-                } 
+                }
+               
                 case 5: {
                 	 System.out.println("1. Save instructor in XML file");
                 	 System.out.println("2. Store instructor in Data Base from XML file");

@@ -69,8 +69,8 @@ public class Insertion {
     }
 
 	public void insertCamper (Camper camper ) throws Exception{
-		String sql1 = "INSERT INTO camper (name, dob, NIF, phone_number, email, payment_method)"+
-				 "VALUES (?,?,?,?,?,?);";
+		String sql1 = "INSERT INTO camper (name, dob, NIF, phone_number, email, payment_method, needtopay)"+
+				 "VALUES (?,?,?,?,?,?,?);";
 		PreparedStatement sql = c.prepareStatement(sql1);
 		sql.setString(1, camper.getName());
 		sql.setDate(2, camper.getDateofbirth());
@@ -78,6 +78,7 @@ public class Insertion {
 		sql.setInt(4, camper.getPhonenumber());
 		sql.setString(5, camper.getEmail());
 		sql.setString(6, camper.getPayment_method());
+		sql.setInt(7, camper.getNeedtopay());
      
 		
 		sql.executeUpdate();

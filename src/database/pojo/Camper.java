@@ -26,6 +26,7 @@ public class Camper implements Serializable{
 	private Integer phone_number;
 	private String email;
 	private String payment_method;
+	private Integer needtopay;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transport_id")
@@ -77,7 +78,7 @@ public class Camper implements Serializable{
 	
 	
 	public Camper( int id,String name, LocalDate dateofbirth, String NIF
-			, Integer phonenumber, String email, String payment_method) {
+			, Integer phonenumber, String email, String payment_method, Integer needtopay) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -86,6 +87,7 @@ public class Camper implements Serializable{
 		this.phone_number= phonenumber;
 		this.email= email;
 		this.payment_method= payment_method;
+		this.needtopay = needtopay;
 		
 	}
 	
@@ -148,6 +150,12 @@ public class Camper implements Serializable{
 		this.id = id;
 	}
 	
+	public Integer getNeedtopay() {
+		return needtopay;
+	}
+	public void setNeedtopay(Integer needtopay) {
+		this.needtopay = needtopay;
+	}
 	
 	public String getName() {
 		return name;
@@ -207,6 +215,16 @@ public class Camper implements Serializable{
 		this.accomodation = accomodation;
 	}
 	
+	public Integer addNeedToPay(Integer suma) {
+		this.needtopay= needtopay+suma;
+		return needtopay;
+	}
+	
+	public Integer removeNeedToPay(Integer resta) {
+		this.needtopay = needtopay-resta;
+		return needtopay;
+	}
+	
 	public int hashCode() {
 		final int prime =31;
 		int result = -1;
@@ -215,7 +233,7 @@ public class Camper implements Serializable{
 	}
 	
 	public String toString() {
-		return "Camper id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method"+ payment_method;
+		return "Camper id = "+id+", name = "+name+" , date of birth "+dob+" , NIF = "+NIF+" , phone number = "+phone_number+" , email = "+email+", payment method = "+ payment_method+", Need to pay: "+needtopay;
 	
 	}
 	public String showNamePhone(){
