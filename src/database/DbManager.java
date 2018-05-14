@@ -47,7 +47,7 @@ public void createTables(Connection c) throws SQLException{
 		stmt2.close();
 		
 		stmtSeq = c.createStatement();
-        sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('activities', 1)";
+        sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('activity', 1)";
 		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt3 = c.createStatement();
@@ -66,6 +66,10 @@ public void createTables(Connection c) throws SQLException{
 		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
+		
+		stmtSeq = c.createStatement();
+		sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('camper', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt4 = c.createStatement();
 		String material = "CREATE TABLE material"
@@ -93,6 +97,10 @@ public void createTables(Connection c) throws SQLException{
 
 		stmt5.executeUpdate(instructor);
 		stmt5.close();
+		
+		stmtSeq = c.createStatement();
+		sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('instructor', 1)";
+		stmtSeq.executeUpdate(sqlSeq);
 		
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
