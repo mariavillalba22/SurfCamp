@@ -156,17 +156,39 @@ private static final long serialVersionUID = -4281575077333973070L;
 		return h;
 	}
 
-	public void addCamper(Camper camper) {
+	public boolean addCamper(Camper camper) {
+	Boolean h = false;
 		if (!campers.contains(camper)) {
 			this.campers.add(camper);
+			h = true;
 		}
+		return h;
 	}
-	public void removeCamper(Camper camper) {
+	public boolean removeCamper(Camper camper) {
+		Boolean h = false;
 		if(campers.contains(camper)) {
 			this.campers.remove(camper);
+			h = true;
 		}
+		return h;
 	}
 	
+	public boolean addInstructor(Instructor in) {
+		Boolean h = false;
+		if (!instructors.contains(in)) {
+			this.instructors.add(in);
+			h = true;
+		}
+		return h;
+	}
+	public boolean removeInstructor(Instructor in) {
+		Boolean h = false;
+		if(instructors.contains(in)) {
+			this.instructors.remove(in);
+			h = true;
+		}
+		return h;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

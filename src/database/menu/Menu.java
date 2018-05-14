@@ -122,8 +122,8 @@ public class Menu {
                         	case 1:{
                             		for (Camper camper : campers) {
                             			System.out.println(camper);
-                            			Transport transport = ser.SearchTransport(sel.selectTnsC(camper));
-                            			accomodation1 = ser.SearchAccomodation(sel.selectAcomC(camper));
+                            			Transport transport = ser.searchTransport(sel.selectTnsC(camper));
+                            			accomodation1 = ser.searchAccomodation(sel.selectAcomC(camper));
                             			System.out.println("The transport for camper "+camper.getId()+" is "+ transport.getType_transport()+""
                             					+ "\nThe accomodation is "+accomodation1.getAccomodation());
                             		   
@@ -393,8 +393,8 @@ public class Menu {
                         		
                         		for (Instructor instructor : instructors) {
                         			System.out.println(instructor);
-                            transport1 = ser.SearchTransport(sel.selectTnsI(instructor));
-                        	accomodation1 = ser.SearchAccomodation(sel.selectAcomI(instructor));
+                            transport1 = ser.searchTransport(sel.selectTnsI(instructor));
+                        	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor));
                         	System.out.println("The transport for instructor "+instructor.getId()+" is "+ transport1.getType_transport()+""
                         			+ "\nThe accomodation is "+accomodation1.getAccomodation());
                         		   
@@ -538,7 +538,7 @@ public class Menu {
                     		System.out.println("Introduce the id of the one you want.");
                     		do {
                     			readString = console.readLine();
-                    		    Transport trans1 = ser.SearchTransport(Integer.parseInt(readString));
+                    		    Transport trans1 = ser.searchTransport(Integer.parseInt(readString));
                     		    if(trans1.checkAvailability()) {
                     			Integer a = trans1.getAvailable() + 1;
                     			trans1.setAvailable(a);
@@ -569,7 +569,7 @@ public class Menu {
                     		do {
                     		readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
-                    		Accomodation accomodation = ser.SearchAccomodation(accomid);
+                    		Accomodation accomodation = ser.searchAccomodation(accomid);
                     		if(accomodation.checkAvailability()) {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
@@ -602,7 +602,7 @@ public class Menu {
                     			do{
                     				readString = console.readLine();
                     			
-                    			activity1= ser.SearchActivity(Integer.parseInt(readString));
+                    			activity1= ser.searchActivity(Integer.parseInt(readString));
                     			if(activity1.checkAvailability()) {
                     				Integer a = activity1.getAvailability() +1;
                     				activity1.setAvailability(a);
@@ -644,7 +644,7 @@ public class Menu {
                     				
                     			System.out.println("Introduce the id of the material wanted:");
                     			readString = console.readLine();
-                    			Material mat = ser.SearchMaterial(Integer.parseInt(readString));
+                    			Material mat = ser.searchMaterial(Integer.parseInt(readString));
                     			in.insertCamper_material(camper1, mat);
                     			System.out.println("Would you want another material? (Y/N");
                     			readString = console.readLine();
@@ -668,7 +668,7 @@ public class Menu {
                         	readString = console.readLine();
                         	
                         	
-                        		if(ser.SearchTransport(readString).getType_transport()==NULL) {
+                        		if(ser.searchTransportN(readString).getType_transport()==NULL) {
                         		    transport1.setType_transport(readString);
                         			h = true;
                         		}else {
@@ -696,7 +696,7 @@ public class Menu {
                         	do {
                         	readString = console.readLine();
                         	
-                        		if(ser.SearchAccomodation(readString).getAccomodation()==NULL) {
+                        		if(ser.searchAccomodationN(readString).getAccomodation()==NULL) {
                         			accomodation1.setAccomodation(readString);
                         			h = true;
                         		}else {
@@ -720,7 +720,7 @@ public class Menu {
                         	do {
                         	readString = console.readLine();
                         	
-                        		if((ser.SearchActivity(readString)).getActivity()==NULL) {
+                        		if((ser.searchActivityN(readString)).getActivity()==NULL) {
                         			activity1.setActivity(readString);
                         			h = true;
                         		}else {
@@ -753,7 +753,7 @@ public class Menu {
                          readString = console.readLine();
                          }else {
                         	 
-                        	 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
+                        	 instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                          in.insertInstructorInA(instructor1, activity1);
                         	
                          }
@@ -771,7 +771,7 @@ public class Menu {
                      	do {
                       	readString = console.readLine();
                     	
-                    		if(ser.SearchMaterial(readString).getMaterial()==NULL) {
+                    		if(ser.searchMaterialN(readString).getMaterial()==NULL) {
                     			material1.setMaterial(readString);
                     			h = true;
                     		  }else {
@@ -875,7 +875,7 @@ public class Menu {
                     		System.out.println("Introduce the name of the one you want.");
                     		do {
                     			readString = console.readLine();
-                    		    transport1 = ser.SearchTransport(Integer.parseInt(readString));
+                    		    transport1 = ser.searchTransport(Integer.parseInt(readString));
                     		    if(transport1.checkAvailability()) {
                     			Integer a = transport1.getAvailable() + 1;
                     			
@@ -905,7 +905,7 @@ public class Menu {
                     		System.out.println("Introduce the id of the one you want.");
                     		do{readString = console.readLine();
                     	    Integer accomid = Integer.parseInt(readString);
-                    		accomodation1 = ser.SearchAccomodation(accomid);
+                    		accomodation1 = ser.searchAccomodation(accomid);
                     		if(accomodation1.checkAvailability()) {
                             Integer a = accomodation1.getAvailability()+ 1;
                     			accomodation1.setAvailability(a);
@@ -931,7 +931,7 @@ public class Menu {
                     			
                     			System.out.println("Introduce the id of the activity wanted:");
                     			readString = console.readLine();
-                    			activity1 = ser.SearchActivity(Integer.parseInt(readString));
+                    			activity1 = ser.searchActivity(Integer.parseInt(readString));
                     		    in.insertInstructorInA(instructor1, activity1);
                     			
                     			System.out.println("Would you want another activity? (Y/N");
@@ -979,7 +979,7 @@ public class Menu {
                         		System.out.println("Introduce the NIF of the one you want: ");
                         		readString = console.readLine();
                         		camper1 = new Camper();
-                        		camper1 = ser.SearchCamper(readString);
+                        		camper1 = ser.searchCamper(readString);
                             
                             System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
@@ -1067,7 +1067,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     Transport trans =new Transport();
-                                    trans=ser.SearchTransport(readString);
+                                    trans=ser.searchTransportN(readString);
                                     
                                     camper1.setTransports(trans);
                                     up.UpdateTransportInCamper(trans, camper1);
@@ -1089,7 +1089,7 @@ public class Menu {
                                 	                          
                                     readString = console.readLine();
                                     Accomodation accom =new Accomodation();
-                                    accom=ser.SearchAccomodation(readString);
+                                    accom=ser.searchAccomodationN(readString);
                                     
                                     camper1.setAccomodation(accom);
                                     up.UpdateAccomodationInCamper(accom, camper1);
@@ -1110,7 +1110,7 @@ public class Menu {
                                 		
                                 	readString = console.readLine();
                                 	Activity act1 = new Activity();
-                                	act1=ser.SearchActivity(readString);
+                                	act1=ser.searchActivityN(readString);
                                 	camper1.addActivity(act1);
                                 	up.updateActICamper(act1,camper1);
                                 	System.out.println("Would you want another activity? (Y/N");
@@ -1138,7 +1138,7 @@ public class Menu {
                                 		
                                 		
                                 			readString = console.readLine();
-                                			Material mat1 = ser.SearchMaterial(Integer.parseInt(readString));
+                                			Material mat1 = ser.searchMaterial(Integer.parseInt(readString));
                                 			up.updateMatICamper(mat1, camper1);
                                 			System.out.println("Would you want another material? (Y/N");
                                 			readString = console.readLine();
@@ -1169,7 +1169,7 @@ public class Menu {
                          		System.out.println("Introduce the name of the transport you want to modify: ");
                          		readString = console.readLine();
                          		transport1 = new Transport();
-                         		transport1= ser.SearchTransport(readString);
+                         		transport1= ser.searchTransportN(readString);
                          
                          		
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1222,7 +1222,7 @@ public class Menu {
                         	    	     System.out.println("Introduce the name of the accomodation you want: ");
                                   		readString = console.readLine();
                                   		accomodation1 = new Accomodation();
-                                  		accomodation1= ser.SearchAccomodation(readString);
+                                  		accomodation1= ser.searchAccomodationN(readString);
                                   
                                   		
                                   		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1273,7 +1273,7 @@ public class Menu {
                          		System.out.println("Introduce the id of the activity you want: ");
                          		readString = console.readLine();
                          		activity1 = new Activity();
-                         		activity1= ser.SearchActivity(Integer.parseInt(readString));
+                         		activity1= ser.searchActivity(Integer.parseInt(readString));
                          
                          		
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1323,7 +1323,7 @@ public class Menu {
                          		System.out.println("Introduce the name of the material you want: ");
                          		readString = console.readLine();
                          		material1 = new Material();
-                         		material1 = ser.SearchMaterial(readString);
+                         		material1 = ser.searchMaterialN(readString);
                          
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
                                         + "1) Name\n"
@@ -1371,7 +1371,7 @@ public class Menu {
                      		System.out.println("Introduce the id of the instructor you want: ");
                      		readString = console.readLine();
                      		instructor1 = new Instructor();
-                     		instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
+                     		instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                          
                      		System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
                                     + "1) Name"
@@ -1583,7 +1583,7 @@ public class Menu {
                 		 }
                 		 System.out.println("Select the instructor id that you want to save");
                 		 readString = console.readLine();
-                		 instructor1 = ser.SearchInstructor(Integer.parseInt(readString));
+                		 instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                 		 activities = sel.selectActOfInst(instructor1);
                 		 instructor1.setActivities(activities);
                 		 xmlm.marshalldb(instructor1);

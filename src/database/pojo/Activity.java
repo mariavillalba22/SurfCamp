@@ -187,16 +187,24 @@ public class Activity  implements Serializable {
 		}
 		return h;
 	}
-	public void addCamper(Camper camper) {
-		if (!campers.contains(camper)) {
-			this.campers.add(camper);
+	public boolean addCamper(Camper camper) {
+		Boolean h = false;
+			if (!campers.contains(camper)) {
+				this.campers.add(camper);
+				h = true;
+			}
+			return h;
 		}
-	}
-	public void removeCamper(Camper camper) {
-		if(campers.contains(camper)) {
-			this.campers.remove(camper);
+		public boolean removeCamper(Camper camper) {
+			Boolean h = false;
+			if(campers.contains(camper)) {
+				this.campers.remove(camper);
+				h = true;
+			}
+			return h;
 		}
-	}
+		
+		
 	
 	
 }

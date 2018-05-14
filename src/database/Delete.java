@@ -74,11 +74,7 @@ public class Delete {
 	
 		
 }
-  /*public void deleteTransportIdfromIN ( int transportID) {
-	   Statement stmt = c.createStatement();
-	   String sql ="DELETE FROM instructor"
-   }
-   */
+ 
    public void deleteMaterialIdfromCM ( int materialID) throws SQLException {
 		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper_material WHERE id_material = ?";

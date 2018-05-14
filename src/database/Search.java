@@ -20,7 +20,7 @@ public class Search {
 	}
  
 	// he puesto NIF pq en el checklist pedia buscar por algo distinto al id
-	public Camper SearchCamper( String NIF) throws SQLException {
+	public Camper searchCamper( String NIF) throws SQLException {
 		String sql = "SELECT * FROM camper WHERE NIF LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setString(1, NIF);
@@ -40,7 +40,7 @@ public class Search {
 		return camper;
 	}
 	
-	public Instructor SearchInstructor( Integer id) throws SQLException {
+	public Instructor searchInstructor( Integer id) throws SQLException {
 		String sql = "SELECT * FROM instructor WHERE id LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -59,7 +59,7 @@ public class Search {
 		return instructor;
 	}
 	
-	public Activity SearchActivity( Integer id) throws SQLException {
+	public Activity searchActivity( Integer id) throws SQLException {
 		String sql = "SELECT *FROM activity WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -74,7 +74,7 @@ public class Search {
 		}
 		return activity;
 	}
-	public Activity SearchActivity( String name) throws SQLException {
+	public Activity searchActivityN( String name) throws SQLException {
 		String sql = "SELECT *FROM activity WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setString(1, name);
@@ -90,7 +90,7 @@ public class Search {
 		return activity;
 	}
 	
-	public Material SearchMaterial( Integer id)throws SQLException{
+	public Material searchMaterial( Integer id)throws SQLException{
 		String sql = "SELECT *FROM material WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -105,7 +105,7 @@ public class Search {
 		return material;
 	}
 	
-	public Material SearchMaterial( String name)throws SQLException{
+	public Material searchMaterialN( String name)throws SQLException{
 		String sql = "SELECT *FROM material WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setString(1, name);
@@ -119,7 +119,7 @@ public class Search {
 		}
 		return material;
 	}
-	public Accomodation SearchAccomodation( Integer id) throws SQLException{
+	public Accomodation searchAccomodation( Integer id) throws SQLException{
 		String sql = "SELECT *FROM accomodation WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
@@ -135,7 +135,7 @@ public class Search {
 		return accomodation;
 	}
 	
-	public Accomodation SearchAccomodation( String name) throws SQLException{
+	public Accomodation searchAccomodationN( String name) throws SQLException{
 		String sql = "SELECT *FROM accomodation WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setString(1, name);
@@ -151,7 +151,7 @@ public class Search {
 		return accomodation;
 	}
 	
-	public Transport SearchTransport(String name) throws SQLException{
+	public Transport searchTransportN(String name) throws SQLException{
 		String sql = "SELECT *FROM transport WHERE name LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setString(1, name);
@@ -166,7 +166,7 @@ public class Search {
 		return trans;
 	}
 	
-	public Transport SearchTransport(Integer id) throws SQLException{
+	public Transport searchTransport(Integer id) throws SQLException{
 		String sql = "SELECT *FROM transport WHERE id LIKE ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, id);
