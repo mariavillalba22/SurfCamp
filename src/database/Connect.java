@@ -37,7 +37,7 @@ public class Connect implements ConnectInterface {
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:./db/Surfcamp.db");
 		c.createStatement().execute("PRAGMA foreign_keys=ON");
-		System.out.println("Database connection opened.");
+		
 		}
 	
 	public Connection getConnectiondb() {

@@ -33,7 +33,8 @@ public class Search {
 			Integer phonenumber = rs.getInt("phone_number");
 			String email = rs.getString("email");
 			String payment_method = rs.getString("payment_method");
-			camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method);
+			Integer needtopay = rs.getInt("needtopay");
+			camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method,needtopay);
 			
 			
 	}

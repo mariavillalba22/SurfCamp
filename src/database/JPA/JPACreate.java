@@ -10,7 +10,7 @@ public class JPACreate {
 	public JPACreate(EntityManager em) {
 		this.em=em;
 	}
-	public void createCamper(  Camper camper) {
+	public void createCamper(Camper camper) {
 		em.getTransaction().begin();
 		em.persist(camper);
 		em.getTransaction().commit();
