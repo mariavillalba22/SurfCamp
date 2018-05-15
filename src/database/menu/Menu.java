@@ -36,7 +36,6 @@ public class Menu {
     	BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
     	DbManager d =new DbManager();
 
-    	Iterator it;
     	
     	Connect c=new Connect();
     	c.connectiondb();
@@ -48,11 +47,9 @@ public class Menu {
     	}catch(SQLException ex) {
     		System.out.println("\n\nTables are already created.");
     	}
-    //d.createTables(c.getConnectiondb());
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
-    	Drop drop = new Drop(c.getConnectiondb());
     	Selection sel = new Selection(c.getConnectiondb());
     	Search ser = new Search(c.getConnectiondb());
     	
@@ -60,7 +57,6 @@ public class Menu {
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
     JPARead read = new JPARead(em.getEntityManager());
     XMLmanager xmlm = new XMLmanager();
-    	XMLdb xmldb = new XMLdb(xmlm);
     
     	do {
     		Camper camper1 = new Camper();
@@ -131,9 +127,15 @@ public class Menu {
                             			List<String> x = new ArrayList();
                             			x= sel.selectMaterialNames(camper);
                                          for(String s :x) {
-                                        	System.out.println("the material for this camper is " +s); 
+                                        	System.out.println("The material for this camper is " +s); 
                                        
                                          }
+                                         
+                                     x = sel.selectActivityNames(camper);
+                                     for(String s :x) {
+                                     	System.out.println("The activity for this camper is " +s); 
+                                      } 
+                                   
 
 									}
 	
@@ -263,11 +265,16 @@ public class Menu {
                             	System.out.println("Insert accomodation id:\t");
                             	readString = console.readLine();
                             	int acc_id = Integer.parseInt(readString);
-                            	List<String>camperNamesAcc = new ArrayList();
-                            	camperNamesAcc=sel.selectCamperfromAcc(acc_id);
-                            	
-                            	for(String cNA : camperNamesAcc) {
-                            		
+                            	accomodation1 = ser.searchAccomodation(acc_id);
+                            	List<String>x= new ArrayList();
+                            	x=sel.selectCamperfromAcc(acc_id);
+                            	System.out.println("This are the campers staying in the "+ accomodation1.getAccomodation());
+                            	for(String cNA : x) {
+                            		System.out.println(cNA);
+                            	}
+                            	x = sel.selectInstructorfromAcc(acc_id);
+                            	System.out.println("This are the instructors staying in the "+accomodation1.getAccomodation());
+                            	for(String cNA : x ) {
                             		System.out.println(cNA);
                             	}
 	
@@ -882,7 +889,7 @@ public class Menu {
                     		for(Transport trans: transports) {
                     			System.out.println(trans);
                     		}
-                    		System.out.println("Introduce the name of the one you want.");
+                    		System.out.println("Introduce the id of the one you want.");
                     		do {
                     			readString = console.readLine();
                     		    transport1 = ser.searchTransport(Integer.parseInt(readString));
@@ -1175,16 +1182,14 @@ public class Menu {
                          			System.out.println(trans);
                          		}
                          	
-                         		System.out.println("Introduce the name of the transport you want to modify: ");
+                         		System.out.println("Introduce the id of the transport you want to modify: ");
                          		readString = console.readLine();
-                         		transport1 = new Transport();
-                         		transport1= ser.searchTransportN(readString);
+                         		transport1= ser.searchTransport(Integer.parseInt(readString));
                          
                          		
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
                                         + "1) Name\n"
                                         + "2) Price\n\n"
-                                        + ""
                                         + "Option number: ");
 
                                 readString = console.readLine();
@@ -1228,16 +1233,14 @@ public class Menu {
                         	    	     for(Accomodation acc: accomodations) {
                         	    	    	     System.out.println(acc);
                         	    	     }
-                        	    	     System.out.println("Introduce the name of the accomodation you want: ");
+                        	    	     System.out.println("Introduce the id of the accomodation you want: ");
                                   		readString = console.readLine();
-                                  		accomodation1 = new Accomodation();
-                                  		accomodation1= ser.searchAccomodationN(readString);
+                                  		accomodation1= ser.searchAccomodation(Integer.parseInt(readString));
                                   
                                   		
                                   		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
                                                  + "1) Name\n"
                                                  + "2) Price\n\n"
-                                                 + ""
                                                  + "Option number: ");
 
                                          readString = console.readLine();
@@ -1281,7 +1284,6 @@ public class Menu {
                          	
                          		System.out.println("Introduce the id of the activity you want: ");
                          		readString = console.readLine();
-                         		activity1 = new Activity();
                          		activity1= ser.searchActivity(Integer.parseInt(readString));
                          
                          		
@@ -1329,10 +1331,9 @@ public class Menu {
                          			System.out.println(mat);
                          		}
                          	
-                         		System.out.println("Introduce the name of the material you want: ");
+                         		System.out.println("Introduce the id of the material you want: ");
                          		readString = console.readLine();
-                         		material1 = new Material();
-                         		material1 = ser.searchMaterialN(readString);
+                         		material1 = ser.searchMaterial(Integer.parseInt(readString));
                          
                          		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
                                         + "1) Name\n"
@@ -1383,7 +1384,7 @@ public class Menu {
                      		instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                          
                      		System.out.println("WHAT WOULD YOU LIKE TO MODIFY: \n\n"
-                                    + "1) Name"
+                                    + "  1) Name"
                                     + "  2) Date of Birth"
                                     + "  3) Nationality"
                                     + "  4) NIF"

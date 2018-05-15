@@ -219,6 +219,8 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 	prep.close();
 	return mat;
 }
+
+
 	
 	public List<Activity> selectActivity()throws SQLException{
 		Statement stmt = c.createStatement();
@@ -278,6 +280,22 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		return accomodation_id;
 	}
 	
+	public List<String> selectInstructorfromAcc( Integer accomodation_id)throws SQLException{
+		String sql="SELECT name FROM instructor WHERE accomodation_id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, accomodation_id);
+		ResultSet rs=prep.executeQuery();
+		List<String> instInAcc = new ArrayList();
+		
+		while (rs.next()) {
+			String name = rs.getString("name");
+			instInAcc.add(name);
+		}
+		rs.close();
+		return instInAcc;
+
+	}
+	
 	public List<String> selectCamperfromAcc( Integer accomodation_id)throws SQLException{
 		String sql="SELECT name FROM camper WHERE accomodation_id=?";
 		PreparedStatement prep = c.prepareStatement(sql);
@@ -294,7 +312,14 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		return campersInAcc;
 
 	}
-	
+	public String selectNameAct(Integer id) throws SQLException {
+		String sql = "SELECT name FROM activity WHERE id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,id);
+		ResultSet rs = prep.executeQuery();
+		String name = rs.getString("name");
+		return name;
+	}
 	
 	
 	public String selectNameMat(Integer id) throws SQLException {
@@ -320,6 +345,23 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		rs.close();
 		prep.close();
 		return materialname;
+	}
+	
+	public List<String> selectActivityNames(Camper camper)throws SQLException{
+
+		String sql = "SELECT id_activity FROM camper_activity WHERE id_camper =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,camper.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<String> name = new ArrayList();
+		while (rs.next()) {
+			int id = rs.getInt("id_activity");
+			name.add(selectNameAct(id));
+		}
+		rs.close();
+		prep.close();
+		return name;
 	}
 	
 	public List<Activity> selectActOfInst(Instructor ins) throws SQLException{
