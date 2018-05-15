@@ -95,7 +95,7 @@ public class Insertion {
 
 
 
-	public void insertCamper_material( Camper camper, Material material)throws SQLException{
+	public void insertCamper_material( Camper camper, Material material) throws SQLException{
 
 		String sql9="INSERT INTO camper_material(id_camper, id_material)"+ 
 					"VALUES(?,?)";

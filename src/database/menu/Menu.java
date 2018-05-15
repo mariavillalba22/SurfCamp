@@ -472,7 +472,7 @@ public class Menu {
                             
                          System.out.println("Insert phone number: ");
         						String telephone = console.readLine();
-        						camper1.setPhonenumber(Integer.parseInt(readString));
+        						camper1.setPhonenumber(Integer.parseInt(telephone));
         					
         					System.out.println("Insert email:");
         						do {
@@ -595,6 +595,8 @@ public class Menu {
                     }
                     
                     
+                    //AQUI ERROR PORFA AYUDA
+                    
                     	System.out.println("Does the camper want an activity? (Y/N)");
                     	readString = console.readLine();
                     	if(readString.equals("Y")) {
@@ -614,17 +616,17 @@ public class Menu {
                     			if(activity1.checkAvailability()) {
                     				Integer a = activity1.getAvailability() +1;
                     				activity1.setAvailability(a);
-                    				up.UpdateActivity(activity1);
                     				camper1.addNeedToPay(activity1.getPrice());
-                                 up.UpdateCamper(camper1);
                     				in.insertCamper_activity(camper1, activity1);
+                    				up.UpdateCamper(camper1);
+                    				up.UpdateActivity(activity1);
                     				h = true;
                     			}else{
                     				System.out.println("The activity is already full. CHoose a diferent one:");
                     				h = false;
                     			}
                     			}while(h = false);
-                    			in.insertCamper_activity(camper1, activity1);
+                    			
                     			System.out.println("Would you want another activity? (Y/N) ");
                     			readString = console.readLine();
                     			if(readString.equals("Y")) {
@@ -1000,7 +1002,7 @@ public class Menu {
                                     + "  7) Transport"
                                     + "  8) Accomodation"
                                     + "  9) Activity\n\n"
-                                    + ""
+                                    + "  10) Material\n\n"
                                     + "  Option number: ");
 
                             readString = console.readLine();
@@ -1065,11 +1067,14 @@ public class Menu {
 
                                 case 7: //transport
                                 	transports=sel.selectTransport();
-                                	for (Transport transport : transports) {
+                                	if(transports.isEmpty()){
+                                    	System.out.println("There is any trasport available. Sorry");
+                                	}
+                                	else{
+                                		System.out.println("Choose the new trasport: ");
+                                		for (Transport transport : transports) {
                             			System.out.println(transport);
                             		}
-                                	
-                                	System.out.println("Insert the new transport: ");
                                     
                                     readString = console.readLine();
                                     Transport trans =new Transport();
@@ -1078,18 +1083,21 @@ public class Menu {
                                     camper1.setTransports(trans);
                                     up.UpdateTransportInCamper(trans, camper1);
                                 	
-                                    break;
+                                	}break;
 
                                 case 8: //accomodation	
                                 
                                 	
                                 	accomodations=sel.selectAccomodation();
+                                	if(accomodations.isEmpty()){
+                                    	System.out.println("There is any material available. Sorry");
+                                	}
+                                	else {
+                                		System.out.println("Choose the new accomodation: ");
                                 	for (Accomodation accomodation : accomodations) {
                             			System.out.println(accomodation);
                             		}
-                                	
-                                	System.out.println("Insert the new accomodation: ");
-                                    
+                                	                          
                                     readString = console.readLine();
                                     Accomodation accom =new Accomodation();
                                     accom=ser.searchAccomodationN(readString);
@@ -1097,11 +1105,61 @@ public class Menu {
                                     camper1.setAccomodation(accom);
                                     up.UpdateAccomodationInCamper(accom, camper1);
  
-                                    break;
+                                	}break;
 
-                                case 9: //activity
-                                    break;
-
+                                case 9: 
+                                		activities =sel.selectActivity();
+                                		if(activities.isEmpty()){
+                                        	System.out.println("There is any activity available. Sorry");
+                                    	}
+                                		else {
+                                			do {
+                                        	System.out.println("Choose the new activity: ");
+                                		for(Activity act : activities) {
+                                			System.out.println(act);
+                                		}
+                                		
+                                	readString = console.readLine();
+                                	Activity act1 = new Activity();
+                                	act1=ser.searchActivityN(readString);
+                                	camper1.addActivity(act1);
+                                	up.updateActICamper(act1,camper1);
+                                	System.out.println("Would you want another activity? (Y/N");
+                        			readString = console.readLine();
+                        			if(readString.equals("Y")) {
+                        				h = true;
+                        			}else {
+                        				h = false;
+                        			}
+                        			}while(h == true);
+                                		}break;
+                                    
+                                case 10:
+                                	
+                                		materials =sel.selectMaterial();
+                                		if(materials.isEmpty()){
+                                        	System.out.println("There is any material available. Sorry");
+                                    	}
+                                		else {
+                                			do {
+                                        		System.out.println("Choose the new material: ");
+                                		for(Material mat : materials) {
+                                			System.out.println(mat);
+                                		}
+                                		
+                                		
+                                			readString = console.readLine();
+                                			Material mat1 = ser.searchMaterial(Integer.parseInt(readString));
+                                			up.updateMatICamper(mat1, camper1);
+                                			System.out.println("Would you want another material? (Y/N");
+                                			readString = console.readLine();
+                                			if(readString.equals("Y")) {
+                                				h = true;
+                                			}else {
+                                				h = false;
+                                			}
+                                			}while(h == true);
+                                		}	break;
                                
                             }
 

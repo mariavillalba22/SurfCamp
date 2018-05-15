@@ -114,9 +114,24 @@ public void UpdateAccomodationInCamper(Accomodation accom, Camper cam) throws SQ
 	  prep.setInt(2, cam.getId());
 	  prep.executeUpdate();
 	  
-	  
-	  
   }
 
+public void updateActICamper(Activity act, Camper camp) throws SQLException{
+	
+	String sql = "UPDATE camper SET activity_id=? WHERE id=?";
+	  PreparedStatement prep = c.prepareStatement(sql);
+	  prep.setInt(1, act.getId());
+	  prep.setInt(2, camp.getId());
+	  prep.executeUpdate();
+}
+
+public void updateMatICamper(Material mat, Camper camp) throws SQLException{
+	
+	String sql = "UPDATE camper SET material_id=? WHERE id=?";
+	  PreparedStatement prep = c.prepareStatement(sql);
+	  prep.setInt(1, mat.getId());
+	  prep.setInt(2, camp.getId());
+	  prep.executeUpdate();
+}
 
 }

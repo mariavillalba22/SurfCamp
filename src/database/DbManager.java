@@ -62,14 +62,12 @@ public void createTables(Connection c) throws SQLException{
 				+"  needtopay INTEGER NOT NULL, "
 				+"	transport_id INTEGER REFERENCES transport(id) ON DELETE SET NULL, "
 				+"	accomodation_id INTEGER REFERENCES accomodation(id) ON DELETE SET NULL)";
-				
-		//falta material 
 		stmt3.executeUpdate(campers);
 		stmt3.close();
 		
 		stmtSeq = c.createStatement();
-		sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('camper', 1)";
-		stmtSeq.executeUpdate(sqlSeq);
+        sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('camper', 1)";
+		stmtSeq.executeUpdate(sqlSeq);;
 		
 		Statement stmt4 = c.createStatement();
 		String material = "CREATE TABLE material"
@@ -105,11 +103,8 @@ public void createTables(Connection c) throws SQLException{
 		Statement stmt6 = c.createStatement();
 		String transport = "CREATE TABLE transport"
 				+"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-
 			    + "name TEXT NOT NULL,"
-			    
 			    + "availability INTEGER NOT NULL,"
-			    
 			    + "price INTEGER NOT NULL )";
 		stmt6.executeUpdate(transport);
 		stmt6.close();
@@ -145,81 +140,5 @@ public void createTables(Connection c) throws SQLException{
 	
 }
 
-public static void main(String args[])throws Exception{
 
-	
-	DbManager d =new DbManager();
-	Connect c=new Connect();
-	Delete del=new Delete(c.getConnectiondb());
-	Insertion in=new Insertion(c.getConnectiondb());
-	Update up = new Update(c.getConnectiondb());
-	Selection sel = new Selection(c.getConnectiondb());
-	Search ser = new Search(c.getConnectiondb());
-	c.connectiondb();
-	List<Material> mat = new ArrayList();
-	List<Activity> activ = new ArrayList();
-	LocalDate january1st2014 = LocalDate.of(2014, Month.JANUARY, 1);
-
-	Instructor inst=new Instructor("maria",656765456,january1st2014,"234567M","american",500);
-	Instructor inst2=new Instructor("raquel",616525795,january1st2014,"9999999M","Spanish",700);
-
-	Activity a = new Activity ("natacion",300,inst,null,null);
-	Activity a2 = new Activity( "patinaje", 400,inst2,null,null);
-	
-	
-	Accomodation ac= new Accomodation("hotel",300);
-	Accomodation ac2 = new Accomodation("camping",800);
-	
-	Transport t = new Transport("plane",600);
-	Transport t2 = new Transport("train",100);
-	
-	Material m=new Material(1,"row",100);
-	Material m2=new Material(2,"board",200);
-    mat.add(m);
-    mat.add(m2);
-	
-	d.createTables(c.getConnectiondb());
- /*  inst = in.insertInstructor( inst);
-	inst2 = in.insertInstructor( inst2);
-	a = in.insertActivity(a);
-	a2 = in.insertActivity(a2);
-	
-	in.insertAccomodation( ac);
-	in.insertAccomodation( ac2);
-    t = in.insertTransport( t2);
-    in.insertTransport(t);
-	
-	
-
-	m = in.insertMaterial( m);
-	m2 = in.insertMaterial( m2);
-	*/
-    Camper c1=new Camper("Lucia",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac,mat,activ);
-   	Camper c2=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
-   	Camper c3=new Camper("Maria",january1st2014,"567483985g",567654567,"lucia_arce96@hotmail.com","credit card",t2,ac2,mat,activ);
-
-   	 
-	/*in.insertCamper( c1);
-	in.insertCamper( c2);
-	in.insertCamper(c3);
-
-	in.insertCamper_material( c1, m);
-	in.insertCamper_material( c2, m2);
-	in.insertCamper_activity( c1, a);
-	in.insertCamper_activity( c2, a2);
-	in.insertMaterial_activity( m, a);
-	in.insertTransInC(c1, t);
-	
-	
-	sel.selectTnsC( c1);
-*/
-	JPAconnect em=new JPAconnect();
-	em.connectiondb();
-	JPARead jpa = new JPARead(em.getEntityManager());
-   c1.setName("nacho");
-    up.UpdateCamper(c1);
-
-	
-
-}
 }
