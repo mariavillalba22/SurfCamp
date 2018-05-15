@@ -595,8 +595,6 @@ public class Menu {
                     }
                     
                     
-                    //AQUI ERROR PORFA AYUDA
-                    
                     	System.out.println("Does the camper want an activity? (Y/N)");
                     	readString = console.readLine();
                     	if(readString.equals("Y")) {
