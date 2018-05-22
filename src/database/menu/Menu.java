@@ -174,6 +174,7 @@ public class Menu {
                         	switch (optnum2) {
                         	
                         	case 1:{
+                        		
                         		transports = read.ReadTransports();
                         		for (Transport transport : transports) {
                         			System.out.println(transport);
@@ -216,7 +217,7 @@ public class Menu {
                                     + "\n1) List all accomodation (Full view)\t"
                                     + "\n2) List all accomodation available\t"
                                     + "\n3) List all accomodation under a specific price"
-                                    + "\n4 List all campers accomodated in a specific place"
+                                    + "\n4) List all campers and instructors accomodated in a specific place"
                                     + "\nOption number: \t");
                         	
                         	readString = console.readLine();
@@ -341,7 +342,7 @@ public class Menu {
                         	
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all Material (Full view)\t"
-                                    + "\n2) List all Material (names only)\t"
+                                    + "\n2) List a Material\t"
                                     + "\n3) List all Material under a specific price"
                                     + "\nOption number: \t");
                         	
@@ -361,11 +362,20 @@ public class Menu {
                         	}break;//case 1 view full materials
                             	
                         	case 2:{
+                        		System.out.println("This are the materials: ");
                         		materials=sel.selectMaterial();
                         		for(Material material: materials) {
                         			System.out.println(material.getMaterial());
                         		}
-                            	
+                        		System.out.println("Introduce the name of the material you want to see: ");
+                        		readString = console.readLine();
+                        		System.out.println(material1);
+                        		
+                        		
+                        		
+                        		
+                        		
+                        		
                         	}break;//case 2 listar nombres
                             	
                             case 3:{
@@ -436,7 +446,9 @@ public class Menu {
                             + "3) Accomodation\n"
                             + "4) Activities\n"
                             + "5) Material\n"
-                            + "6) Instructor\n\n"
+                            + "6) Instructor\n"
+                            + "7) A new material in camper\n"
+                            + "8) A new activity in camper\n\n"
                             + ""
                             + "Option number: ");
 
@@ -702,7 +714,8 @@ public class Menu {
                         	Integer price = Integer.parseInt(readString);
                         	transport1.setPrice(price);
                         	transport1.setAvailable(0);
-                        	create.createTransport(transport1);
+                        	in.insertTransport(transport1);
+                        	
                         	
    
                             break;
@@ -770,7 +783,7 @@ public class Menu {
                          readString = console.readLine();
                          }else {
                         	 
-                        	 instructor1 = ser.searchInstructor(Integer.parseInt(readString));
+                        	instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                          in.insertInstructorInA(instructor1, activity1);
                         	
                          }
@@ -963,6 +976,60 @@ public class Menu {
                     		
                         	break;
                     }
+                        
+                        case 7: 
+                        {
+                        	
+                        	System.out.println("The campers are: ");
+                        	campers = sel.selectCamper();
+                        	List<String> x = new ArrayList();
+                			
+                        	for(Camper camp : campers) {
+                        		System.out.println("ID: "+camp.getId()+" .Name: " +camp.getName());
+                        	}
+                        	System.out.println("Insert the ID of the camper to which you will add a material: ");
+                        	readString = console.readLine();
+                        	camper1 = ser.searchCamper(Integer.parseInt(readString));
+                        	materials = sel.selectMaterial();
+                        	System.out.println("The materials are: ");
+                        	for(Material mat : materials) {
+                        		System.out.println("ID: "+mat.getId()+" .Name: " +mat.getMaterial());
+                        	}
+                        	System.out.println("Insert the ID of the material you want to insert: ");
+                        	readString = console.readLine();
+                        	material1 = ser.searchMaterial(Integer.parseInt(readString));
+                        	in.insertCamper_material(camper1, material1);
+                        	
+                        	break;
+                        }
+                        
+                        case 8:
+                        {
+                        	System.out.println("The campers are: ");
+                        	campers = sel.selectCamper();
+                        	List<String> x = new ArrayList();
+                			
+                        	for(Camper camp : campers) {
+                        		System.out.println("ID: "+camp.getId()+" .Name: " +camp.getName());
+                        	}
+                        	System.out.println("Insert the ID of the camper to which you will add a material: ");
+                        	readString = console.readLine();
+                        	camper1 = ser.searchCamper(Integer.parseInt(readString));
+                         activities = sel.selectActivity();
+                        	System.out.println("The activities are: ");
+                        	for(Activity act: activities) {
+                        		System.out.println("ID: "+act.getId()+" .Name: " +act.getActivity());
+                        	}
+                        	System.out.println("Insert the ID of the activity you want to insert: ");
+                        	readString = console.readLine();
+                        	activity1 = ser.searchActivity(Integer.parseInt(readString));
+                        	in.insertCamper_activity(camper1, activity1);
+                        	break;
+                        }
+                        
+                        	
+                        	
+                        	
                     }}
             
                 break;

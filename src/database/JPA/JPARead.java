@@ -16,12 +16,11 @@ public class JPARead {
 		this.em = em;
 	}
 	
-	public void ReadMat_Camp(Camper camper) {
-		Query q1 = em.createNativeQuery("SELECT * FROM material WHERE id = (SELECT id_material FROM"
-				+ "camper_material WHERE id_camper =  ?", Camper.class);
-		q1.setParameter(1, "%" + camper.getId() + "%");
-		List<Material> mat = (List<Material>) q1.getResultList();
-		System.out.println(mat);
+	public Material readMaterial(String name) {
+		Query q1 = em.createNativeQuery("SELECT * FROM material WHERE name LIKE ?", Material.class);
+		q1.setParameter(1, "%" + name + "%");
+		Material material = (Material) q1.getSingleResult();
+		return material;
 	}
 	
 	public List<Transport> ReadTransports() {
