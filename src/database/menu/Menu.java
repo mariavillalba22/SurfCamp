@@ -53,6 +53,7 @@ public class Menu {
     	Selection sel = new Selection(c.getConnectiondb());
     	Search ser = new Search(c.getConnectiondb());
     	
+    	JPADelete delete = new JPADelete(em.getEntityManager());
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
     JPARead read = new JPARead(em.getEntityManager());
@@ -174,7 +175,7 @@ public class Menu {
                         	switch (optnum2) {
                         	
                         	case 1:{
-                        		
+                        		//Here we use JPA instead of JDBC to show that it works
                         		transports = read.ReadTransports();
                         		for (Transport transport : transports) {
                         			System.out.println(transport);
@@ -412,9 +413,13 @@ public class Menu {
                         		for (Instructor instructor : instructors) {
                         			System.out.println(instructor);
                             transport1 = ser.searchTransport(sel.selectTnsI(instructor));
-                        	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor));
+                         	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor));
                         	System.out.println("The transport for instructor "+instructor.getId()+" is "+ transport1.getType_transport()+""
                         			+ "\nThe accomodation is "+accomodation1.getAccomodation());
+                        	activities = sel.selectActOfInst(instructor);
+                        	for(Activity act: activities) {
+                        		System.out.println(act.getActivity());
+                        	}
                         		   
                         		}
                         	}break; //case 1 long instructor
@@ -1523,9 +1528,6 @@ public class Menu {
                 case 4: //delete
                 {
                 	
-                	 System.out.println("Do you want to delete one thing (1) or all the table(2)?");
-                	 System.out.println("Chose one option:");
-                	 readString = console.readLine();
                 	 
                 		 
                 	 
@@ -1551,6 +1553,32 @@ public class Menu {
 						}
                         System.out.println("Select the id from the camper to be deleted:");
                         int num=Integer.parseInt(console.readLine());
+                        Integer a;
+                        camper1 = ser.searchCamper(num);
+                      	accomodation1 = ser.searchAccomodation(sel.selectAcomC(camper1));
+                      	if(accomodation1.getAccomodation()!=NULL) {
+                     	a = accomodation1.getAvailability() - 1;
+                	        accomodation1.setAvailability(a);
+                	        up.UpdateAccomodation(accomodation1);
+                      	}
+                      	
+                        	transport1 = ser.searchTransport(sel.selectTnsC(camper1));
+                        	if(transport1.getType_transport()!=NULL) {
+                        	a = transport1.getAvailable() - 1;
+                    	    transport1.setAvailable(a);
+                    	    up.UpdateTransport(transport1);
+                        	}
+                        	
+                    	    List<String> nm = sel.selectActivityNames(camper1);
+                    	    for(String name: nm) {
+                    	    	activity1 = ser.searchActivityN(name);
+                    	    	if(activity1.getActivity()!=NULL) {
+                        	a = activity1.getAvailability() - 1;
+                    	    activity1.setAvailability(a);
+                    	    up.UpdateActivity(activity1);
+                    	    	}
+                    	    }
+                    	    
                         del.deleteCamperIdfromA(num);
                         del.deleteCamperIdfromM(num);
                         del.deleteCamperId(num);
@@ -1583,14 +1611,14 @@ public class Menu {
                         			System.out.println(accom);
                         		}
                         	}
-                        	System.out.println("Insert the id of the transport that you want to delete:");
+                        	System.out.println("Insert the id of the accomodation that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
-                        	//sel.selectTnsC(num);
-                        	del.deleteAccomodationID(num);
+                         del.deleteAccomodationID(num);
+                        	
                         	}
                             break;
 
-                        case 4: //activity funciona
+                        case 4: 
                         	{
                          activities = sel.selectActivity();
                         	if(activities.isEmpty()) {
@@ -1609,7 +1637,7 @@ public class Menu {
                             break;
 
                         case 5:
-                        	//material funciona
+                        	
                         {
                         materials = sel.selectMaterial();
                         	if(materials.isEmpty()) {
@@ -1628,7 +1656,7 @@ public class Menu {
                         }
                             break;
 
-                        case 6: //delete instructor funciona
+                        case 6: 
                         {
                         instructors = sel.selectInstructor();
                         	
@@ -1639,10 +1667,52 @@ public class Menu {
                         			System.out.println(inst);
                         		}
                         	}
+                        	Integer a;
                         	System.out.println("Insert the id of the instructor that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
+                        	instructor1 = ser.searchInstructor(num);
+                        	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor1));
+                        	if(accomodation1.getAccomodation()!=NULL) {
+                         a = accomodation1.getAvailability() - 1;
+                    	    accomodation1.setAvailability(a);
+                    	    up.UpdateAccomodation(accomodation1);
+                        	}
+                        	
+                         transport1 = ser.searchTransport(sel.selectTnsI(instructor1));
+                        	if(transport1.getType_transport()!=NULL) {
+                        	a = transport1.getAvailable() - 1;
+                    	    transport1.setAvailable(a);
+                    	    up.UpdateTransport(transport1);
+                        	}
+                        	System.out.println("If you delete the instructor the activity of that instructor will requires another instructor or be delete");
+                        	System.out.println("Do you want to continue (Y/N");
+                        	readString = console.readLine();
+                        	if(readString.equals("Y")) {
                         	del.deleteInstructorID(num);
-                        	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
+                        	List<Integer> activity_ID = sel.selectActI(instructor1);
+                        	instructors = sel.selectInstructor();
+                        	if(instructors.isEmpty()) {
+                        		System.out.println("No instructors, the activities will be delete.");
+                        		for(Integer aid: activity_ID) {
+                        			del.deleteActivityID(aid);
+                        		}
+                        		
+                        	}else {
+                        	for(Instructor ins: instructors) {
+                        		System.out.println("ID: "+ins.getId()+"Name: "+ ins.getName());
+                        	}
+                        	for(Integer aid : activity_ID) {
+                        		activity1 = ser.searchActivity(aid);
+                        		System.out.println("Insert the id of the instructor for  "+activity1.getActivity());
+                        		readString = console.readLine();
+                        		activity1.setInst(ser.searchInstructor(Integer.parseInt(readString)));
+                        		up.UpdateActivity(activity1);
+                        	}
+                        		
+                        	}
+                        	}
+                        	
+                        	
 
                         } break;
                            

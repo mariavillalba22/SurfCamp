@@ -17,7 +17,6 @@ public class Delete {
 	}
 
 	public void deleteCamperId ( int camperID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, camperID);
@@ -25,21 +24,18 @@ public class Delete {
 	}
 	
 	public void deleteCamperIdfromM ( int camperID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper_material WHERE id_camper = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, camperID);
 		prep.executeUpdate();			
 	}
 	public void deleteCamperIdfromA ( int camperID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper_activity WHERE id_camper = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, camperID);
 		prep.executeUpdate();			
 	}
 	public void deleteActivityIdfromCA ( int activityID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper_activity WHERE id_activity= ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, activityID);
@@ -47,7 +43,6 @@ public class Delete {
 	}
 	
 	public void deleteTransportID ( int transportID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE  FROM transport WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, transportID);
@@ -56,7 +51,6 @@ public class Delete {
 	}
 	
     public void deleteInstructorID ( int instructorID) throws SQLException {
-    	Statement stmt = c.createStatement();
 		String sql = "DELETE  FROM instructor WHERE id = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, instructorID);
@@ -66,7 +60,6 @@ public class Delete {
 	}
 
    public void deleteMaterialID ( int materialID) throws SQLException {
-	Statement stmt = c.createStatement();
 	String sql = "DELETE FROM material WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, materialID);
@@ -76,14 +69,12 @@ public class Delete {
 }
  
    public void deleteMaterialIdfromCM ( int materialID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM camper_material WHERE id_material = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, materialID);
 		prep.executeUpdate();			
 	}
    public void deleteMaterialIdfromMA ( int materialID) throws SQLException {
-		Statement stmt = c.createStatement();
 		String sql = "DELETE FROM material_activity WHERE id_material = ?";
 		PreparedStatement prep  = c.prepareStatement(sql);
 		prep.setInt(1, materialID);
@@ -92,7 +83,6 @@ public class Delete {
 
 public void deleteAccomodationID ( int accomodationID) throws SQLException {
     
-	Statement stmt = c.createStatement();
 	String sql = "DELETE FROM accomodation WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, accomodationID);
@@ -103,7 +93,6 @@ public void deleteAccomodationID ( int accomodationID) throws SQLException {
 
 public void deleteActivityID ( int activityID) throws SQLException {
     
-
 	String sql = "DELETE  FROM activity WHERE id = ?";
 	PreparedStatement prep  = c.prepareStatement(sql);
 	prep.setInt(1, activityID);

@@ -260,6 +260,20 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		return transport_id;
 	}
 	
+	public List<Integer> selectActI( Instructor instructor)throws SQLException{
+		String sql="SELECT id FROM activity WHERE instructor_id=?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, instructor.getId());
+		ResultSet rs=prep.executeQuery();
+		List<Integer> ids = new ArrayList();
+		while(rs.next()) {
+		int activity_id=rs.getInt("id");
+		ids.add(activity_id);
+		}
+		return ids;
+		
+	}
+	
 	public Integer selectAcomI( Instructor instructor)throws SQLException{
 		String sql="SELECT accomodation_id FROM instructor WHERE id=?";
 		PreparedStatement prep = c.prepareStatement(sql);
