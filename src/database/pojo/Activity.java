@@ -26,6 +26,8 @@ public class Activity  implements Serializable {
 	@TableGenerator(name="activity", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="activity")
 	
+	
+	//we put id as an attribute so that in the html it can show the id
 	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
@@ -51,9 +53,8 @@ public class Activity  implements Serializable {
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
 	private List<Material> material;
-	//ELIMINAR
+	
 
-// faltan metodos
 	public Activity() {
 		super();
 		this.campers = new ArrayList<Camper>();

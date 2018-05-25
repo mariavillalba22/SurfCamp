@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Instructor name="jaime">
-    <phone_number>898</phone_number>
+<Instructor id="2" name="pepe">
+    <phone_number>88</phone_number>
     <dob>1998-09-09</dob>
-    <NIF>898</NIF>
-    <nationality>spain</nationality>
-    <salary>900</salary>
+    <NIF>989</NIF>
+    <nationality>england</nationality>
+    <salary>4</salary>
     <activities>
-        <activity id="1" name="windsurf">
-            <price>400</price>
+        <activity name="windsurf">
+            <price>60</price>
             <availability>0</availability>
         </activity>
-        <activity id="2" name="surf">
-            <price>300</price>
+        <activity name="plane">
+            <price>700</price>
             <availability>0</availability>
         </activity>
     </activities>

@@ -26,63 +26,63 @@ public class Insertion {
     public void insertTransInC(Camper camper, Transport transport) throws SQLException {
     	String sql1 = "UPDATE camper SET transport_id = ? "+
 				 "WHERE id = ?";
-    	PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setInt(1, transport.getId());
-		sql.setInt(2, camper.getId());
+    	PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setInt(1, transport.getId());
+		prep.setInt(2, camper.getId());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
     }
     
     public void insertAccomInC(Camper camper, Accomodation accomodation) throws SQLException {
     	String sql1 = "UPDATE camper SET accomodation_id = ? "+
 				 "WHERE id = ?";
-    	PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setInt(1, accomodation.getId());
-		sql.setInt(2, camper.getId());
+    	PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setInt(1, accomodation.getId());
+		prep.setInt(2, camper.getId());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
     }
     
     
     public void insertTransInI(Instructor instructor, Transport transport) throws SQLException {
     	String sql1 = "UPDATE instructor SET transport_id = ? "+
 				 "WHERE id = ?";
-    	PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setInt(1, transport.getId());
-		sql.setInt(2, instructor.getId());
+    	PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setInt(1, transport.getId());
+		prep.setInt(2, instructor.getId());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
     }
     
     public void insertAccomInI(Instructor instructor, Accomodation accomodation) throws SQLException {
     	String sql1 = "UPDATE instructor SET accomodation_id = ? "+
 				 "WHERE id = ?";
-    	PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setInt(1, accomodation.getId());
-		sql.setInt(2, instructor.getId());
+    	PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setInt(1, accomodation.getId());
+		prep.setInt(2, instructor.getId());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
     }
 
 	public void insertCamper (Camper camper ) throws Exception{
 		String sql1 = "INSERT INTO camper (name, dob, NIF, phone_number, email, payment_method, needtopay)"+
 				 "VALUES (?,?,?,?,?,?,?);";
-		PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setString(1, camper.getName());
-		sql.setDate(2, camper.getDateofbirth());
-		sql.setString(3, camper.getNIF());
-		sql.setInt(4, camper.getPhonenumber());
-		sql.setString(5, camper.getEmail());
-		sql.setString(6, camper.getPayment_method());
-		sql.setInt(7, camper.getNeedtopay());
+		PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setString(1, camper.getName());
+		prep.setDate(2, camper.getDateofbirth());
+		prep.setString(3, camper.getNIF());
+		prep.setInt(4, camper.getPhonenumber());
+		prep.setString(5, camper.getEmail());
+		prep.setString(6, camper.getPayment_method());
+		prep.setInt(7, camper.getNeedtopay());
      
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
@@ -99,12 +99,12 @@ public class Insertion {
 
 		String sql9="INSERT INTO camper_material(id_camper, id_material)"+ 
 					"VALUES(?,?)";
-		PreparedStatement sql = c.prepareStatement(sql9);
-		sql.setInt(1,camper.getId());
-		sql.setInt(2, material.getId());
+		PreparedStatement prep = c.prepareStatement(sql9);
+		prep.setInt(1,camper.getId());
+		prep.setInt(2, material.getId());
 	
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 		
 	}
 	
@@ -112,12 +112,12 @@ public class Insertion {
 		String sql10="INSERT INTO camper_activity(id_camper, id_activity)"+ 
 					"VALUES(?,?);";
 	
-		PreparedStatement sql = c.prepareStatement(sql10);
-		sql.setInt(1,camper.getId());
-		sql.setInt(2, activity.getId());
+		PreparedStatement prep = c.prepareStatement(sql10);
+		prep.setInt(1,camper.getId());
+		prep.setInt(2, activity.getId());
 	
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 	}
 	
 	
@@ -125,23 +125,23 @@ public class Insertion {
 		String sql11="INSERT INTO material_activity(id_material, id_activity)"+ 
 					"VALUES(?,?);";
 	
-		PreparedStatement sql = c.prepareStatement(sql11);
-		sql.setInt(1,material.getId());
-		sql.setInt(2, activity.getId());
-		sql.executeUpdate();
-		sql.close();
+		PreparedStatement prep = c.prepareStatement(sql11);
+		prep.setInt(1,material.getId());
+		prep.setInt(2, activity.getId());
+		prep.executeUpdate();
+		prep.close();
 	}
 	
 	public Accomodation insertAccomodation (Accomodation accomodation ) throws SQLException{
 		String sql2 = "INSERT INTO accomodation (name, price, availability)"+
 				"VALUES (?,?,?);";
-		PreparedStatement sql = c.prepareStatement(sql2);
-		sql.setString(1, accomodation.getAccomodation());
-		sql.setInt(2, accomodation.getPrice());
-		sql.setInt(3, accomodation.getAvailability());
+		PreparedStatement prep = c.prepareStatement(sql2);
+		prep.setString(1, accomodation.getAccomodation());
+		prep.setInt(2, accomodation.getPrice());
+		prep.setInt(3, accomodation.getAvailability());
 	
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 		
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
@@ -154,14 +154,14 @@ public class Insertion {
 	public Activity insertActivity (Activity activity) throws Exception{
 		String sql3 = "INSERT INTO activity (name, price, availability)"+
 				"VALUES (?,?,?);";
-		PreparedStatement sql = c.prepareStatement(sql3);
-		sql.setString(1, activity.getActivity());
-		sql.setInt(2, activity.getPrice());
-		sql.setInt(3, activity.getAvailability());
+		PreparedStatement prep = c.prepareStatement(sql3);
+		prep.setString(1, activity.getActivity());
+		prep.setInt(2, activity.getPrice());
+		prep.setInt(3, activity.getAvailability());
 		
 	
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
 		ResultSet rs1 = p.executeQuery();
@@ -174,23 +174,23 @@ public class Insertion {
 	public void insertInstructorInA(Instructor instructor, Activity activity) throws SQLException {
     	String sql1 = "UPDATE activity SET instructor_id = ? "+
 				 "WHERE id = ?";
-    	PreparedStatement sql = c.prepareStatement(sql1);
-		sql.setInt(1, instructor.getId());
-		sql.setInt(2, activity.getId());
+    	PreparedStatement prep = c.prepareStatement(sql1);
+		prep.setInt(1, instructor.getId());
+		prep.setInt(2, activity.getId());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
     }
 	
 	public Material insertMaterial (Material material ) throws SQLException{
 		String sql4 = "INSERT INTO material (name, price)"+
 				"VALUES (?,?);";
-		PreparedStatement sql = c.prepareStatement(sql4);
-		sql.setString(1, material.getMaterial());
-		sql.setInt(2, material.getPrice());
+		PreparedStatement prep = c.prepareStatement(sql4);
+		prep.setString(1, material.getMaterial());
+		prep.setInt(2, material.getPrice());
 	
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
@@ -203,12 +203,12 @@ public class Insertion {
 	public Transport insertTransport (Transport transport ) throws SQLException{
 		String sql5 = "INSERT INTO transport (name, price, availability)"+
 				"VALUES (?,?,?);";
-		PreparedStatement sql = c.prepareStatement(sql5);
-		sql.setString(1, transport.getType_transport());
-		sql.setInt(2, transport.getPrice());
-		sql.setInt(3, transport.getAvailable());
-		sql.executeUpdate();
-		sql.close();
+		PreparedStatement prep = c.prepareStatement(sql5);
+		prep.setString(1, transport.getType_transport());
+		prep.setInt(2, transport.getPrice());
+		prep.setInt(3, transport.getAvailable());
+		prep.executeUpdate();
+		prep.close();
 		
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
@@ -221,16 +221,16 @@ public class Insertion {
 	public Instructor insertInstructor (Instructor instructor ) throws SQLException{
 		String sql6 = "INSERT INTO instructor (name,phone_number,dob,NIF,nationality,salary)"+
 				 "VALUES (?,?,?,?,?,?);";
-		PreparedStatement sql = c.prepareStatement(sql6);
-		sql.setString(1, instructor.getName());
-		sql.setInt(2, instructor.getPhoneNumber());
-		sql.setDate(3, instructor.getDob());
-		sql.setString(4, instructor.getNIF());
-		sql.setString(5, instructor.getNationality());
-		sql.setInt(6, instructor.getSalary());
+		PreparedStatement prep = c.prepareStatement(sql6);
+		prep.setString(1, instructor.getName());
+		prep.setInt(2, instructor.getPhoneNumber());
+		prep.setDate(3, instructor.getDob());
+		prep.setString(4, instructor.getNIF());
+		prep.setString(5, instructor.getNationality());
+		prep.setInt(6, instructor.getSalary());
 		
-		sql.executeUpdate();
-		sql.close();
+		prep.executeUpdate();
+		prep.close();
 		String query = "SELECT last_insert_rowid() AS lastId";
 		PreparedStatement p = c.prepareStatement(query);
 		ResultSet rs1 = p.executeQuery();

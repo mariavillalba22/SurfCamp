@@ -16,37 +16,39 @@ import database.XML.XMLmanager;
 import database.pojo.*;
 
 public class Menu {
+	
 	private static final String NULL = null;
-
+	static BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+	static Boolean h;
+	
 	public static void main(String[] args) throws Exception {
     	
-    	List <Camper> campers = new ArrayList();
-    	List<Transport> transports = new ArrayList();
-    	List<Accomodation> accomodations = new ArrayList();
-    	List<Instructor>  instructors = new ArrayList();
-    	List<Activity> activities = new ArrayList ();
-    	List<Material> materials = new ArrayList();
-    	
+		
+		List <Camper> campers = new ArrayList();
+		List<Transport> transports = new ArrayList();
+		List<Accomodation> accomodations = new ArrayList();
+		List<Instructor>  instructors = new ArrayList();
+		List<Activity> activities = new ArrayList ();
+		List<Material> materials = new ArrayList();
+		
     	Integer optionNumber  = 0;
     	JPAconnect em=new JPAconnect();
     	em.connectiondb();
    
-    	Boolean h;
     	String readString ;
-    	BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
     	DbManager d =new DbManager();
 
     	
     	Connect c=new Connect();
     	c.connectiondb();
     	
-    
     	try {
     		d.createTables(c.getConnectiondb());
     		System.out.println("\n\nTables have been created succesfully.");
     	}catch(SQLException ex) {
     		System.out.println("\n\nTables are already created.");
     	}
+    	
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
@@ -57,6 +59,7 @@ public class Menu {
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
     JPARead read = new JPARead(em.getEntityManager());
+    
     XMLmanager xmlm = new XMLmanager();
     
     	do {
@@ -569,9 +572,9 @@ public class Menu {
                     		    if(trans1.checkAvailability()) {
                     			Integer a = trans1.getAvailable() + 1;
                     			trans1.setAvailable(a);
-                         	up.UpdateTransport(trans1);
+                         	up.updateTransport(trans1);
                          	camper1.addNeedToPay(trans1.getPrice());
-                         	up.UpdateCamper(camper1);
+                         	up.updateCamper(camper1);
                     			in.insertTransInC(camper1, trans1);
                     			
                     			h = true;
@@ -603,9 +606,9 @@ public class Menu {
                     		if(accomodation.checkAvailability()) {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
-                    	    up.UpdateAccomodation(accomodation);
+                    	    up.updateAccomodation(accomodation);
                     	    camper1.addNeedToPay(accomodation.getPrice());
-                         up.UpdateCamper(camper1);
+                         up.updateCamper(camper1);
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;
@@ -640,8 +643,8 @@ public class Menu {
                     				activity1.setAvailability(a);
                     				camper1.addNeedToPay(activity1.getPrice());
                     				in.insertCamper_activity(camper1, activity1);
-                    				up.UpdateCamper(camper1);
-                    				up.UpdateActivity(activity1);
+                    				up.updateCamper(camper1);
+                    				up.updateActivity(activity1);
                     				h = true;
                     			}else{
                     				System.out.println("The activity is already full. CHoose a diferent one:");
@@ -680,7 +683,7 @@ public class Menu {
                     			readString = console.readLine();
                     			Material mat = ser.searchMaterial(Integer.parseInt(readString));
                     			camper1.addNeedToPay(mat.getPrice());
-                             up.UpdateCamper(camper1);
+                             up.updateCamper(camper1);
                     			in.insertCamper_material(camper1, mat);
                     			System.out.println("Would you want another material? (Y/N) ");
                     			readString = console.readLine();
@@ -914,7 +917,7 @@ public class Menu {
                     		    if(transport1.checkAvailability()) {
                     			Integer a = transport1.getAvailable() + 1;
                     			transport1.setAvailable(a);
-                    			up.UpdateTransport(transport1);
+                    			up.updateTransport(transport1);
                     			in.insertTransInI(instructor1, transport1);
                     			h = true;
                     		    }else {
@@ -943,7 +946,7 @@ public class Menu {
                     		if(accomodation1.checkAvailability()) {
                             Integer a = accomodation1.getAvailability()+ 1;
                     			accomodation1.setAvailability(a);
-                    			up.UpdateAccomodation(accomodation1);
+                    			up.updateAccomodation(accomodation1);
                     		in.insertAccomInI(instructor1, accomodation1);
                     		}else {
                     			System.out.println("The accomodation is not abailable. Introduce a different one: ");
@@ -1092,7 +1095,7 @@ public class Menu {
                                 
                                 readString = console.readLine();
                                 camper1.setName(readString);
-                                up.UpdateCamper(camper1);
+                                up.updateCamper(camper1);
                                 
                                     break;
                                 }
@@ -1103,7 +1106,7 @@ public class Menu {
               					  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
               					  	LocalDate date= LocalDate.parse(withoutTime, formatter);
               					  	camper1.setDateBirth(date);
-              					  	up.UpdateCamper(camper1);
+              					  	up.updateCamper(camper1);
                                 	break;
 
                                 case 3: //nif
@@ -1111,7 +1114,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setNIF(readString);
-                                    update.UpdateCampNIF(camper1, readString);
+                                    update.updateCampNIF(camper1, readString);
                                 	
                                     break;
 
@@ -1120,7 +1123,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setPhonenumber(Integer.parseInt(readString));
-                                    update.UpdateCampPhoneNumber(camper1, Integer.parseInt(readString) );
+                                    update.updateCampPhoneNumber(camper1, Integer.parseInt(readString) );
                                 	
                                     break;
 
@@ -1129,7 +1132,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setEmail(readString);
-                                    update.UpdateCampEmail(camper1, readString);
+                                    update.updateCampEmail(camper1, readString);
                                 	
                                     break;
 
@@ -1138,7 +1141,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setPayment_method(readString);
-                                    up.UpdateCamper(camper1);
+                                    up.updateCamper(camper1);
                                 	
                                     break;
 
@@ -1158,7 +1161,7 @@ public class Menu {
                                     trans=ser.searchTransportN(readString);
                                     
                                     camper1.setTransports(trans);
-                                    up.UpdateTransportInCamper(trans, camper1);
+                                    up.updateTransportInCamper(trans, camper1);
                                 	
                                 	}break;
 
@@ -1180,7 +1183,7 @@ public class Menu {
                                     accom=ser.searchAccomodationN(readString);
                                     
                                     camper1.setAccomodation(accom);
-                                    up.UpdateAccomodationInCamper(accom, camper1);
+                                    up.updateAccomodationInCamper(accom, camper1);
  
                                 	}break;
 
@@ -1274,7 +1277,7 @@ public class Menu {
                              readString = console.readLine();
                               transport1.setType_transport(readString);
                               //System.out.println(trans1);
-                             up.UpdateTransport(transport1);
+                             up.updateTransport(transport1);
                               
                               break;
                               
@@ -1287,7 +1290,7 @@ public class Menu {
                                 readString = console.readLine();
                                 int price=Integer.parseInt(readString);
                                 
-                                up.UpdateTransport(transport1);
+                                up.updateTransport(transport1);
                                 System.out.println(transport1);
                                        break;
                           }
@@ -1324,7 +1327,7 @@ public class Menu {
                                	
                                       readString = console.readLine();  
                                       accomodation1.setAccomodation(readString);
-                                       up.UpdateAccomodation(accomodation1);
+                                       up.updateAccomodation(accomodation1);
                                        System.out.println(accomodation1);
                                        break;
                                  	  
@@ -1337,7 +1340,7 @@ public class Menu {
                                          int p=Integer.parseInt(readString);
                                          accomodation1.setPrice(p);
                                          System.out.println(accomodation1);
-                                         up.UpdateAccomodation(accomodation1);
+                                         up.updateAccomodation(accomodation1);
                                                 break;
                                    }
                                 }
@@ -1375,7 +1378,7 @@ public class Menu {
                              readString = console.readLine();
                               activity1.setActivity(readString);
                               System.out.println(activity1);
-                              up.UpdateActivity(activity1);
+                              up.updateActivity(activity1);
                               break;
                         	  
                           }
@@ -1386,7 +1389,7 @@ public class Menu {
                                 readString = console.readLine();
                                 activity1.setPrice(Integer.parseInt(readString));
                                 System.out.println(activity1);
-                                up.UpdateActivity(activity1);
+                                up.updateActivity(activity1);
                                        break;
                           }
                        }
@@ -1423,7 +1426,7 @@ public class Menu {
                              readString = console.readLine();
                               material1.setMaterial(readString);
                               System.out.println(material1);
-                              up.UpdateMaterial(material1);
+                              up.updateMaterial(material1);
                               break;
                         	  
                           }
@@ -1434,7 +1437,7 @@ public class Menu {
                                 readString = console.readLine();
                                 material1.setPrice(Integer.parseInt(readString));
                                 System.out.println(material1);
-                                up.UpdateMaterial(material1);
+                                up.updateMaterial(material1);
                                        break;
                           }
                        }
@@ -1474,7 +1477,7 @@ public class Menu {
                                  readString = console.readLine();
                                  instructor1 .setName(readString);
                                  System.out.println(instructor1 );
-                                 up.UpdateInstructor(instructor1 );
+                                 up.updateInstructor(instructor1 );
                                    break;}
                                 
                             case 2: //Modify date of birth of instructor
@@ -1487,7 +1490,7 @@ public class Menu {
                                 readString = console.readLine();
                                 instructor1 .setNationality(readString);
                                 System.out.println(instructor1 );
-                                up.UpdateInstructor(instructor1 );
+                                up.updateInstructor(instructor1 );
                                        break;}
                             
                             case 4: //Modify nif of instructor
@@ -1496,7 +1499,7 @@ public class Menu {
                               readString = console.readLine();
                               instructor1 .setNIF(readString);
                               System.out.println(instructor1 );
-                              up.UpdateInstructor(instructor1 );
+                              up.updateInstructor(instructor1 );
                                      break; }
                             
                             case 5: //Modify phone number of instructor 
@@ -1505,7 +1508,7 @@ public class Menu {
                                readString = console.readLine();
                                instructor1 .setPhoneNumber(Integer.parseInt(readString));
                                System.out.println(instructor1 );
-                               up.UpdateInstructor(instructor1 );
+                               up.updateInstructor(instructor1 );
                                       break;}
                             
                             case 6: // Modify salary of instructor
@@ -1514,7 +1517,7 @@ public class Menu {
                                readString = console.readLine();
                                instructor1 .setSalary(Integer.parseInt(readString));
                                System.out.println(instructor1 );
-                               up.UpdateInstructor(instructor1 );
+                               up.updateInstructor(instructor1 );
                                       break;
                             	
                                 }
@@ -1559,14 +1562,14 @@ public class Menu {
                       	if(accomodation1.getAccomodation()!=NULL) {
                      	a = accomodation1.getAvailability() - 1;
                 	        accomodation1.setAvailability(a);
-                	        up.UpdateAccomodation(accomodation1);
+                	        up.updateAccomodation(accomodation1);
                       	}
                       	
                         	transport1 = ser.searchTransport(sel.selectTnsC(camper1));
                         	if(transport1.getType_transport()!=NULL) {
                         	a = transport1.getAvailable() - 1;
                     	    transport1.setAvailable(a);
-                    	    up.UpdateTransport(transport1);
+                    	    up.updateTransport(transport1);
                         	}
                         	
                     	    List<String> nm = sel.selectActivityNames(camper1);
@@ -1575,7 +1578,7 @@ public class Menu {
                     	    	if(activity1.getActivity()!=NULL) {
                         	a = activity1.getAvailability() - 1;
                     	    activity1.setAvailability(a);
-                    	    up.UpdateActivity(activity1);
+                    	    up.updateActivity(activity1);
                     	    	}
                     	    }
                     	    
@@ -1675,14 +1678,14 @@ public class Menu {
                         	if(accomodation1.getAccomodation()!=NULL) {
                          a = accomodation1.getAvailability() - 1;
                     	    accomodation1.setAvailability(a);
-                    	    up.UpdateAccomodation(accomodation1);
+                    	    up.updateAccomodation(accomodation1);
                         	}
                         	
                          transport1 = ser.searchTransport(sel.selectTnsI(instructor1));
                         	if(transport1.getType_transport()!=NULL) {
                         	a = transport1.getAvailable() - 1;
                     	    transport1.setAvailable(a);
-                    	    up.UpdateTransport(transport1);
+                    	    up.updateTransport(transport1);
                         	}
                         	System.out.println("If you delete the instructor the activity of that instructor will requires another instructor or be delete");
                         	System.out.println("Do you want to continue (Y/N");
@@ -1706,7 +1709,7 @@ public class Menu {
                         		System.out.println("Insert the id of the instructor for  "+activity1.getActivity());
                         		readString = console.readLine();
                         		activity1.setInst(ser.searchInstructor(Integer.parseInt(readString)));
-                        		up.UpdateActivity(activity1);
+                        		up.updateActivity(activity1);
                         	}
                         		
                         	}
@@ -1747,7 +1750,8 @@ public class Menu {
                 	 
                 	 case 2:
                 	     //We obtain the instructor from a xml file and inserted in our database
-                		 System.out.println("Introduce the file where the instructor is located:");
+                		 System.out.println("Introduce the file where the instructor is located: ");
+                		 //in our case you should put xml/Instructor.xml
                 		 readString = console.readLine();
                 		 File file = new File(readString);
                 		 Instructor inst = xmlm.unmarshalldb( file);
@@ -1776,7 +1780,7 @@ public class Menu {
                 	System.exit(0);
                 	
             
-        }//switch todas las opciones: view, insert,.....
+        }
                 
             }catch(IOException ex) {
             	ex.printStackTrace();
@@ -1788,7 +1792,7 @@ public class Menu {
     	
     	c.closeconnection();
     	em.closeconnection();
-	}//LLAVE DEL MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
 
 	
 	

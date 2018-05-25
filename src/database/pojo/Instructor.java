@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @Table(name = "instructor")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Instructor")
-@XmlType(propOrder = {  "name", "phone_number","dob","NIF","nationality","salary","activities" })
+@XmlType(propOrder = { "id", "name", "phone_number","dob","NIF","nationality","salary","activities" })
 public class Instructor implements Serializable {
 	
 private static final long serialVersionUID = -4281575077333973070L;
@@ -39,7 +39,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@GeneratedValue(generator="instructor")
 	@TableGenerator(name="instructor", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instructor")
-	@XmlTransient
+	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
 	private String name;
@@ -58,9 +58,6 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@OneToMany(mappedBy="inst")
 	@XmlElement(name = "activity")
 	@XmlElementWrapper(name = "activities")
-	//Because many activities can have different instructors
-	//We are not showing the activities in instructor because we 
-	//are showing it in activities
 	private List<Activity> activities;
 	
 
@@ -68,7 +65,7 @@ private static final long serialVersionUID = -4281575077333973070L;
 	@JoinColumn(name = "transport_id")
 	@XmlTransient
 	private Transport transport;
-    //SI DA TIEMPO SE HACE
+    
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "accomodation_id")
