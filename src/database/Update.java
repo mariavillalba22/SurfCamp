@@ -125,8 +125,16 @@ public void updateActICamper(Activity act, Camper camp) throws SQLException{
 	  prep.executeUpdate();
 }
 
-public void updateMatICamper(Material mat, Camper camp) throws SQLException{
+public void updateMatInCamper(Material mat, Camper camp,Material m) throws SQLException{
 	
+	String sql = "UPDATE camper SET material_id=? WHERE id=? material_id=?";
+	  PreparedStatement prep = c.prepareStatement(sql);
+	  prep.setInt(1, mat.getId());
+	  prep.setInt(2, camp.getId());
+	  prep.setInt(3, m.getId());
+	  prep.executeUpdate();
+}
+public void updateNewMatInCamper(Material mat, Camper camp)throws SQLException{
 	String sql = "UPDATE camper SET material_id=? WHERE id=?";
 	  PreparedStatement prep = c.prepareStatement(sql);
 	  prep.setInt(1, mat.getId());

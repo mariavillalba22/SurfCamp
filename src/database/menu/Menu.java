@@ -1147,16 +1147,34 @@ public class Menu {
                                     	}
                                 		else {
                                 			do {
-                                        		System.out.println("Choose the new material: ");
-                                		for(Material mat : materials) {
-                                			System.out.println(mat);
-                                		}
-                                		
-                                		
+                                        		System.out.println("If you just want to introduce a new one press '1' if not press '0': ");
+                                        		readString=console.readLine();
+                                        		int i = Integer.parseInt(readString);
+                                        		if(i==0) {
+                                        		List<String> x = new ArrayList();
+                                    			x= sel.selectMaterialNames(camper1);
+                                                 for(String s :x) {
+                                                	System.out.println(s); 
+                                                 }
+                                		    System.out.println("Choose the material you want to change: ");
                                 			readString = console.readLine();
-                                			Material mat1 = ser.searchMaterial(Integer.parseInt(readString));
-                                			up.updateMatICamper(mat1, camper1);
-                                			System.out.println("Would you want another material? (Y/N");
+                                			Material mat1 = ser.searchMaterialN(readString);
+                                			System.out.println("Introduce the new material: ");
+                                			for(Material mat:materials) {
+                                				System.out.println(mat);
+                                			}
+                                			readString=console.readLine();
+                                			Material mat2=ser.searchMaterialN(readString);
+                                			up.updateMatInCamper(mat2, camper1,mat1);}
+                                        		else {
+                                        			System.out.println("Introduce the new material: ");
+                                        			for(Material mat:materials) {
+                                        				System.out.println(mat);
+                                        			}
+                                        			readString=console.readLine();
+                                        			Material mat2=ser.searchMaterialN(readString);
+                                        			up.updateNewMatInCamper(mat2, camper1);}
+                                			System.out.println("Would you want to change another material? (Y/N");
                                 			readString = console.readLine();
                                 			if(readString.equals("Y")) {
                                 				h = true;
