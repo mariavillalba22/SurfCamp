@@ -14,59 +14,59 @@ package database.JPA;
 			this.em=em;
 		}
 		
-		public void UpdateCampName(Camper camp,String name) {
+		public void updateCampName(Camper camp,String name) {
 			em.getTransaction().begin();
 			camp.setName(name);
 			em.getTransaction().commit();
 			
 		}
 		
-		public void UpdateAccomAvailability(Accomodation acom, Integer a) {
+		public void updateAccomAvailability(Accomodation acom, Integer a) {
 			em.getTransaction().begin();
 			acom.setAvailability(a);
 			em.getTransaction().commit();
 		}
 		
-		public void UpdateCampNIF(Camper camp,String NIF) {
+		public void updateCampNIF(Camper camp,String NIF) {
 			em.getTransaction().begin();
 			camp.setNIF(NIF);
 			em.getTransaction().commit();
 			
 		}
 		
-		public void UpdateCampPhoneNumber(Camper camp,int phoneNumber) {
+		public void updateCampPhoneNumber(Camper camp,int phoneNumber) {
 			em.getTransaction().begin();
 			camp.setPhonenumber(phoneNumber);
 			em.getTransaction().commit();
 			
 		}
 		
-		public void UpdateCampEmail(Camper camp,String email) {
+		public void updateCampEmail(Camper camp,String email) {
 			em.getTransaction().begin();
 			camp.setEmail(email);
 			em.getTransaction().commit();
 			
 		}
-		public void UpdateAccomodationName(Accomodation accomodation,String name) {
+		public void updateAccomodationName(Accomodation accomodation,String name) {
 			em.getTransaction().begin();
 			accomodation.setAccomodation(name);
 			em.getTransaction().commit();
 			
 		}
-		public void UpdateTransportName(Transport transport,String name) {
+		public void updateTransportName(Transport transport,String name) {
 			em.getTransaction().begin();
 			transport.setType_transport(name);
 			em.getTransaction().commit();
 			
 		}
-		public void UpdateTransportPrice(Transport transport,int price) {
+		public void updateTransportPrice(Transport transport,int price) {
 			em.getTransaction().begin();
 			transport.setPrice(price);
 			em.getTransaction().commit();
 			
 		}
 		
-		public void UpdateAccomodationPrice(Accomodation accomodation,Integer price) {
+		public void updateAccomodationPrice(Accomodation accomodation,Integer price) {
 			em.getTransaction().begin();
 			accomodation.setPrice(price);
 			em.getTransaction().commit();

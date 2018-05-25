@@ -22,7 +22,7 @@ public class Update {
 		
 	}
 
-  public void  UpdateMaterial( Material mat) throws SQLException {
+  public void  updateMaterial( Material mat) throws SQLException {
       String sql = "UPDATE material SET name=?, price = ? WHERE id=?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, mat.getMaterial());
@@ -31,7 +31,7 @@ public class Update {
       prep.executeUpdate();
   }
 
-  public void UpdateAccomodation ( Accomodation acom) throws SQLException {
+  public void updateAccomodation ( Accomodation acom) throws SQLException {
       String sql = "UPDATE accomodation SET name = ?, price =?, availability=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
 
@@ -44,7 +44,7 @@ public class Update {
 
   }
 
-  public void UpdateActivity ( Activity act) throws SQLException {
+  public void updateActivity ( Activity act) throws SQLException {
       String sql = "UPDATE activity SET name = ?, price =?,  availability=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, act.getActivity());
@@ -53,7 +53,7 @@ public class Update {
       prep.executeUpdate();
   }
 
-  public void UpdateTransport ( Transport trans) throws SQLException {
+  public void updateTransport ( Transport trans) throws SQLException {
 
       String sql = "UPDATE transport SET name = ?, price =?, availability=? WHERE id = ?";
 
@@ -65,7 +65,7 @@ public class Update {
       prep.executeUpdate();
   }
 
-  public void UpdateInstructor ( Instructor ins) throws SQLException {
+  public void updateInstructor ( Instructor ins) throws SQLException {
       String sql = "UPDATE instructor SET name =?, phone_number =?, dob =?, NIF =?, nationality =?, salary =? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, ins.getName());
@@ -79,7 +79,7 @@ public class Update {
 
   }
 
-  public void UpdateCamper ( Camper cam) throws SQLException{
+  public void updateCamper ( Camper cam) throws SQLException{
       String sql = "UPDATE camper SET name =?, phone_number =?, dob =?, NIF =?, email =?, payment_method =?, needtopay=? WHERE id = ?";
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, cam.getName());
@@ -94,19 +94,17 @@ public class Update {
       prep.executeUpdate();
   }
 
-  public void UpdateTransportInCamper(Transport trans, Camper cam) throws SQLException {
+  public void updateTransportInCamper(Transport trans, Camper cam) throws SQLException {
 	  
 	  String sql = "UPDATE camper SET transport_id=? WHERE id=?";
 	  PreparedStatement prep = c.prepareStatement(sql);
 	  prep.setInt(1, trans.getId());
 	  prep.setInt(2, cam.getId());
 	  prep.executeUpdate();
-	  
-	  
-	  
+	    
   }
   
-public void UpdateAccomodationInCamper(Accomodation accom, Camper cam) throws SQLException {
+public void updateAccomodationInCamper(Accomodation accom, Camper cam) throws SQLException {
 	  
 	  String sql = "UPDATE camper SET accomodation_id=? WHERE id=?";
 	  PreparedStatement prep = c.prepareStatement(sql);
@@ -116,30 +114,24 @@ public void UpdateAccomodationInCamper(Accomodation accom, Camper cam) throws SQ
 	  
   }
 
-public void updateActICamper(Activity act, Camper camp) throws SQLException{
-	
-	String sql = "UPDATE camper SET activity_id=? WHERE id=?";
+
+public void updateTransportInInstructor(Transport trans, Instructor ins) throws SQLException {
+	  
+	  String sql = "UPDATE instructor SET transport_id=? WHERE id=?";
 	  PreparedStatement prep = c.prepareStatement(sql);
-	  prep.setInt(1, act.getId());
-	  prep.setInt(2, camp.getId());
+	  prep.setInt(1, trans.getId());
+	  prep.setInt(2, ins.getId());
 	  prep.executeUpdate();
+	    
 }
 
-public void updateMatInCamper(Material mat, Camper camp,Material m) throws SQLException{
-	
-	String sql = "UPDATE camper SET material_id=? WHERE id=? material_id=?";
+public void updateAccomodationInInstructor(Accomodation accom, Instructor ins) throws SQLException {
+	  
+	  String sql = "UPDATE instructor SET accomodation_id=? WHERE id=?";
 	  PreparedStatement prep = c.prepareStatement(sql);
-	  prep.setInt(1, mat.getId());
-	  prep.setInt(2, camp.getId());
-	  prep.setInt(3, m.getId());
+	  prep.setInt(1, accom.getId());
+	  prep.setInt(2, ins.getId());
 	  prep.executeUpdate();
+	  
 }
-public void updateNewMatInCamper(Material mat, Camper camp)throws SQLException{
-	String sql = "UPDATE camper SET material_id=? WHERE id=?";
-	  PreparedStatement prep = c.prepareStatement(sql);
-	  prep.setInt(1, mat.getId());
-	  prep.setInt(2, camp.getId());
-	  prep.executeUpdate();
-}
-
 }

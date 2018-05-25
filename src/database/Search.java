@@ -41,6 +41,27 @@ public class Search {
 		return camper;
 	}
 	
+	public Camper searchCamper( Integer id) throws SQLException {
+		String sql = "SELECT * FROM camper WHERE id LIKE ?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, id);
+		ResultSet rs = prep.executeQuery();
+		Camper camper = new Camper();
+		while (rs.next()) {
+			String NIF = rs.getString("NIF");
+			String name = rs.getString("name");
+			LocalDate dob = rs.getDate("dob").toLocalDate();
+			Integer phonenumber = rs.getInt("phone_number");
+			String email = rs.getString("email");
+			String payment_method = rs.getString("payment_method");
+			Integer needtopay = rs.getInt("needtopay");
+			camper = new Camper(id,name,dob,NIF,phonenumber,email,payment_method,needtopay);
+			
+			
+	}
+		return camper;
+	}
+	
 	public Instructor searchInstructor( Integer id) throws SQLException {
 		String sql = "SELECT * FROM instructor WHERE id LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);

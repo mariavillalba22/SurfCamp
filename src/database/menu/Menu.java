@@ -16,46 +16,50 @@ import database.XML.XMLmanager;
 import database.pojo.*;
 
 public class Menu {
+	
 	private static final String NULL = null;
-
+	static BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+	static Boolean h;
+	
 	public static void main(String[] args) throws Exception {
     	
-    	List <Camper> campers = new ArrayList();
-    	List<Transport> transports = new ArrayList();
-    	List<Accomodation> accomodations = new ArrayList();
-    	List<Instructor>  instructors = new ArrayList();
-    	List<Activity> activities = new ArrayList ();
-    	List<Material> materials = new ArrayList();
-    	
+		
+		List <Camper> campers = new ArrayList();
+		List<Transport> transports = new ArrayList();
+		List<Accomodation> accomodations = new ArrayList();
+		List<Instructor>  instructors = new ArrayList();
+		List<Activity> activities = new ArrayList ();
+		List<Material> materials = new ArrayList();
+		
     	Integer optionNumber  = 0;
     	JPAconnect em=new JPAconnect();
     	em.connectiondb();
    
-    	Boolean h;
     	String readString ;
-    	BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
     	DbManager d =new DbManager();
 
     	
     	Connect c=new Connect();
     	c.connectiondb();
     	
-    
     	try {
     		d.createTables(c.getConnectiondb());
     		System.out.println("\n\nTables have been created succesfully.");
     	}catch(SQLException ex) {
     		System.out.println("\n\nTables are already created.");
     	}
+    	
     	Insertion in=new Insertion(c.getConnectiondb());
     	Update up = new Update(c.getConnectiondb());
     	Delete del=new Delete(c.getConnectiondb());
     	Selection sel = new Selection(c.getConnectiondb());
     	Search ser = new Search(c.getConnectiondb());
     	
+    	JPADelete delete = new JPADelete(em.getEntityManager());
     	JPACreate create = new JPACreate(em.getEntityManager());
     JPAUpdate update = new JPAUpdate(em.getEntityManager());
     JPARead read = new JPARead(em.getEntityManager());
+    
     XMLmanager xmlm = new XMLmanager();
     
     	do {
@@ -174,6 +178,7 @@ public class Menu {
                         	switch (optnum2) {
                         	
                         	case 1:{
+                        		//Here we use JPA instead of JDBC to show that it works
                         		transports = read.ReadTransports();
                         		for (Transport transport : transports) {
                         			System.out.println(transport);
@@ -216,7 +221,7 @@ public class Menu {
                                     + "\n1) List all accomodation (Full view)\t"
                                     + "\n2) List all accomodation available\t"
                                     + "\n3) List all accomodation under a specific price"
-                                    + "\n4 List all campers accomodated in a specific place"
+                                    + "\n4) List all campers and instructors accomodated in a specific place"
                                     + "\nOption number: \t");
                         	
                         	readString = console.readLine();
@@ -341,7 +346,7 @@ public class Menu {
                         	
                         	System.out.println("SELECT ONE OF THE FOLLOWING OPTIONS: "
                                     + "\n1) List all Material (Full view)\t"
-                                    + "\n2) List all Material (names only)\t"
+                                    + "\n2) List a Material\t"
                                     + "\n3) List all Material under a specific price"
                                     + "\nOption number: \t");
                         	
@@ -361,11 +366,20 @@ public class Menu {
                         	}break;//case 1 view full materials
                             	
                         	case 2:{
+                        		System.out.println("This are the materials: ");
                         		materials=sel.selectMaterial();
                         		for(Material material: materials) {
                         			System.out.println(material.getMaterial());
                         		}
-                            	
+                        		System.out.println("Introduce the name of the material you want to see: ");
+                        		readString = console.readLine();
+                        		System.out.println(material1);
+                        		
+                        		
+                        		
+                        		
+                        		
+                        		
                         	}break;//case 2 listar nombres
                             	
                             case 3:{
@@ -402,9 +416,13 @@ public class Menu {
                         		for (Instructor instructor : instructors) {
                         			System.out.println(instructor);
                             transport1 = ser.searchTransport(sel.selectTnsI(instructor));
-                        	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor));
+                         	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor));
                         	System.out.println("The transport for instructor "+instructor.getId()+" is "+ transport1.getType_transport()+""
                         			+ "\nThe accomodation is "+accomodation1.getAccomodation());
+                        	activities = sel.selectActOfInst(instructor);
+                        	for(Activity act: activities) {
+                        		System.out.println(act.getActivity());
+                        	}
                         		   
                         		}
                         	}break; //case 1 long instructor
@@ -436,7 +454,9 @@ public class Menu {
                             + "3) Accomodation\n"
                             + "4) Activities\n"
                             + "5) Material\n"
-                            + "6) Instructor\n\n"
+                            + "6) Instructor\n"
+                            + "7) A new material in camper\n"
+                            + "8) A new activity in camper\n\n"
                             + ""
                             + "Option number: ");
 
@@ -552,9 +572,9 @@ public class Menu {
                     		    if(trans1.checkAvailability()) {
                     			Integer a = trans1.getAvailable() + 1;
                     			trans1.setAvailable(a);
-                         	up.UpdateTransport(trans1);
+                         	up.updateTransport(trans1);
                          	camper1.addNeedToPay(trans1.getPrice());
-                         	up.UpdateCamper(camper1);
+                         	up.updateCamper(camper1);
                     			in.insertTransInC(camper1, trans1);
                     			
                     			h = true;
@@ -586,9 +606,9 @@ public class Menu {
                     		if(accomodation.checkAvailability()) {
                     	    Integer a = accomodation.getAvailability() + 1;
                     	    accomodation.setAvailability(a);
-                    	    up.UpdateAccomodation(accomodation);
+                    	    up.updateAccomodation(accomodation);
                     	    camper1.addNeedToPay(accomodation.getPrice());
-                         up.UpdateCamper(camper1);
+                         up.updateCamper(camper1);
                     		in.insertAccomInC(camper1, accomodation);
                     		
                     		h = true;
@@ -623,8 +643,8 @@ public class Menu {
                     				activity1.setAvailability(a);
                     				camper1.addNeedToPay(activity1.getPrice());
                     				in.insertCamper_activity(camper1, activity1);
-                    				up.UpdateCamper(camper1);
-                    				up.UpdateActivity(activity1);
+                    				up.updateCamper(camper1);
+                    				up.updateActivity(activity1);
                     				h = true;
                     			}else{
                     				System.out.println("The activity is already full. CHoose a diferent one:");
@@ -663,7 +683,7 @@ public class Menu {
                     			readString = console.readLine();
                     			Material mat = ser.searchMaterial(Integer.parseInt(readString));
                     			camper1.addNeedToPay(mat.getPrice());
-                             up.UpdateCamper(camper1);
+                             up.updateCamper(camper1);
                     			in.insertCamper_material(camper1, mat);
                     			System.out.println("Would you want another material? (Y/N) ");
                     			readString = console.readLine();
@@ -702,7 +722,8 @@ public class Menu {
                         	Integer price = Integer.parseInt(readString);
                         	transport1.setPrice(price);
                         	transport1.setAvailable(0);
-                        	create.createTransport(transport1);
+                        	in.insertTransport(transport1);
+                        	
                         	
    
                             break;
@@ -770,7 +791,7 @@ public class Menu {
                          readString = console.readLine();
                          }else {
                         	 
-                        	 instructor1 = ser.searchInstructor(Integer.parseInt(readString));
+                        	instructor1 = ser.searchInstructor(Integer.parseInt(readString));
                          in.insertInstructorInA(instructor1, activity1);
                         	
                          }
@@ -896,7 +917,7 @@ public class Menu {
                     		    if(transport1.checkAvailability()) {
                     			Integer a = transport1.getAvailable() + 1;
                     			transport1.setAvailable(a);
-                    			up.UpdateTransport(transport1);
+                    			up.updateTransport(transport1);
                     			in.insertTransInI(instructor1, transport1);
                     			h = true;
                     		    }else {
@@ -925,7 +946,7 @@ public class Menu {
                     		if(accomodation1.checkAvailability()) {
                             Integer a = accomodation1.getAvailability()+ 1;
                     			accomodation1.setAvailability(a);
-                    			up.UpdateAccomodation(accomodation1);
+                    			up.updateAccomodation(accomodation1);
                     		in.insertAccomInI(instructor1, accomodation1);
                     		}else {
                     			System.out.println("The accomodation is not abailable. Introduce a different one: ");
@@ -963,6 +984,60 @@ public class Menu {
                     		
                         	break;
                     }
+                        
+                        case 7: 
+                        {
+                        	
+                        	System.out.println("The campers are: ");
+                        	campers = sel.selectCamper();
+                        	List<String> x = new ArrayList();
+                			
+                        	for(Camper camp : campers) {
+                        		System.out.println("ID: "+camp.getId()+" .Name: " +camp.getName());
+                        	}
+                        	System.out.println("Insert the ID of the camper to which you will add a material: ");
+                        	readString = console.readLine();
+                        	camper1 = ser.searchCamper(Integer.parseInt(readString));
+                        	materials = sel.selectMaterial();
+                        	System.out.println("The materials are: ");
+                        	for(Material mat : materials) {
+                        		System.out.println("ID: "+mat.getId()+" .Name: " +mat.getMaterial());
+                        	}
+                        	System.out.println("Insert the ID of the material you want to insert: ");
+                        	readString = console.readLine();
+                        	material1 = ser.searchMaterial(Integer.parseInt(readString));
+                        	in.insertCamper_material(camper1, material1);
+                        	
+                        	break;
+                        }
+                        
+                        case 8:
+                        {
+                        	System.out.println("The campers are: ");
+                        	campers = sel.selectCamper();
+                        	List<String> x = new ArrayList();
+                			
+                        	for(Camper camp : campers) {
+                        		System.out.println("ID: "+camp.getId()+" .Name: " +camp.getName());
+                        	}
+                        	System.out.println("Insert the ID of the camper to which you will add a material: ");
+                        	readString = console.readLine();
+                        	camper1 = ser.searchCamper(Integer.parseInt(readString));
+                         activities = sel.selectActivity();
+                        	System.out.println("The activities are: ");
+                        	for(Activity act: activities) {
+                        		System.out.println("ID: "+act.getId()+" .Name: " +act.getActivity());
+                        	}
+                        	System.out.println("Insert the ID of the activity you want to insert: ");
+                        	readString = console.readLine();
+                        	activity1 = ser.searchActivity(Integer.parseInt(readString));
+                        	in.insertCamper_activity(camper1, activity1);
+                        	break;
+                        }
+                        
+                        	
+                        	
+                        	
                     }}
             
                 break;
@@ -1020,7 +1095,7 @@ public class Menu {
                                 
                                 readString = console.readLine();
                                 camper1.setName(readString);
-                                up.UpdateCamper(camper1);
+                                up.updateCamper(camper1);
                                 
                                     break;
                                 }
@@ -1031,7 +1106,7 @@ public class Menu {
               					  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
               					  	LocalDate date= LocalDate.parse(withoutTime, formatter);
               					  	camper1.setDateBirth(date);
-              					  	up.UpdateCamper(camper1);
+              					  	up.updateCamper(camper1);
                                 	break;
 
                                 case 3: //nif
@@ -1039,7 +1114,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setNIF(readString);
-                                    update.UpdateCampNIF(camper1, readString);
+                                    update.updateCampNIF(camper1, readString);
                                 	
                                     break;
 
@@ -1048,7 +1123,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setPhonenumber(Integer.parseInt(readString));
-                                    update.UpdateCampPhoneNumber(camper1, Integer.parseInt(readString) );
+                                    update.updateCampPhoneNumber(camper1, Integer.parseInt(readString) );
                                 	
                                     break;
 
@@ -1057,7 +1132,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setEmail(readString);
-                                    update.UpdateCampEmail(camper1, readString);
+                                    update.updateCampEmail(camper1, readString);
                                 	
                                     break;
 
@@ -1066,7 +1141,7 @@ public class Menu {
                                     
                                     readString = console.readLine();
                                     camper1.setPayment_method(readString);
-                                    up.UpdateCamper(camper1);
+                                    up.updateCamper(camper1);
                                 	
                                     break;
 
@@ -1086,11 +1161,11 @@ public class Menu {
                                     trans=ser.searchTransportN(readString);
                                     
                                     camper1.setTransports(trans);
-                                    up.UpdateTransportInCamper(trans, camper1);
+                                    up.updateTransportInCamper(trans, camper1);
                                 	
                                 	}break;
 
-                                case 8: //accomodation	
+                                case 8:{ //accomodation	
                                 
                                 	
                                 	accomodations=sel.selectAccomodation();
@@ -1108,27 +1183,33 @@ public class Menu {
                                     accom=ser.searchAccomodationN(readString);
                                     
                                     camper1.setAccomodation(accom);
-                                    up.UpdateAccomodationInCamper(accom, camper1);
+                                    up.updateAccomodationInCamper(accom, camper1);
  
-                                	}break;
+                                	}break;}
 
-                                case 9: 
+                                case 9:
+                                {
                                 		activities =sel.selectActivity();
                                 		if(activities.isEmpty()){
                                         	System.out.println("There is any activity available. Sorry");
                                     	}
                                 		else {
                                 			do {
-                                        	System.out.println("Choose the new activity: ");
-                                		for(Activity act : activities) {
-                                			System.out.println(act);
-                                		}
-                                		
-                                	readString = console.readLine();
-                                	Activity act1 = new Activity();
-                                	act1=ser.searchActivityN(readString);
-                                	camper1.addActivity(act1);
-                                	up.updateActICamper(act1,camper1);
+                                				System.out.println("Choose the activity you want to change: ");
+                                    		    List<String> x=sel.selectActivityNames(camper1);
+                                    		    for(String s :x) {
+                                                 	System.out.println("The activity for this camper is " +s); 
+                                                  }
+                                    			readString = console.readLine();
+                                    			Activity act1=ser.searchActivityN(readString);
+                                    			del.deleteActivityfromCMbyN(act1);
+                                    			System.out.println("Introduce the new material: ");
+                                    			for(Activity act:activities) {
+                                    				System.out.println(act);
+                                    			}
+                                    			readString=console.readLine();
+                                    			Activity act2=ser.searchActivityN(readString);
+                                    			in.insertCamper_activity(camper1, act2);
                                 	System.out.println("Would you want another activity? (Y/N");
                         			readString = console.readLine();
                         			if(readString.equals("Y")) {
@@ -1137,44 +1218,33 @@ public class Menu {
                         				h = false;
                         			}
                         			}while(h == true);
-                                		}break;
+                                		}break;}
                                     
                                 case 10:
                                 	
-                                		materials =sel.selectMaterial();
+                                		{materials =sel.selectMaterial();
                                 		if(materials.isEmpty()){
                                         	System.out.println("There is any material available. Sorry");
                                     	}
                                 		else {
                                 			do {
-                                        		System.out.println("If you just want to introduce a new one press '1' if not press '0': ");
-                                        		readString=console.readLine();
-                                        		int i = Integer.parseInt(readString);
-                                        		if(i==0) {
-                                        		List<String> x = new ArrayList();
-                                    			x= sel.selectMaterialNames(camper1);
-                                                 for(String s :x) {
-                                                	System.out.println(s); 
-                                                 }
                                 		    System.out.println("Choose the material you want to change: ");
+                                		    List<String> x=sel.selectMaterialNames(camper1);
+                                		    for(String s :x) {
+                                             	System.out.println("The material for this camper is " +s); 
+                                              }
                                 			readString = console.readLine();
-                                			Material mat1 = ser.searchMaterialN(readString);
+                                			Material mat1=ser.searchMaterialN(readString);
+                                			del.deleteMaterialfromCMbyN(mat1);
                                 			System.out.println("Introduce the new material: ");
                                 			for(Material mat:materials) {
                                 				System.out.println(mat);
                                 			}
                                 			readString=console.readLine();
                                 			Material mat2=ser.searchMaterialN(readString);
-                                			up.updateMatInCamper(mat2, camper1,mat1);}
-                                        		else {
-                                        			System.out.println("Introduce the new material: ");
-                                        			for(Material mat:materials) {
-                                        				System.out.println(mat);
-                                        			}
-                                        			readString=console.readLine();
-                                        			Material mat2=ser.searchMaterialN(readString);
-                                        			up.updateNewMatInCamper(mat2, camper1);}
-                                			System.out.println("Would you want to change another material? (Y/N");
+                                			in.insertCamper_material(camper1, mat2);
+                                			
+                                			System.out.println("Would you want to change another material? (Y/N)");
                                 			readString = console.readLine();
                                 			if(readString.equals("Y")) {
                                 				h = true;
@@ -1182,7 +1252,7 @@ public class Menu {
                                 				h = false;
                                 			}
                                 			}while(h == true);
-                                		}	break;
+                                		}	break;}
                                
                             }
 
@@ -1220,7 +1290,7 @@ public class Menu {
                              readString = console.readLine();
                               transport1.setType_transport(readString);
                               //System.out.println(trans1);
-                             up.UpdateTransport(transport1);
+                             up.updateTransport(transport1);
                               
                               break;
                               
@@ -1233,7 +1303,7 @@ public class Menu {
                                 readString = console.readLine();
                                 int price=Integer.parseInt(readString);
                                 
-                                up.UpdateTransport(transport1);
+                                up.updateTransport(transport1);
                                 System.out.println(transport1);
                                        break;
                           }
@@ -1244,7 +1314,7 @@ public class Menu {
                           
 
                         case 3: //accomodation no funciona!!
-                        	   accomodations = sel.selectAccomodation();
+                        	   {accomodations = sel.selectAccomodation();
                         	     if(accomodations.isEmpty()) {
                         	    	 System.out.println("There is any activity aviable. Sorry");
                         	     }else {
@@ -1270,7 +1340,7 @@ public class Menu {
                                	
                                       readString = console.readLine();  
                                       accomodation1.setAccomodation(readString);
-                                       up.UpdateAccomodation(accomodation1);
+                                       up.updateAccomodation(accomodation1);
                                        System.out.println(accomodation1);
                                        break;
                                  	  
@@ -1283,16 +1353,16 @@ public class Menu {
                                          int p=Integer.parseInt(readString);
                                          accomodation1.setPrice(p);
                                          System.out.println(accomodation1);
-                                         up.UpdateAccomodation(accomodation1);
+                                         up.updateAccomodation(accomodation1);
                                                 break;
                                    }
                                 }
                                 }
-                                     break;
+                                     break;}
                         	    
 
                         case 4: //activity
-                        	activities = sel.selectActivity();
+                        	{activities = sel.selectActivity();
                          	if(activities.isEmpty()) {
                          	System.out.println("There is any activity available. Sorry");
                          	}else {
@@ -1321,7 +1391,7 @@ public class Menu {
                              readString = console.readLine();
                               activity1.setActivity(readString);
                               System.out.println(activity1);
-                              up.UpdateActivity(activity1);
+                              up.updateActivity(activity1);
                               break;
                         	  
                           }
@@ -1332,16 +1402,16 @@ public class Menu {
                                 readString = console.readLine();
                                 activity1.setPrice(Integer.parseInt(readString));
                                 System.out.println(activity1);
-                                up.UpdateActivity(activity1);
+                                up.updateActivity(activity1);
                                        break;
                           }
                        }
                        }
-                            break;
+                            break;}
 
                             
                         case 5://material
-                        	 materials = sel.selectMaterial();
+                        	{materials = sel.selectMaterial();
                          	if(materials.isEmpty()) {
                          	System.out.println("There is any material available. Sorry");
                          	}else {
@@ -1369,7 +1439,7 @@ public class Menu {
                              readString = console.readLine();
                               material1.setMaterial(readString);
                               System.out.println(material1);
-                              up.UpdateMaterial(material1);
+                              up.updateMaterial(material1);
                               break;
                         	  
                           }
@@ -1380,15 +1450,15 @@ public class Menu {
                                 readString = console.readLine();
                                 material1.setPrice(Integer.parseInt(readString));
                                 System.out.println(material1);
-                                up.UpdateMaterial(material1);
+                                up.updateMaterial(material1);
                                        break;
                           }
                        }
-                       }
+                       }break;}
                         	
 
                         case 6:  //instructor
-                        	
+                        {
                         	instructors = sel.selectInstructor();
                      	if(instructors.isEmpty()) {
                      	System.out.println("There is any instructor available. Sorry");
@@ -1407,7 +1477,10 @@ public class Menu {
                                     + "  3) Nationality"
                                     + "  4) NIF"
                                     + "  5) Phone Number"
-                                    + "  6) Salary\n\n"
+                                    + "  6) Salary"
+                                    + "  7) Transport"
+                                    + "  8) Accomodation"
+                                    + "  9) Activity\n\n"
                                     + "  Option number: ");
 
                             readString = console.readLine();
@@ -1420,12 +1493,18 @@ public class Menu {
                                  readString = console.readLine();
                                  instructor1 .setName(readString);
                                  System.out.println(instructor1 );
-                                 up.UpdateInstructor(instructor1 );
+                                 up.updateInstructor(instructor1 );
                                    break;}
                                 
                             case 2: //Modify date of birth of instructor
-                            {
-                            	break;}
+                            {	System.out.println("Introduce the new date of birth: (yyyy-mm-dd)");
+                        	readString = console.readLine();
+      					  	String withoutTime = readString;
+      					  	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+      					  	LocalDate date= LocalDate.parse(withoutTime, formatter);
+      					  	instructor1.setDateBirth(date);
+      					  	up.updateInstructor(instructor1);
+                        	break;}
                             
                             case 3: //Modify nationality of instructor
                              { System.out.println("Insert the new nationality of the instructor: ");
@@ -1433,7 +1512,7 @@ public class Menu {
                                 readString = console.readLine();
                                 instructor1 .setNationality(readString);
                                 System.out.println(instructor1 );
-                                up.UpdateInstructor(instructor1 );
+                                up.updateInstructor(instructor1 );
                                        break;}
                             
                             case 4: //Modify nif of instructor
@@ -1442,7 +1521,7 @@ public class Menu {
                               readString = console.readLine();
                               instructor1 .setNIF(readString);
                               System.out.println(instructor1 );
-                              up.UpdateInstructor(instructor1 );
+                              up.updateInstructor(instructor1 );
                                      break; }
                             
                             case 5: //Modify phone number of instructor 
@@ -1451,7 +1530,7 @@ public class Menu {
                                readString = console.readLine();
                                instructor1 .setPhoneNumber(Integer.parseInt(readString));
                                System.out.println(instructor1 );
-                               up.UpdateInstructor(instructor1 );
+                               up.updateInstructor(instructor1 );
                                       break;}
                             
                             case 6: // Modify salary of instructor
@@ -1460,23 +1539,98 @@ public class Menu {
                                readString = console.readLine();
                                instructor1 .setSalary(Integer.parseInt(readString));
                                System.out.println(instructor1 );
-                               up.UpdateInstructor(instructor1 );
+                               up.updateInstructor(instructor1 );
                                       break;
                             	
                                 }
+                            case 7: // Modify transport
+                            {transports=sel.selectTransport();
+                        	if(transports.isEmpty()){
+                            	System.out.println("There is any trasport available. Sorry");
+                        	}
+                        	else{
+                        		System.out.println("Choose the new trasport: ");
+                        		for (Transport transport : transports) {
+                    			System.out.println(transport);
+                    		}
                             
+                            readString = console.readLine();
+                            Transport trans =new Transport();
+                            trans=ser.searchTransportN(readString);
+                            
+                            instructor1.setTransport(trans);
+                            up.updateTransportInInstructor(trans, instructor1);     	
+                        	}break;}
+                        	
+                            case 8: // Modify accomodation
+                            {	
+                            	accomodations=sel.selectAccomodation();
+                            	if(accomodations.isEmpty()){
+                                	System.out.println("There is any material available. Sorry");
+                            	}
+                            	else {
+                            		System.out.println("Choose the new accomodation: ");
+                            	for (Accomodation accomodation : accomodations) {
+                        			System.out.println(accomodation);
+                        		}
+                            	                          
+                                readString = console.readLine();
+                                Accomodation accom =new Accomodation();
+                                accom=ser.searchAccomodationN(readString);
+                                
+                                instructor1.setAccomodation(accom);
+                                up.updateAccomodationInInstructor(accom, instructor1);
+
+                            	}break;}
+                            
+                            case 9: // Modify activity
+                            {	
+                            	activities=sel.selectActivity();
+                            	if(activities.isEmpty()){
+                                	System.out.println("There is any activity available. Sorry");
+                            	}
+                            	else {
+                        			do {
+                        		    System.out.println("Choose the activity you want to change: ");
+                        		    List<Activity> x=sel.selectActOfInst(instructor1);
+                        		    for(Activity s :x) {
+                                     	System.out.println("The Activity for this instructor is " +s); 
+                                      }
+                        			readString = console.readLine();
+                        			Activity act1=ser.searchActivityN(readString);
+                        			System.out.println("Are you sure you want to change this activity? If "
+                        			+ "you do that the activity will be deleted. (Y/N)");
+                        			readString=console.readLine();
+                        			if(readString.equals("Y")) {
+                        				del.deleteActivityN(act1);
+                            			System.out.println("Introduce the new activity: ");
+                            			for(Activity act:activities) {
+                            				System.out.println(act);
+                            			}
+                            			readString=console.readLine();
+                            			Activity act2=ser.searchActivityN(readString);
+                            			in.insertInstructorInA(instructor1, act2);
+                        			} 		
+                        			else {break;}
+                        			System.out.println("Would you want to change another material? (Y/N)");
+                        			readString = console.readLine();
+                        			if(readString.equals("Y")) {
+                        				h = true;
+                        			}else {
+                        				h = false;
+                        			}
+                        			}while(h == true);
+                        		
+                            	}break;}
                             }
 
                     }
-                    break;}
+                    break;}}
                     break;}
                 
                 case 4: //delete
                 {
                 	
-                	 System.out.println("Do you want to delete one thing (1) or all the table(2)?");
-                	 System.out.println("Chose one option:");
-                	 readString = console.readLine();
                 	 
                 		 
                 	 
@@ -1502,6 +1656,32 @@ public class Menu {
 						}
                         System.out.println("Select the id from the camper to be deleted:");
                         int num=Integer.parseInt(console.readLine());
+                        Integer a;
+                        camper1 = ser.searchCamper(num);
+                      	accomodation1 = ser.searchAccomodation(sel.selectAcomC(camper1));
+                      	if(accomodation1.getAccomodation()!=NULL) {
+                     	a = accomodation1.getAvailability() - 1;
+                	        accomodation1.setAvailability(a);
+                	        up.updateAccomodation(accomodation1);
+                      	}
+                      	
+                        	transport1 = ser.searchTransport(sel.selectTnsC(camper1));
+                        	if(transport1.getType_transport()!=NULL) {
+                        	a = transport1.getAvailable() - 1;
+                    	    transport1.setAvailable(a);
+                    	    up.updateTransport(transport1);
+                        	}
+                        	
+                    	    List<String> nm = sel.selectActivityNames(camper1);
+                    	    for(String name: nm) {
+                    	    	activity1 = ser.searchActivityN(name);
+                    	    	if(activity1.getActivity()!=NULL) {
+                        	a = activity1.getAvailability() - 1;
+                    	    activity1.setAvailability(a);
+                    	    up.updateActivity(activity1);
+                    	    	}
+                    	    }
+                    	    
                         del.deleteCamperIdfromA(num);
                         del.deleteCamperIdfromM(num);
                         del.deleteCamperId(num);
@@ -1534,14 +1714,14 @@ public class Menu {
                         			System.out.println(accom);
                         		}
                         	}
-                        	System.out.println("Insert the id of the transport that you want to delete:");
+                        	System.out.println("Insert the id of the accomodation that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
-                        	//sel.selectTnsC(num);
-                        	del.deleteAccomodationID(num);
+                         del.deleteAccomodationID(num);
+                        	
                         	}
                             break;
 
-                        case 4: //activity funciona
+                        case 4: 
                         	{
                          activities = sel.selectActivity();
                         	if(activities.isEmpty()) {
@@ -1560,7 +1740,7 @@ public class Menu {
                             break;
 
                         case 5:
-                        	//material funciona
+                        	
                         {
                         materials = sel.selectMaterial();
                         	if(materials.isEmpty()) {
@@ -1579,7 +1759,7 @@ public class Menu {
                         }
                             break;
 
-                        case 6: //delete instructor funciona
+                        case 6: 
                         {
                         instructors = sel.selectInstructor();
                         	
@@ -1590,10 +1770,52 @@ public class Menu {
                         			System.out.println(inst);
                         		}
                         	}
+                        	Integer a;
                         	System.out.println("Insert the id of the instructor that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
+                        	instructor1 = ser.searchInstructor(num);
+                        	accomodation1 = ser.searchAccomodation(sel.selectAcomI(instructor1));
+                        	if(accomodation1.getAccomodation()!=NULL) {
+                         a = accomodation1.getAvailability() - 1;
+                    	    accomodation1.setAvailability(a);
+                    	    up.updateAccomodation(accomodation1);
+                        	}
+                        	
+                         transport1 = ser.searchTransport(sel.selectTnsI(instructor1));
+                        	if(transport1.getType_transport()!=NULL) {
+                        	a = transport1.getAvailable() - 1;
+                    	    transport1.setAvailable(a);
+                    	    up.updateTransport(transport1);
+                        	}
+                        	System.out.println("If you delete the instructor the activity of that instructor will requires another instructor or be delete");
+                        	System.out.println("Do you want to continue (Y/N");
+                        	readString = console.readLine();
+                        	if(readString.equals("Y")) {
                         	del.deleteInstructorID(num);
-                        	// HAY QUE ELIMINAR TB EL ACTIVITY NO SE HACERLO, LUCIA HAZLO PORFIS
+                        	List<Integer> activity_ID = sel.selectActI(instructor1);
+                        	instructors = sel.selectInstructor();
+                        	if(instructors.isEmpty()) {
+                        		System.out.println("No instructors, the activities will be delete.");
+                        		for(Integer aid: activity_ID) {
+                        			del.deleteActivityID(aid);
+                        		}
+                        		
+                        	}else {
+                        	for(Instructor ins: instructors) {
+                        		System.out.println("ID: "+ins.getId()+"Name: "+ ins.getName());
+                        	}
+                        	for(Integer aid : activity_ID) {
+                        		activity1 = ser.searchActivity(aid);
+                        		System.out.println("Insert the id of the instructor for  "+activity1.getActivity());
+                        		readString = console.readLine();
+                        		activity1.setInst(ser.searchInstructor(Integer.parseInt(readString)));
+                        		up.updateActivity(activity1);
+                        	}
+                        		
+                        	}
+                        	}
+                        	
+                        	
 
                         } break;
                            
@@ -1628,7 +1850,8 @@ public class Menu {
                 	 
                 	 case 2:
                 	     //We obtain the instructor from a xml file and inserted in our database
-                		 System.out.println("Introduce the file where the instructor is located:");
+                		 System.out.println("Introduce the file where the instructor is located: ");
+                		 //in our case you should put xml/Instructor.xml
                 		 readString = console.readLine();
                 		 File file = new File(readString);
                 		 Instructor inst = xmlm.unmarshalldb( file);
@@ -1657,7 +1880,7 @@ public class Menu {
                 	System.exit(0);
                 	
             
-        }//switch todas las opciones: view, insert,.....
+        }
                 
             }catch(IOException ex) {
             	ex.printStackTrace();
@@ -1669,7 +1892,7 @@ public class Menu {
     	
     	c.closeconnection();
     	em.closeconnection();
-	}//LLAVE DEL MAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
 
 	
 	
