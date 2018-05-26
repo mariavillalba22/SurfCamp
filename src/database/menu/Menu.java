@@ -1170,7 +1170,7 @@ public class Menu {
                                 	
                                 	accomodations=sel.selectAccomodation();
                                 	if(accomodations.isEmpty()){
-                                    	System.out.println("There is any material available. Sorry");
+                                    	System.out.println("There is any accomodation available. Sorry");
                                 	}
                                 	else {
                                 		System.out.println("Choose the new accomodation: ");
@@ -1314,16 +1314,16 @@ public class Menu {
                           
 
                         case 3: //accomodation no funciona!!
-                        	   {accomodations = sel.selectAccomodation();
+                        	   {accomodations = read.readAccomodation();;
                         	     if(accomodations.isEmpty()) {
                         	    	 System.out.println("There is any activity aviable. Sorry");
                         	     }else {
                         	    	     for(Accomodation acc: accomodations) {
                         	    	    	     System.out.println(acc);
                         	    	     }
-                        	    	     System.out.println("Introduce the id of the accomodation you want: ");
+                        	    	     System.out.println("Introduce the accomodation you want: ");
                                   		readString = console.readLine();
-                                  		accomodation1= ser.searchAccomodation(Integer.parseInt(readString));
+                                  		accomodation1= read.readAccomodationN(readString);
                                   
                                   		
                                   		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1339,8 +1339,7 @@ public class Menu {
                                    {	System.out.println("Insert the new name of the accomodation: ");
                                	
                                       readString = console.readLine();  
-                                      accomodation1.setAccomodation(readString);
-                                       up.updateAccomodation(accomodation1);
+                                      update.updateAccomodationName(accomodation1, readString);
                                        System.out.println(accomodation1);
                                        break;
                                  	  
@@ -1351,9 +1350,8 @@ public class Menu {
                                      	
                                          readString = console.readLine();
                                          int p=Integer.parseInt(readString);
-                                         accomodation1.setPrice(p);
+                                         update.updateAccomodationPrice(accomodation1, p);
                                          System.out.println(accomodation1);
-                                         up.updateAccomodation(accomodation1);
                                                 break;
                                    }
                                 }

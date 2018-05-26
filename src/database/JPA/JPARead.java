@@ -28,4 +28,17 @@ public class JPARead {
 		List<Transport> trans = (List<Transport>) q1.getResultList();
 		return trans;
 	}
+	
+	public List<Accomodation> readAccomodation(){
+		Query q1=em.createNativeQuery("SELECT * FROM accomodation ", Accomodation.class);
+		List<Accomodation> acc = (List<Accomodation>) q1.getResultList();
+		return acc;
+	}
+	
+	public Accomodation readAccomodationN(String name) {
+		Query q1 = em.createNativeQuery("SELECT * FROM accomodation WHERE name LIKE ?", Accomodation.class);
+		q1.setParameter(1, "%" + name + "%");
+		Accomodation acc = (Accomodation) q1.getSingleResult();
+		return acc;
+	}
 }
