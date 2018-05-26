@@ -1150,21 +1150,23 @@ public class Menu {
                                 	if(transports.isEmpty()){
                                     	System.out.println("There is any trasport available. Sorry");
                                 	}
-                                	else{Transport trans1=camper1.getTransports();
+                                	else{
                                 		System.out.println("Choose the new trasport: ");
                                 		
                                 		do {for (Transport transport : transports) {
                                 			System.out.println(transport);
                                 		}
+                                		int tr=sel.selectTnsC(camper1);
+                                		Transport trans1=ser.searchTransport(tr);
                                 			readString = console.readLine();
                                 		    transport1 = ser.searchTransportN(readString);
                                 		    if(transport1.checkAvailability()) {
+                                		    camper1.setTransports(transport1);
+                                    		up.updateTransportInCamper(transport1, camper1);
                                 			Integer a = transport1.getAvailable() + 1;
                                 			transport1.setAvailable(a);
                                 			up.updateTransport(transport1);
-                                			camper1.setTransports(transport1);
-                                            up.updateTransportInCamper(transport1, camper1);
-                                            a=trans1.getAvailable()-1;
+                                            a=trans1.getAvailable() - 1;
                                             trans1.setAvailable(a);
                                             up.updateTransport(trans1);
                                 			h = true;
@@ -1189,7 +1191,8 @@ public class Menu {
                                 		do {for (Accomodation accomodation : accomodations) {
                                 			System.out.println(accomodation);
                                 		} 
-                                    		Accomodation acc1=camper1.getAccomodation();
+                                    		int ac=sel.selectAcomC(camper1);
+                                    		Accomodation acc1=ser.searchAccomodation(ac);
                                 			readString = console.readLine();
                                 		    Accomodation acc2 = ser.searchAccomodationN(readString);
                                 		    if(acc2.checkAvailability()) {
@@ -1585,7 +1588,8 @@ public class Menu {
                         	if(transports.isEmpty()){
                             	System.out.println("There is any trasport available. Sorry");
                         	}
-                        	else{Transport trans1=instructor1.getTransport();
+                        	else{int tr=sel.selectTnsI(instructor1);
+                        		Transport trans1=ser.searchTransport(tr);
                         		System.out.println("Choose the new trasport: ");
                         		do {for (Transport transport : transports) {
                         			System.out.println(transport);
@@ -1593,11 +1597,12 @@ public class Menu {
                         			readString = console.readLine();
                         		    transport1 = ser.searchTransportN(readString);
                         		    if(transport1.checkAvailability()) {
+                        		    	instructor1.setTransport(transport1);
+                                        up.updateTransportInInstructor(transport1, instructor1);
                         			Integer a = transport1.getAvailable() + 1;
                         			transport1.setAvailable(a);
                         			up.updateTransport(transport1);
-                        			instructor1.setTransport(transport1);
-                                    up.updateTransportInInstructor(transport1, instructor1);
+                        			
                                     a=trans1.getAvailable()-1;
                                     trans1.setAvailable(a);
                                     up.updateTransport(trans1);
@@ -1619,7 +1624,8 @@ public class Menu {
                             		do {for (Accomodation accomodation : accomodations) {
                             			System.out.println(accomodation);
                             		} 
-                                		Accomodation acc1=instructor1.getAccomodation();
+                            			int ac=sel.selectAcomI(instructor1);
+                                		Accomodation acc1=ser.searchAccomodation(ac);
                             			readString = console.readLine();
                             		    Accomodation acc2 = ser.searchAccomodationN(readString);
                             		    if(acc2.checkAvailability()) {
