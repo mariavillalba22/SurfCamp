@@ -921,7 +921,7 @@ public class Menu {
                     			in.insertTransInI(instructor1, transport1);
                     			h = true;
                     		    }else {
-                    		 	   System.out.println("The transport "+transport1.getType_transport()+ " is not abailable. Choose another: ");
+                    		 	   System.out.println("The transport "+transport1.getType_transport()+ " is not available. Choose another: ");
                     		 	   h = false;
                     		           }
                           	}while(h= false);
@@ -949,7 +949,7 @@ public class Menu {
                     			up.updateAccomodation(accomodation1);
                     		in.insertAccomInI(instructor1, accomodation1);
                     		}else {
-                    			System.out.println("The accomodation is not abailable. Introduce a different one: ");
+                    			System.out.println("The accomodation is not available. Introduce a different one: ");
                     		}
                     		}while(h = false);
                     	}
@@ -1150,19 +1150,30 @@ public class Menu {
                                 	if(transports.isEmpty()){
                                     	System.out.println("There is any trasport available. Sorry");
                                 	}
-                                	else{
+                                	else{Transport trans1=camper1.getTransports();
                                 		System.out.println("Choose the new trasport: ");
-                                		for (Transport transport : transports) {
-                            			System.out.println(transport);
-                            		}
-                                    
-                                    readString = console.readLine();
-                                    Transport trans =new Transport();
-                                    trans=ser.searchTransportN(readString);
-                                    
-                                    camper1.setTransports(trans);
-                                    up.updateTransportInCamper(trans, camper1);
-                                	
+                                		
+                                		do {for (Transport transport : transports) {
+                                			System.out.println(transport);
+                                		}
+                                			readString = console.readLine();
+                                		    transport1 = ser.searchTransportN(readString);
+                                		    if(transport1.checkAvailability()) {
+                                			Integer a = transport1.getAvailable() + 1;
+                                			transport1.setAvailable(a);
+                                			up.updateTransport(transport1);
+                                			camper1.setTransports(transport1);
+                                            up.updateTransportInCamper(transport1, camper1);
+                                            a=trans1.getAvailable()-1;
+                                            trans1.setAvailable(a);
+                                            up.updateTransport(trans1);
+                                			h = true;
+                                		    }else {
+                                		 	   System.out.println("The transport "+transport1.getType_transport()+ " is not available. Choose another one: ");
+                                		 	   h = false;
+                                		           }
+                                      	}while(h= false);
+                           
                                 	}break;
 
                                 case 8:{ //accomodation	
@@ -1170,20 +1181,32 @@ public class Menu {
                                 	
                                 	accomodations=sel.selectAccomodation();
                                 	if(accomodations.isEmpty()){
-                                    	System.out.println("There is any material available. Sorry");
+                                    	System.out.println("There is any accomodation available. Sorry");
                                 	}
                                 	else {
                                 		System.out.println("Choose the new accomodation: ");
-                                	for (Accomodation accomodation : accomodations) {
-                            			System.out.println(accomodation);
-                            		}
-                                	                          
-                                    readString = console.readLine();
-                                    Accomodation accom =new Accomodation();
-                                    accom=ser.searchAccomodationN(readString);
-                                    
-                                    camper1.setAccomodation(accom);
-                                    up.updateAccomodationInCamper(accom, camper1);
+                                	                      
+                                		do {for (Accomodation accomodation : accomodations) {
+                                			System.out.println(accomodation);
+                                		} 
+                                    		Accomodation acc1=camper1.getAccomodation();
+                                			readString = console.readLine();
+                                		    Accomodation acc2 = ser.searchAccomodationN(readString);
+                                		    if(acc2.checkAvailability()) {
+                                			Integer a = acc2.getAvailability() + 1;
+                                			acc2.setAvailability(a);
+                                			up.updateAccomodation(acc2);
+                                			camper1.setAccomodation(acc2);
+                                            up.updateAccomodationInCamper(acc2, camper1);
+                                            a=acc1.getAvailability()-1;
+                                            acc1.setAvailability(a);
+                                            up.updateAccomodation(acc1);
+                                			h = true;
+                                		    }else {
+                                		 	   System.out.println("The accomodation "+acc2.getAccomodation()+ " is not available. Choose another one: ");
+                                		 	   h = false;
+                                		           }
+                                      	}while(h= false);
  
                                 	}break;}
 
@@ -1200,16 +1223,32 @@ public class Menu {
                                     		    for(String s :x) {
                                                  	System.out.println("The activity for this camper is " +s); 
                                                   }
+                                    		    
                                     			readString = console.readLine();
                                     			Activity act1=ser.searchActivityN(readString);
-                                    			del.deleteActivityfromCMbyN(act1);
-                                    			System.out.println("Introduce the new material: ");
+                                    			System.out.println("Introduce the new activity: ");
+                                    			do {
+                                    			Activity act2=ser.searchActivityN(readString);
                                     			for(Activity act:activities) {
                                     				System.out.println(act);
                                     			}
                                     			readString=console.readLine();
-                                    			Activity act2=ser.searchActivityN(readString);
-                                    			in.insertCamper_activity(camper1, act2);
+                                    			if(act2.checkAvailability()) {
+                                    				
+                                    				int a = act2.getAvailability()+1;
+                                    				act2.setAvailability(a);
+                                    				up.updateActivity(act2);
+                                    				del.deleteActivityfromCMbyN(act1);
+                                        			in.insertCamper_activity(camper1, act2);
+                                        			a=act1.getAvailability()-1;
+                                        			act1.setAvailability(a);
+                                        			up.updateActivity(act1);
+                                        			
+                                        			h=true;
+                                    			}else{System.out.println("The activity " +act2.getActivity()+"is full. Choose another one please: ");
+                                    			h=false;}
+                                    			}while(h==false);
+                                    			
                                 	System.out.println("Would you want another activity? (Y/N");
                         			readString = console.readLine();
                         			if(readString.equals("Y")) {
@@ -1314,16 +1353,16 @@ public class Menu {
                           
 
                         case 3: //accomodation no funciona!!
-                        	   {accomodations = sel.selectAccomodation();
+                        	   {accomodations = read.readAccomodation();;
                         	     if(accomodations.isEmpty()) {
                         	    	 System.out.println("There is any activity aviable. Sorry");
                         	     }else {
                         	    	     for(Accomodation acc: accomodations) {
                         	    	    	     System.out.println(acc);
                         	    	     }
-                        	    	     System.out.println("Introduce the id of the accomodation you want: ");
+                        	    	     System.out.println("Introduce the accomodation you want: ");
                                   		readString = console.readLine();
-                                  		accomodation1= ser.searchAccomodation(Integer.parseInt(readString));
+                                  		accomodation1= read.readAccomodationN(readString);
                                   
                                   		
                                   		System.out.println("WHAT WOULD YOU LIKE TO MODIFY:\n "
@@ -1339,8 +1378,7 @@ public class Menu {
                                    {	System.out.println("Insert the new name of the accomodation: ");
                                	
                                       readString = console.readLine();  
-                                      accomodation1.setAccomodation(readString);
-                                       up.updateAccomodation(accomodation1);
+                                      update.updateAccomodationName(accomodation1, readString);
                                        System.out.println(accomodation1);
                                        break;
                                  	  
@@ -1351,9 +1389,8 @@ public class Menu {
                                      	
                                          readString = console.readLine();
                                          int p=Integer.parseInt(readString);
-                                         accomodation1.setPrice(p);
+                                         update.updateAccomodationPrice(accomodation1, p);
                                          System.out.println(accomodation1);
-                                         up.updateAccomodation(accomodation1);
                                                 break;
                                    }
                                 }
@@ -1548,19 +1585,28 @@ public class Menu {
                         	if(transports.isEmpty()){
                             	System.out.println("There is any trasport available. Sorry");
                         	}
-                        	else{
+                        	else{Transport trans1=instructor1.getTransport();
                         		System.out.println("Choose the new trasport: ");
-                        		for (Transport transport : transports) {
-                    			System.out.println(transport);
-                    		}
-                            
-                            readString = console.readLine();
-                            Transport trans =new Transport();
-                            trans=ser.searchTransportN(readString);
-                            
-                            instructor1.setTransport(trans);
-                            up.updateTransportInInstructor(trans, instructor1);     	
-                        	}break;}
+                        		do {for (Transport transport : transports) {
+                        			System.out.println(transport);
+                        		}
+                        			readString = console.readLine();
+                        		    transport1 = ser.searchTransportN(readString);
+                        		    if(transport1.checkAvailability()) {
+                        			Integer a = transport1.getAvailable() + 1;
+                        			transport1.setAvailable(a);
+                        			up.updateTransport(transport1);
+                        			instructor1.setTransport(transport1);
+                                    up.updateTransportInInstructor(transport1, instructor1);
+                                    a=trans1.getAvailable()-1;
+                                    trans1.setAvailable(a);
+                                    up.updateTransport(trans1);
+                        			h = true;
+                        		    }else {
+                        		 	   System.out.println("The transport "+transport1.getType_transport()+ " is not available. Choose another one: ");
+                        		 	   h = false;
+                        		           }
+                              	}while(h= false);}break;}
                         	
                             case 8: // Modify accomodation
                             {	
@@ -1570,17 +1616,27 @@ public class Menu {
                             	}
                             	else {
                             		System.out.println("Choose the new accomodation: ");
-                            	for (Accomodation accomodation : accomodations) {
-                        			System.out.println(accomodation);
-                        		}
-                            	                          
-                                readString = console.readLine();
-                                Accomodation accom =new Accomodation();
-                                accom=ser.searchAccomodationN(readString);
-                                
-                                instructor1.setAccomodation(accom);
-                                up.updateAccomodationInInstructor(accom, instructor1);
-
+                            		do {for (Accomodation accomodation : accomodations) {
+                            			System.out.println(accomodation);
+                            		} 
+                                		Accomodation acc1=instructor1.getAccomodation();
+                            			readString = console.readLine();
+                            		    Accomodation acc2 = ser.searchAccomodationN(readString);
+                            		    if(acc2.checkAvailability()) {
+                            			Integer a = acc2.getAvailability() + 1;
+                            			acc2.setAvailability(a);
+                            			up.updateAccomodation(acc2);
+                            			instructor1.setAccomodation(acc2);
+                                        up.updateAccomodationInInstructor(acc2, instructor1);
+                                        a=acc1.getAvailability()-1;
+                                        acc1.setAvailability(a);
+                                        up.updateAccomodation(acc1);
+                            			h = true;
+                            		    }else {
+                            		 	   System.out.println("The accomodation "+acc2.getAccomodation()+ " is not available. Choose another one: ");
+                            		 	   h = false;
+                            		           }
+                                  	}while(h= false);
                             	}break;}
                             
                             case 9: // Modify activity
