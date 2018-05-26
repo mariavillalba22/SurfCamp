@@ -12,7 +12,7 @@ public class JPAconnect implements ConnectInterface{
 		this.connectiondb();
 	}
 	public void connectiondb() throws Exception {
-			em = Persistence.createEntityManagerFactory("surfcamp").createEntityManager();
+			em = Persistence.createEntityManagerFactory("summercamp").createEntityManager();
 			em.getTransaction().begin();
 			em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 			em.getTransaction().commit();

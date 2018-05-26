@@ -19,7 +19,7 @@ public class Connect implements ConnectInterface {
 
 	public void connectiondb() throws Exception {
 		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:./db/Surfcamp.db");
+		c = DriverManager.getConnection("jdbc:sqlite:./db/Summercamp.db");
 		c.createStatement().execute("PRAGMA foreign_keys=ON");
 		
 		}

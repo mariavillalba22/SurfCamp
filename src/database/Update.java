@@ -49,7 +49,9 @@ public class Update {
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, act.getActivity());
       prep.setInt(2, act.getPrice());
-      prep.setInt(3, act.getId());
+      prep.setInt(3, act.getAvailability());
+      prep.setInt(4, act.getId());
+      
       prep.executeUpdate();
   }
 
