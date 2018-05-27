@@ -1,6 +1,7 @@
 package database.JPA;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import database.pojo.*;
 
@@ -43,7 +44,10 @@ public class JPADelete {
 		em.getTransaction().commit();
 	}
 	
-	public void deleteTransport(Transport transport) {
+	public void deleteTransport(Integer id) {
+		Query q = em.createNativeQuery("SELECT * FROM transport WHERE id = ?",Transport.class);
+		q.setParameter(1, id);
+		Transport transport = (Transport) q.getSingleResult();
 		em.getTransaction().begin();
 		em.remove(transport);
 		em.getTransaction().commit();

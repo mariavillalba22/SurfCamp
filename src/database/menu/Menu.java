@@ -1751,7 +1751,7 @@ public class Menu {
                         break;
 
                         case 2: {
-                        
+                         //Wer decided to eliminate Transport using JPADelete
                         	transports = sel.selectTransport();
                         	if(transports.isEmpty()) {
                         	System.out.println("There is any transport available to delete. Sorry");
@@ -1762,11 +1762,11 @@ public class Menu {
                         	}
                         	System.out.println("Insert the id of the transport that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
-                        	del.deleteTransportID(num);
+                        	delete.deleteTransport(num);
                         	}
                             break;
 
-                        case 3://accomodation funciona 
+                        case 3: 
                         {
                         accomodations = sel.selectAccomodation();
                         	if(accomodations.isEmpty()) {
