@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "activity")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "activity")
 @XmlType(propOrder = { "id", "name", "price", "availability" })
 
 public class Activity  implements Serializable {
@@ -47,33 +46,13 @@ public class Activity  implements Serializable {
 		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
 	    inverseJoinColumns={@JoinColumn(name="id_camper", referencedColumnName="id")})
 	private List<Camper> campers;
-	@ManyToMany
-	@XmlTransient
-	@JoinTable(name="material",
-		joinColumns={@JoinColumn(name="id_activity", referencedColumnName="id")},
-	    inverseJoinColumns={@JoinColumn(name="id_material", referencedColumnName="id")})
-	private List<Material> material;
-	
 
 	public Activity() {
 		super();
 		this.campers = new ArrayList<Camper>();
 	}
 
-	public Activity(String activity, Integer price, Instructor inst,List<Camper> campers, List<Material> material) {
-		super();
-		this.name = activity;
-		this.price = price;
-		this.inst = inst;
-		if(campers!= null)
-		    this.campers = campers;
-		else
-			this.campers = new ArrayList<Camper>();
-		if(material!= null)
-			this.material = material;
-		else
-			this.material = new ArrayList<Material>();
-	}
+	
 
 
 	public Instructor getInst() {
@@ -89,7 +68,6 @@ public class Activity  implements Serializable {
 		this.name = activity;
 		this.price = price;
 		this.campers = new ArrayList<Camper>();
-		this.material = new ArrayList<Material>();
 	}
 	public Activity(Integer id,String activity, Integer price, Integer availability) {
 		super();
@@ -98,7 +76,6 @@ public class Activity  implements Serializable {
 		this.price = price;
 		this.availability = availability;
 		this.campers = new ArrayList<Camper>();
-		this.material = new ArrayList<Material>();
 	}
 
 	public String toString() {
@@ -164,13 +141,6 @@ public class Activity  implements Serializable {
 		this.campers = campers;
 	}
 
-	public List<Material> getMaterial() {
-		return material;
-	}
-
-	public void setMaterial(List<Material> material) {
-		this.material = material;
-	}
 	public Integer getAvailability() {
 		return availability;
 	}

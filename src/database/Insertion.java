@@ -121,16 +121,6 @@ public class Insertion {
 	}
 	
 	
-	public void insertMaterial_activity(Material material, Activity activity)throws SQLException{
-		String sql11="INSERT INTO material_activity(id_material, id_activity)"+ 
-					"VALUES(?,?);";
-	
-		PreparedStatement prep = c.prepareStatement(sql11);
-		prep.setInt(1,material.getId());
-		prep.setInt(2, activity.getId());
-		prep.executeUpdate();
-		prep.close();
-	}
 	
 	public Accomodation insertAccomodation (Accomodation accomodation ) throws SQLException{
 		String sql2 = "INSERT INTO accomodation (name, price, availability)"+

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Instructor id="3" name="jaime">
-    <phone_number>90909</phone_number>
+<Instructor id="2" name="maria">
+    <phone_number>898988</phone_number>
     <dob>1998-09-09</dob>
-    <NIF>70707</NIF>
-    <nationality>english</nationality>
-    <salary>800</salary>
+    <NIF>898989</NIF>
+    <nationality>spain</nationality>
+    <salary>700</salary>
     <activities>
-        <activity id="4" name="windsurf">
-            <price>500</price>
-            <availability>1</availability>
-        </activity>
-        <activity id="5" name="padel">
+        <activity id="3" name="surf">
             <price>700</price>
-            <availability>0</availability>
+            <availability>1</availability>
         </activity>
     </activities>
 </Instructor>

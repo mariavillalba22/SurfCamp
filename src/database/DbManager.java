@@ -129,14 +129,6 @@ public void createTables(Connection c) throws SQLException{
 		stmt8.executeUpdate(camper_activity);
 		stmt8.close();
 		
-		Statement stmt9 = c.createStatement();
-		String material_activity = "CREATE TABLE material_activity"
-				+"( id_material INTEGER NOT NULL REFERENCES material(id),"
-			    + "	id_activity INTEGER REFERENCES activity(id),"
-			    + "PRIMARY KEY (id_material,id_activity))";
-		stmt9.executeUpdate(material_activity);
-		stmt9.close();
-		
 	
 }
 

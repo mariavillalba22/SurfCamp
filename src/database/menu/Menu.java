@@ -1694,7 +1694,7 @@ public class Menu {
                         break;
 
                         case 2: {
-                         //Wer decided to eliminate Transport using JPADelete
+                         //We decided to eliminate Transport using JPADelete
                         	transports = sel.selectTransport();
                         	if(transports.isEmpty()) {
                         	System.out.println("There is any transport available to delete. Sorry");
@@ -1758,7 +1758,6 @@ public class Menu {
                         	System.out.println("Insert the id of the material that you want to delete:");
                         	int num=Integer.parseInt(console.readLine());
                         	del.deleteMaterialIdfromCM(num);
-                        	del.deleteMaterialIdfromMA(num);
                         del.deleteMaterialID(num);
 
                         }
