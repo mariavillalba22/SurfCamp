@@ -19,7 +19,8 @@ public class Search {
 		this.c=c;
 	}
  
-	// he puesto NIF pq en el checklist pedia buscar por algo distinto al id
+	//We put NIF because in the check list it said that we have to search an object with 
+	//something different that the primary key
 	public Camper searchCamper( String NIF) throws SQLException {
 		String sql = "SELECT * FROM camper WHERE NIF LIKE ?";
 		PreparedStatement prep = c.prepareStatement(sql);

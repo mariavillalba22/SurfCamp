@@ -5,7 +5,7 @@
 	<html>
     <!-- First we are going to put a title to our database -->
     <head>
-    <title><b></b>DataBase for a Surf Camp</title></head></html>
+    <title><b></b>DataBase for a Summer Camp</title></head></html>
 	
 	<body>
 	<h3> Instructor DataBase</h3>

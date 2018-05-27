@@ -82,12 +82,7 @@ public class Delete {
 		prep.executeUpdate();			
 	}
    
-   public void deleteMaterialIdfromMA ( int materialID) throws SQLException {
-		String sql = "DELETE FROM material_activity WHERE id_material = ?";
-		PreparedStatement prep  = c.prepareStatement(sql);
-		prep.setInt(1, materialID);
-		prep.executeUpdate();			
-	}
+  
 
 public void deleteAccomodationID ( int accomodationID) throws SQLException {
     

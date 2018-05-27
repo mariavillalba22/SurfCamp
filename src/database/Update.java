@@ -1,16 +1,8 @@
 package database;
 
-
-import database.*;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.*;
 import database.pojo.*;
 
 
@@ -49,7 +41,9 @@ public class Update {
       PreparedStatement prep = c.prepareStatement(sql);
       prep.setString(1, act.getActivity());
       prep.setInt(2, act.getPrice());
-      prep.setInt(3, act.getId());
+      prep.setInt(3, act.getAvailability());
+      prep.setInt(4, act.getId());
+      
       prep.executeUpdate();
   }
 
