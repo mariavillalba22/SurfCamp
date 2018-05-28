@@ -35,9 +35,9 @@ public class JPARead {
 		return acc;
 	}
 	
-	public Accomodation readAccomodationN(String name) {
-		Query q1 = em.createNativeQuery("SELECT * FROM accomodation WHERE name LIKE ?", Accomodation.class);
-		q1.setParameter(1, "%" + name + "%");
+	public Accomodation readAccomodation(Integer id) {
+		Query q1 = em.createNativeQuery("SELECT * FROM accomodation WHERE id LIKE ?", Accomodation.class);
+		q1.setParameter(1, "%" + id + "%");
 		Accomodation acc = (Accomodation) q1.getSingleResult();
 		return acc;
 	}

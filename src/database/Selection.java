@@ -346,6 +346,23 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		String name = rs.getString("name");
 		return name;
 	}
+	public List<Integer> selectMaterial(Camper camper)throws SQLException{
+
+		String sql = "SELECT id_material FROM camper_material WHERE id_camper =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,camper.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<Integer> material = new ArrayList();
+		while (rs.next()) {
+			int id = rs.getInt("id_material");
+			material.add(id);
+		}
+		rs.close();
+		prep.close();
+		return material;
+	}
+	
 	public List<String> selectMaterialNames(Camper camper)throws SQLException{
 
 		String sql = "SELECT id_material FROM camper_material WHERE id_camper =?";
@@ -353,14 +370,31 @@ public List<Material> selectMaterialHigher(Integer hprice)throws SQLException{
 		prep.setInt(1,camper.getId());
 		ResultSet rs = prep.executeQuery();
 		
-		List<String> materialname = new ArrayList();
+		List<String> material = new ArrayList();
 		while (rs.next()) {
 			int id = rs.getInt("id_material");
-			materialname.add(selectNameMat(id));
+			material.add(selectNameMat(id));
 		}
 		rs.close();
 		prep.close();
-		return materialname;
+		return material;
+	}
+	
+	public List<Integer> selectActivity(Camper camper)throws SQLException{
+
+		String sql = "SELECT id_activity FROM camper_activity WHERE id_camper =?";
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1,camper.getId());
+		ResultSet rs = prep.executeQuery();
+		
+		List<Integer> name = new ArrayList();
+		while (rs.next()) {
+			int id = rs.getInt("id_activity");
+			name.add(id);
+		}
+		rs.close();
+		prep.close();
+		return name;
 	}
 	
 	public List<String> selectActivityNames(Camper camper)throws SQLException{
